@@ -144,6 +144,9 @@ def student_at_risk_info(classifier_filename, data_filename, cut_level, threshol
     Remaining 4 or 10 DataFrames: DataFrame 1 split by quartile or decile
     
     csv files corresponding to each DataFrame
+    
+    How to Run:  on command line enter python student_risk.py and 4 arguments separated by spaces 
+    example: python student_risk.py tuned_classifier.pkl student-data.csv 'quartiles' 60
     """
     
     # laod classifier from .pkl
