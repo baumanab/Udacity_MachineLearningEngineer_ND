@@ -3,6 +3,8 @@ from environment import Agent, Environment
 from planner import RoutePlanner
 from simulator import Simulator
 
+
+
 class LearningAgent(Agent):
     """An agent that learns to drive in the smartcab world."""
 
@@ -23,9 +25,11 @@ class LearningAgent(Agent):
         deadline = self.env.get_deadline(self)
 
         # TODO: Update state
+        self.state = (inputs['light'], inputs['oncoming'],self.next_waypoint, deadline)
         
         # TODO: Select action according to your policy
-        action = None
+        valid_actions = [None, 'forward', 'left', 'right']
+        action = random.choice(valid_actions)
 
         # Execute action and get reward
         reward = self.env.act(self, action)
@@ -41,11 +45,15 @@ def run():
     # Set up environment and agent
     e = Environment()  # create environment (also adds some dummy traffic)
     a = e.create_agent(LearningAgent)  # create agent
-    e.set_primary_agent(a, enforce_deadline=False)  # set agent to track
+    e.set_primary_agent(a, enforce_deadline=False)  # specify agent to track
+    # NOTE: You can set enforce_deadline=False while debugging to allow longer trials
 
     # Now simulate it
-    sim = Simulator(e, update_delay=1.0)  # reduce update_delay or add 'display=False' to speed up simulation
-    sim.run(n_trials=10)  # press Esc or close pygame window to quit
+    sim = Simulator(e, update_delay=0.5, display=True)  # create simulator (uses pygame when display=True, if available)
+    # NOTE: To speed up simulation, reduce update_delay and/or set display=False
+
+    sim.run(n_trials=100)  # run for a specified number of trials
+    # NOTE: To quit midway, press Esc or close pygame window, or hit Ctrl+C on the command-line
 
 
 if __name__ == '__main__':
