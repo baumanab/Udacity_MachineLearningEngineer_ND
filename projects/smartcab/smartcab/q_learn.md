@@ -68,25 +68,84 @@ for  taking a particular action in a particular state. To learn the agent must a
 consider the future impact of an action.  This is where Q comes in. Q is a measure 
 of the quality of an action taken in a state. It is defined by the Bellman equation
 
-> Q(s,a)= r + \gamma(max)a'Q(s',a')
+> Q(s,a)= r + (gamma*(max)a'Q(s',a'))
 
 where s and a are the current state and action and s' and a' are the next state
-and the action taken in that state. \gamma is a value between 0 and 1 that discounts
-the future reward. If \gamma is 0 then we only have the immediate reward whereas
-if \gamma = 1 we add in the maximum future reward. A value of 1 would only make
+and the action taken in that state. gamma is a value between 0 and 1 that discounts
+the future reward. If gamma is 0 then we only have the immediate reward whereas
+if gamma = 1 we add in the maximum future reward. A value of 1 would only make
 sense in a determnistic environment (no random events), but since this is a stochastic
 enviroment values of .5 to .9 are typical. So the q value for each state and action 
 combination is affected by the maximum utlitly of the next state and the best 
 possible action in that state, which in turn is affected by the all possible states 
 and actions linked to that state, etc. etc. In other words, the value of Q is back 
 propogated from the goal.
+
  So, our agent starts out with a reward matrix R with state as the index (rows)
 and actions as columns. Each intersection of state and action has a reward. At the 
 start of the learning process we have a Q matrix as well, which is initialized
 to 0. As the agent samples states and action the Q matrix is filled in. Eventually
 this leaves us with a mapping of every state and action to a Q value. The states and
 actions that are more likely to lead us to the goal have a higher Q than those who
-don't. In some ways this reminds me of chemotaxis. That is the propensity to move
-towards a target by sensing the strength of a chemical signal. As the organism
-gets closer to the source of the chemical, the signal gets stronger. So, it follows
-a chemical gradient is a similar way as our agent follows a Q gradient. 
+are less likely to lead us to the goal. In some ways this reminds me of chemotaxis. 
+That is the propensity to move towards a target by sensing the strength of a chemical 
+signal. As the organism gets closer to the source of the chemical, the signal gets 
+stronger. So, it follows a chemical gradient is a similar way as our agent follows 
+a Q gradient. 
+
+The practical form of updating Q is:
+
+> Q(s,a) += alpha * (actual reward - expected reward)
+
+Where the actual reward is 
+
+> reward(s,a) + Q(s',a')
+
+and the expected reward is:
+
+> Q(s,a)
+
+and alpha is the learning rate. Basically alpha and gamma are used to attenuate,
+gamma on the contribution of Q(s',a') to Q and alpha on the magnitude of the Q update
+and therefore the rate at which Q changes.
+
+### Expressing Q learning in Psuedo Code
+
+#### Resource 2 above expressed this as:
+
+```python
+The Q-Learning algorithm goes as follows:
+
+1. Set the gamma parameter, and environment rewards in matrix R.
+
+2. Initialize matrix Q to zero.
+
+3. For each episode:
+
+Select a random initial state.
+
+Do While the goal state hasn't been reached.
+
+Select one among all possible actions for the current state.
+Using this possible action, consider going to the next state.
+Get maximum Q value for this next state based on all possible actions.
+Compute: Q(state, action) = R(state, action) + Gamma * Max[Q(next state, all actions)]
+Set the next state as the current state.
+End Do
+
+End For
+```
+
+#### Resource 3 expressed this as:
+
+```python
+initialize Q[numstates,numactions] arbitrarily
+observe initial state s
+repeat
+    select and carry out an action a
+    observe reward r and new state s'
+    Q[s,a] = Q[s,a] + α(r + γmaxa' Q[s',a'] - Q[s,a])
+    s = s'
+until terminated
+```
+
