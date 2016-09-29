@@ -111,7 +111,8 @@ and therefore the rate at which Q changes.
 
 ### Expressing Q learning in Psuedo Code
 
-#### Resource 2 above expressed this as:
+#### Resource [2](http://mnemstudio.org/path-finding-q-learning-tutorial.htm) above 
+expressed this as:
 
 ```python
 The Q-Learning algorithm goes as follows:
@@ -136,7 +137,8 @@ End Do
 End For
 ```
 
-#### Resource 3 expressed this as:
+#### Resource [3](http://neuro.cs.ut.ee/demystifying-deep-reinforcement-learning/)
+expressed this as:
 
 ```python
 initialize Q[numstates,numactions] arbitrarily
@@ -148,4 +150,29 @@ repeat
     s = s'
 until terminated
 ```
+
+### Exploration
+
+At some point we will have a lookup table where state action combinations are mapped
+to a Q value, so our agent simply needs to lookup Q to determine what action to 
+take in any state. What if our Q is not the result of complete sampling or what if
+there are better options in the future. That is, how do we generalize our policy
+to prepare for future states and actions or states and actions we have yet to discover?
+We can add a wildcard term, epsilon, that is compared to a randomly generated number
+if the number is less than epsilon, explore, otherwise exploit (follow the Q gradient).
+There are two main methods of exploration that I have read about:
+
+1. In the explore mode choose a random action. This is typically coupled with 
+a reduction of epsilon per step, so that the agent explores less as time goes on.
+
+2. In the explore mode randomly add values to Q values for that state scaled by
+the maximum Q value for this state. In this way the exploration action is still 
+based on Q rather than a completely random choice.
+
+### Python Code Implementation
+
+How do we implement this in code, give an environment (for the smartcab the environment
+was developed using pygame, it is a grid with traffic lights, streets, intersections,
+and other cars)?
+
 
