@@ -68,12 +68,12 @@ for  taking a particular action in a particular state. To learn the agent must a
 consider the future impact of an action.  This is where Q comes in. Q is a measure 
 of the quality of an action taken in a state. It is defined by the Bellman equation
 
-> Q(s,a)= r + \gammma(max)a'Q(s',a')
+> Q(s,a)= r + \gamma(max)a'Q(s',a')
 
 where s and a are the current state and action and s' and a' are the next state
-and the action taken in that state. \gammma is a value between 0 and 1 that discounts
-the future reward. If \gammma is 0 then we only have the immediate reward whereas
-if \gammma = 1 we add in the maximum future reward. A value of 1 would only make
+and the action taken in that state. \gamma is a value between 0 and 1 that discounts
+the future reward. If \gamma is 0 then we only have the immediate reward whereas
+if \gamma = 1 we add in the maximum future reward. A value of 1 would only make
 sense in a determnistic environment (no random events), but since this is a stochastic
 enviroment values of .5 to .9 are typical. So the q value for each state and action 
 combination is affected by the maximum utlitly of the next state and the best 
