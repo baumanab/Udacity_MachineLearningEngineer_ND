@@ -28,7 +28,6 @@ things. Some actions turn out great, some not so great. The agent stores these
 experiences and uses them to form a policy of behavior. That is, given a situation, 
 what is the best action to take?
 
-
 ## Approach and Resources
 
 So how do we do this? Through reinformcement learning.  Specifically we use Markov 
@@ -49,7 +48,6 @@ randomly selected room, out of a house.
 is another great resource with explanations of how Q learning, reinforcement learning, 
 and Markov decision proceses relate. 
 
-
 The resources listed above do a comprehensive job of explaining the principles 
 and approach to reinforcement and Q learning but I paraphrase below, per my understanding. 
 Essentially you have an agent who is operating on a grid or network, where locations 
@@ -62,9 +60,33 @@ car can be to our left, right, or in front us. Our actions can be to stay put,
 turn left, turn right, or go forward. From the gridworld perspective our agent
 can choose to stay put or to advance in one of the four cardinal directions.
 
-Each state, action combination (s,a) is associatted with a reward. This reward is 
-an integer where the sign denotes a good vs bad action and the magnitude represents
-how good or bad the action is given the state. So, our car is like pac man, running around
-it's grid world and gobbling up  rewards, trying not to run into any ghosts. When the 
-agent reaches the destination (talk about rewards and penalties etc. etc. and thatall other grid points couldbe zer
-zeo)
+Each state, action combination (s,a) is associated with a value, which acts as a
+reward or penalty. So if our car is like pac man, just running around gobling up
+rewards (and trying not to hit other agents/ghosts), what is the motive force that
+moves us to the goal?  The rewards can be thought of as the immediate gratification
+for  taking a particular action in a particular state. To learn the agent must also
+consider the future impact of an action.  This is where Q comes in. Q is a measure 
+of the quality of an action taken in a state. It is defined by the Bellman equation
+
+> Q(s,a)= r + \gammma(max)a'Q(s',a')
+
+where s and a are the current state and action and s' and a' are the next state
+and the action taken in that state. \gammma is a value between 0 and 1 that discounts
+the future reward. If \gammma is 0 then we only have the immediate reward whereas
+if \gammma = 1 we add in the maximum future reward. A value of 1 would only make
+sense in a determnistic environment (no random events), but since this is a stochastic
+enviroment values of .5 to .9 are typical. So the q value for each state and action 
+combination is affected by the maximum utlitly of the next state and the best 
+possible action in that state, which in turn is affected by the all possible states 
+and actions linked to that state, etc. etc. In other words, the value of Q is back 
+propogated from the goal.
+ So, our agent starts out with a reward matrix R with state as the index (rows)
+and actions as columns. Each intersection of state and action has a reward. At the 
+start of the learning process we have a Q matrix as well, which is initialized
+to 0. As the agent samples states and action the Q matrix is filled in. Eventually
+this leaves us with a mapping of every state and action to a Q value. The states and
+actions that are more likely to lead us to the goal have a higher Q than those who
+don't. In some ways this reminds me of chemotaxis. That is the propensity to move
+towards a target by sensing the strength of a chemical signal. As the organism
+gets closer to the source of the chemical, the signal gets stronger. So, it follows
+a chemical gradient is a similar way as our agent follows a Q gradient. 
