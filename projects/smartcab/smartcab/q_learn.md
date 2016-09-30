@@ -178,4 +178,44 @@ How do we implement this in code, give an environment (for the smartcab the envi
 was developed using pygame, it is a grid with traffic lights, streets, intersections,
 and other cars)?
 
+Let's fill in what we need to turn the psuedo-code into actual code. A reasonable
+approach is to create a Q class.
+
+```python
+The Q-Learning algorithm goes as follows:
+
+1. Set the gamma parameter, and environment rewards in matrix R. 
+
+'''
+Complete: Environment rewards matrix is part of the environment code
+TODO: Set gamma, alpha, and epsilon. These values will be initialized with each
+new instance of the class.
+'''
+
+2. Initialize matrix Q to zero.
+
+#TODO: Initialize an empty dictionary with each Q class instance
+
+3. For each episode:
+
+   Select a random initial state. #Completed as part of the agent class
+
+Do While the goal state hasn't been reached.
+
+    Select one among all possible actions for the current state.
+    
+    Using this possible action, consider going to the next state.
+    #TODO: Build selection method as part of the Q class
+    
+    Get maximum Q value for this next state based on all possible actions.
+    Compute: Q(state, action) = R(state, action) + Gamma * Max[Q(next state, all actions)]
+    Set the next state as the current state.
+    
+End Do
+
+End For
+```
+
+
+
 
