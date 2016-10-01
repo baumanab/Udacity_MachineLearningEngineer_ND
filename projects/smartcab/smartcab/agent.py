@@ -39,7 +39,7 @@ class LearningAgent(Agent):
         # Select action according to policy
         #valid_actions = [None, 'forward', 'left', 'right']
         #action = random.choice(valid_actions)
-        action = self.ai.chooseAction(state)
+        action = self.ai.chooseAction(self.state)
              
 
         # Execute action and get reward
@@ -48,7 +48,7 @@ class LearningAgent(Agent):
         # Define the new state
         next_waypoint= self.planner.next_waypoint()
         next_inputs = self.env.sense(self)
-        next_state = (next_inputs['light'], next_inputs['oncoming'], 'inputs['left'], next_waypoint, deadline)
+        next_state = (next_inputs['light'], next_inputs['oncoming'], inputs['left'], next_waypoint, deadline)
 
         # Learn policy based on state, action, reward
         self.ai.learn(self.state, action, reward, next_state)
@@ -66,7 +66,7 @@ def run():
     # Set up environment and agent
     e = Environment()  # create environment (also adds some dummy traffic)
     a = e.create_agent(LearningAgent)  # create agent
-    e.set_primary_agent(a, enforce_deadline=False)  # specify agent to track
+    e.set_primary_agent(a, enforce_deadline= True)  # specify agent to track
     # NOTE: You can set enforce_deadline=False while debugging to allow longer trials
 
     # Now simulate it

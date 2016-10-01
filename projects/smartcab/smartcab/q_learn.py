@@ -2,19 +2,17 @@ import random
 
 class QLearn:
 
-'''
-Code and approach modified from 
+    '''
+    Code and approach modified from 
 
-https://studywolf.wordpress.com/2012/11/25/reinforcement-learning-q-learning-and-exploration/
+    https://studywolf.wordpress.com/2012/11/25/reinforcement-learning-q-learning-and-exploration/
 
-and 
+    and 
 
-https://github.com/studywolf/blog/blob/master/RL/Cat%20vs%20Mouse%20exploration/qlearn_mod_random.py
-
-
-'''
+    https://github.com/studywolf/blog/blob/master/RL/Cat%20vs%20Mouse%20exploration/qlearn_mod_random.py
 
 
+    '''
 
     def __init__(self, actions, epsilon=0.1, alpha=0.2, gamma=0.9):
     

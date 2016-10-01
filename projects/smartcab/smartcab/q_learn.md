@@ -202,14 +202,15 @@ new instance of the class.
 
 Do While the goal state hasn't been reached.
 
-    Select one among all possible actions for the current state.
-    
+    Select one among all possible actions for the current state.    
     Using this possible action, consider going to the next state.
     #TODO: Build selection method as part of the Q class
     
     Get maximum Q value for this next state based on all possible actions.
     Compute: Q(state, action) = R(state, action) + Gamma * Max[Q(next state, all actions)]
     Set the next state as the current state.
+    #TODO: Create a function or functons to calculate Q via the Bellman equation
+    and update Q for each state action combination.
     
 End Do
 
