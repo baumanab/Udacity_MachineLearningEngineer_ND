@@ -3,6 +3,7 @@ from environment import Agent, Environment
 from planner import RoutePlanner
 from simulator import Simulator
 import q_learn as qlearn
+from pprint import pprint
 
 
 
@@ -34,7 +35,7 @@ class LearningAgent(Agent):
         deadline = self.env.get_deadline(self)
 
         # Update current state
-        self.state = (inputs['light'], inputs['oncoming'], inputs['left'], self.next_waypoint, deadline)
+        self.state = (inputs['light'], inputs['oncoming'], inputs['left'], self.next_waypoint)
         
         # Select action according to policy
         #valid_actions = [None, 'forward', 'left', 'right']
@@ -48,12 +49,14 @@ class LearningAgent(Agent):
         # Define the new state
         next_waypoint= self.planner.next_waypoint()
         next_inputs = self.env.sense(self)
-        next_state = (next_inputs['light'], next_inputs['oncoming'], inputs['left'], next_waypoint, deadline)
+        next_state = (next_inputs['light'], next_inputs['oncoming'], inputs['left'], next_waypoint)
 
         # Learn policy based on state, action, reward
         self.ai.learn(self.state, action, reward, next_state)
 
-        print "LearningAgent.update(): deadline = {}, inputs = {}, action = {}, reward = {}".format(deadline, inputs, action, reward)  # [debug]
+        #print "LearningAgent.update(): deadline = {}, inputs = {}, action = {}, reward = {}".format(deadline, inputs, action, reward)  # [debug]
+        
+        pprint(self.ai.q)
         
 
 
