@@ -54,15 +54,15 @@ class Simulator(object):
                 self.paused = False
             except ImportError as e:
                 self.display = False
-                print "Simulator.__init__(): Unable to import pygame; display disabled.\n{}: {}".format(e.__class__.__name__, e)
+                #print "Simulator.__init__(): Unable to import pygame; display disabled.\n{}: {}".format(e.__class__.__name__, e)
             except Exception as e:
                 self.display = False
-                print "Simulator.__init__(): Error initializing GUI objects; display disabled.\n{}: {}".format(e.__class__.__name__, e)
+                #print "Simulator.__init__(): Error initializing GUI objects; display disabled.\n{}: {}".format(e.__class__.__name__, e)
 
     def run(self, n_trials=1):
         self.quit = False
         for trial in xrange(n_trials):
-            print "Simulator.run(): Trial {}".format(trial)  # [debug]
+            #print "Simulator.run(): Trial {}".format(trial)  # [debug]
             self.env.reset()
             self.current_time = 0.0
             self.last_updated = 0.0
@@ -161,7 +161,7 @@ class Simulator(object):
         pause_text = "[PAUSED] Press any key to continue..."
         self.screen.blit(self.font.render(pause_text, True, self.colors['cyan'], self.bg_color), (100, self.height - 40))
         self.pygame.display.flip()
-        print pause_text  # [debug]
+        #print pause_text  # [debug]
         while self.paused:
             for event in self.pygame.event.get():
                 if event.type == self.pygame.KEYDOWN:
