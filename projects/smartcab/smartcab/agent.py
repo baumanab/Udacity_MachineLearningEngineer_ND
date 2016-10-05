@@ -38,7 +38,7 @@ class LearningAgent(Agent):
         deadline = self.env.get_deadline(self)
 
         # Update current state
-        self.state = (inputs['light'], inputs['oncoming'], inputs['left'], inputs['right'] self.next_waypoint)
+        self.state = (inputs['light'], inputs['oncoming'], inputs['left'], inputs['right'], self.next_waypoint)
         
         # Select action according to policy
         #valid_actions = [None, 'forward', 'left', 'right']
@@ -52,7 +52,7 @@ class LearningAgent(Agent):
         # Define the new state
         next_waypoint= self.planner.next_waypoint()
         next_inputs = self.env.sense(self)
-        next_state = (next_inputs['light'], next_inputs['oncoming'], inputs['left'], next_waypoint)
+        next_state = (next_inputs['light'], next_inputs['oncoming'], inputs['left'], inputs['right'], next_waypoint)
 
         # Learn policy based on state, action, reward
         self.ai.learn(self.state, action, reward, next_state)
