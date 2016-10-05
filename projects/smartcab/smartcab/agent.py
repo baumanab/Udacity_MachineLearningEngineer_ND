@@ -1,9 +1,11 @@
+from __future__ import print_function
 import random
 from environment import Agent, Environment
 from planner import RoutePlanner
 from simulator import Simulator
 import q_learn as qlearn
 from pprint import pprint
+
 
 
 
@@ -21,6 +23,7 @@ class LearningAgent(Agent):
         self.ai= None # reset
         self.actions= self.env.valid_actions
         self.ai = qlearn.QLearn(self.actions, alpha=0.1, gamma=0.9, epsilon=0.1)
+        self.trials= 0 # initalize trial count to 0
  
 
     def reset(self, destination=None):
@@ -35,7 +38,7 @@ class LearningAgent(Agent):
         deadline = self.env.get_deadline(self)
 
         # Update current state
-        self.state = (inputs['light'], inputs['oncoming'], inputs['left'], self.next_waypoint)
+        self.state = (inputs['light'], inputs['oncoming'], inputs['left'], inputs['right'] self.next_waypoint)
         
         # Select action according to policy
         #valid_actions = [None, 'forward', 'left', 'right']
@@ -56,7 +59,13 @@ class LearningAgent(Agent):
 
         #print "LearningAgent.update(): deadline = {}, inputs = {}, action = {}, reward = {}".format(deadline, inputs, action, reward)  # [debug]
         
+        datafile= open('data.txt', 'w')
+        countfile= open('count.txt', 'w')
+        pprint(self.ai.q, datafile)
+        self.trials+= 1
+        pprint(self.trials, countfile)
         pprint(self.ai.q)
+       
         
 
 
@@ -78,6 +87,9 @@ def run():
 
     sim.run(n_trials=100)  # run for a specified number of trials
     # NOTE: To quit midway, press Esc or close pygame window, or hit Ctrl+C on the command-line
+    
+    
+    
     
  
     
