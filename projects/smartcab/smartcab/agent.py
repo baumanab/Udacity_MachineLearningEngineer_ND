@@ -5,7 +5,6 @@ from planner import RoutePlanner
 from simulator import Simulator
 import q_learn as qlearn
 from pprint import pprint
-import atexit
 import pickle
 
 
@@ -24,7 +23,7 @@ class LearningAgent(Agent):
         # Initialize any additional variables
         self.ai= None # reset
         self.actions= self.env.valid_actions
-        self.ai = qlearn.QLearn(self.actions, alpha=0.1, gamma=0.9, epsilon=0.1) 
+        self.ai = qlearn.QLearn(self.actions, alpha=0.1, gamma=0.9, epsilon=0.5) 
         # create a container to hold metric data
         self.data_dict= dict(successes= list(), lenq= list(), qtables= list())      
  
@@ -88,23 +87,6 @@ class LearningAgent(Agent):
         
         self.data_collector(location, destination, self.ai.q, self.data_dict)
         
-        #datafile= open('data_dict.txt', 'w')
-        #pprint(self.data_dict, datafile)
-        
-        #outfile= open('data_dict.pkl', 'w')
-        '''
-        qtable_file= open('q_table.csv', 'w')
-        lenq_file= open('lenq.csv', 'w')
-        success_file= open('success.csv', 'w')
-        
-        print(self.data_dict['successes'], file=success_file)
-        print(self.data_dict['lenq'], file= lenq_file)
-        print(self.data_dict['qtables'], file= qtable_file)
-        '''
-        
-
-        #atexit.register(pickle.dump(self.data_dict, outfile))    
-    
                 
         
         
