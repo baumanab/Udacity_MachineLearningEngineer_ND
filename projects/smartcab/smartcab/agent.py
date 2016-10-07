@@ -5,6 +5,8 @@ from planner import RoutePlanner
 from simulator import Simulator
 import q_learn as qlearn
 from pprint import pprint
+import atexit
+import pickle
 
 
 
@@ -22,13 +24,34 @@ class LearningAgent(Agent):
         # Initialize any additional variables
         self.ai= None # reset
         self.actions= self.env.valid_actions
-        self.ai = qlearn.QLearn(self.actions, alpha=0.1, gamma=0.9, epsilon=0.1)
-        self.trials= 0 # initalize trial count to 0
+        self.ai = qlearn.QLearn(self.actions, alpha=0.1, gamma=0.9, epsilon=0.1) 
+        # create a container to hold metric data
+        self.data_dict= dict(successes= list(), lenq= list(), qtables= list())      
  
 
     def reset(self, destination=None):
         self.planner.route_to(destination)
         # TODO: Prepare for a new trip; reset any variables here, if required
+        
+    def data_collector(self, location, destination, qtable, data_dict):
+        
+        '''Accepts location, destination, qtable, and a data container (dict of
+        lists) as inputs. The function appends the container lists with important
+        metric information which will bee used later for performance analysis.
+        '''
+        
+        data_dict['qtables'].append(qtable)
+        data_dict['lenq'].append(len(qtable))
+        
+        if location == destination:
+            data_dict['successes'].append(1)
+        else:
+            data_dict['successes'].append(0)
+    
+    
+    def dump_pkl(self, my_object, filename):
+        with open(filename, "w") as outfile:
+            pickle.dump(my_object, outfile)
   
 
     def update(self, t):
@@ -59,15 +82,33 @@ class LearningAgent(Agent):
 
         #print "LearningAgent.update(): deadline = {}, inputs = {}, action = {}, reward = {}".format(deadline, inputs, action, reward)  # [debug]
         
-        datafile= open('data.txt', 'w')
-        countfile= open('count.txt', 'w')
-        pprint(self.ai.q, datafile)
-        self.trials+= 1
-        pprint(self.trials, countfile)
-        pprint(self.ai.q)
-       
+        # aceess variables for metrics
+        location = self.env.agent_states[self]["location"] 
+        destination = self.env.agent_states[self]["destination"]  
+        
+        self.data_collector(location, destination, self.ai.q, self.data_dict)
+        
+        #datafile= open('data_dict.txt', 'w')
+        #pprint(self.data_dict, datafile)
+        
+        #outfile= open('data_dict.pkl', 'w')
+        '''
+        qtable_file= open('q_table.csv', 'w')
+        lenq_file= open('lenq.csv', 'w')
+        success_file= open('success.csv', 'w')
+        
+        print(self.data_dict['successes'], file=success_file)
+        print(self.data_dict['lenq'], file= lenq_file)
+        print(self.data_dict['qtables'], file= qtable_file)
+        '''
         
 
+        #atexit.register(pickle.dump(self.data_dict, outfile))    
+    
+                
+        
+        
+            
 
 def run():
 
@@ -88,6 +129,7 @@ def run():
     sim.run(n_trials=100)  # run for a specified number of trials
     # NOTE: To quit midway, press Esc or close pygame window, or hit Ctrl+C on the command-line
     
+    a.dump_pkl(a.data_dict, 'data_dict.pkl')
     
     
     
