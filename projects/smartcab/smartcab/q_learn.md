@@ -57,10 +57,11 @@ are nodes and paths are edges. In the case of a smartcab each intersection would
 be a node and each road an edge. The primary agent has a goal, in our case to 
 go from point A to the destination. In this gridworld there are states. The states 
 in our case are made up of the following elements [traffic signal, position of other 
-agents relative to our agent]. Where traffic signal has the states [red, green] and a 
-car can be to our left, right, or in front us. Our actions can be to stay put,
-turn left, turn right, or go forward. From the gridworld perspective our agent
-can choose to stay put or to advance in one of the four cardinal directions.
+agents relative to our agent, and position of our agent relative to the next waypoint]. 
+Where traffic signal has the states [red, green] and a car can be to our left, right, 
+or in front us. Our actions can be to stay put,turn left, turn right, or go forward. 
+From the gridworld perspective our agent can choose to stay put or to advance in
+one of the four cardinal directions.
 
 Each state, action combination (s,a) is associated with a value, which acts as a
 reward or penalty. So if our car is like pac man, just running around gobling up
@@ -159,7 +160,7 @@ until terminated
 At some point we will have a lookup table where state action combinations are mapped
 to a Q value, so our agent simply needs to lookup Q to determine what action to 
 take in any state. What if our Q is not the result of complete sampling or what if
-there are better options in the future. That is, how do we generalize our policy
+there are better options in the future? That is, how do we generalize our policy
 to prepare for future states and actions or states and actions we have yet to discover?
 We can add a wildcard term, epsilon, that is compared to a randomly generated number
 if the number is less than epsilon, explore, otherwise exploit (follow the Q gradient).
@@ -216,6 +217,186 @@ End Do
 
 End For
 ```
+
+## Report
+
+### Implement Basic Driving Agent
+
+The basic driving agent was implemented by adding the following code to the update
+method.
+
+```python
+valid_actions = [None, 'forward', 'left', 'right']
+action = random.choice(valid_actions)
+```
+
+**QUESTION:** _Observe what you see with the agent's behavior as it takes random actions. 
+Does the smartcab eventually make it to the destination? Are there any other interesting 
+observations to note?_
+
+As consitent with the implementation the agent wanders about the grid world randomly.
+It infrequently reaches the destination. The most pertinent observations are:
+- The agent does not learn, that is, it never becomes a better driver.
+- The agent has no regard for the rules of the road, and if the gridworld was
+subject to the physical limitations of the real world, it wouldn't last very long.
+
+### Informat the Driving Agent
+
+**QUESTION:** _What states have you identified that are appropriate for modeling the 
+smartcab and environment? Why do you believe each of these states to be appropriate 
+for this problem?_
+
+Inputs and states are implemented in the following manner:
+
+```python
+# Gather inputs
+self.next_waypoint = self.planner.next_waypoint()  # from route planner, also displayed by simulator
+inputs = self.env.sense(self)
+deadline = self.env.get_deadline(self)
+
+# Update current state
+self.state = (inputs['light'], inputs['oncoming'], inputs['left'], inputs['right'], self.next_waypoint)
+```
+
+The states consist of:
+- Lights: red or green
+- Oncoming traffic: None, forward, left, or right
+- Traffic left: None, forward, left, right
+- Traffic right: None, forward, left, right
+- Next Waypoint: None, forward, left, right
+
+These states are a comprehensive set of states available from the evironment and
+represent a set of common states experienced by actual drivers in the real world.
+
+
+**QUESTION:** _How many states in total exist for the smartcab in this environment? 
+Does this number seem reasonable given that the goal of Q-Learning is to learn 
+and make informed decisions about each state? Why or why not?_
+
+The number of states in this environment are 2 * 4 for each other input included
+since traffic light has two possible values and each additional input has 4 possible
+values. So, for the inputs chosen for self.state we have num_states= 2 * 4 * 4 * 4 * 4 
+which yields 512. So the qtable would represent a 512 X 4 (4 valid actions for each
+state) matrix. Since this is represented as a dictionary, this results in a dictionary
+with 2048 distinct keys.
+
+This number does see fairly large to sample and learn relevant states in 100 trial.
+if the smartcab does have trouble learning the best option would likely to remmove 
+input['right'] since a car on the right does not represent the complext traffic 
+situations that can result from a car on the left, particularly at intersections.
+This would reduce the number of states to 128, which is a more reasonable number to 
+sample in 100 trials.
+
+### Implement a Q-Learning Driving Agent
+
+**QUESTION:** _What changes do you notice in the agent's behavior when compared to the 
+basic driving agent when random actions were always taken? Why is this behavior occurring?_
+
+At first I didn't think my implementation was working because the initial rounds
+appeared random.  Soon the agent changed from driving aimlessly to honing in on
+the target. The agent's driving approved dramaticaly in a short time period and then
+the improvement began to level off.  
+This behavior is occuring because with each sampled state, action combination we
+update the q-table, adding values to inform the action decision of the agent.
+
+### Improve the Q-Learning Driving Agent
+
+The starting paramaters for training the agent, which I refer to as base parameters
+are alpha (learning rate)= 0.1, gamma (discounted future reward)= 0.9, epsilon= 0.1
+
+The alpha value is fairly low which helps prevent changes in q from occuring too
+rapidly. The gamma value is close to what we would choose in a deterministic instead
+of a stochastic enviroment.  This is value I was most interested in changing to see
+the impact from the base case. Epsilon is low to allow for exploration.  I was less
+interested in this value because of the way exploration is implemented, that is 
+if a random value is > epsilon with add a random value to q. This is a more gradual
+way of introducing exploration, since exploration is not purely dependent on whether
+we "roll" less than or great than epsilon.
+
+**QUESTION:** _Report the different values for the parameters tuned in your basic implementation 
+of Q-Learning. For which set of parameters does the agent perform best? How well 
+does the final driving agent perform?_
+
+#### Final Q-table for the base case represented as a python dictionary:
+
+```python
+{(('green', None, None, None, 'forward'), None): 0.0,
+ (('green', None, None, None, 'forward'), 'forward'): 6.132283212465348,
+ (('green', None, None, None, 'left'), 'left'): 8.43767377788923,
+ (('green', None, None, None, 'right'), 'left'): -0.5,
+ (('green', None, None, None, 'right'), 'right'): 6.809170982132021,
+ (('green', None, None, 'forward', 'forward'), 'forward'): 2.162,
+ (('green', None, None, 'forward', 'left'), 'right'): -0.5,
+ (('green', None, None, 'forward', 'right'), 'right'): 2.0,
+ (('green', None, None, 'left', 'forward'), None): 0.0,
+ (('green', None, None, 'left', 'forward'), 'forward'): 12.1592,
+ (('green', None, None, 'left', 'forward'), 'left'): -0.5,
+ (('green', None, None, 'left', 'forward'), 'right'): -0.5,
+ (('green', None, None, 'left', 'left'), 'right'): -0.5,
+ (('green', None, None, 'right', 'forward'), 'left'): -0.5,
+ (('green', None, 'forward', None, 'forward'), 'forward'): 12.0,
+ (('green', None, 'left', None, 'forward'), None): 0.0,
+ (('green', None, 'left', None, 'forward'), 'forward'): 12.0,
+ (('green', None, 'left', None, 'forward'), 'right'): -0.5,
+ (('green', None, 'left', None, 'left'), 'right'): -0.5,
+ (('green', None, 'left', None, 'right'), 'forward'): -0.5,
+ (('green', None, 'right', None, 'forward'), 'left'): -0.5,
+ (('green', None, 'right', None, 'forward'), 'right'): -0.5,
+ (('green', None, 'right', None, 'left'), 'left'): 2.0,
+ (('green', 'forward', None, None, 'forward'), None): 0.0,
+ (('green', 'forward', None, None, 'right'), 'left'): -1.0,
+ (('green', 'left', None, None, 'forward'), None): 0.0,
+ (('green', 'left', None, None, 'forward'), 'forward'): 11.582030313240434,
+ (('green', 'left', None, None, 'forward'), 'left'): -0.5,
+ (('green', 'left', None, None, 'forward'), 'right'): -0.5,
+ (('green', 'right', None, None, 'forward'), 'right'): -0.5,
+ (('green', 'right', None, None, 'right'), 'forward'): -0.5,
+ (('red', None, None, None, 'forward'), None): 0.0,
+ (('red', None, None, None, 'forward'), 'forward'): -1.0,
+ (('red', None, None, None, 'forward'), 'left'): -1.0,
+ (('red', None, None, None, 'forward'), 'right'): -0.5,
+ (('red', None, None, None, 'left'), None): 0.0,
+ (('red', None, None, None, 'left'), 'forward'): -1.0,
+ (('red', None, None, None, 'left'), 'left'): -1.0,
+ (('red', None, None, None, 'left'), 'right'): -0.10283403044109152,
+ (('red', None, None, None, 'right'), 'left'): -1.0,
+ (('red', None, None, None, 'right'), 'right'): 6.218542206861301,
+ (('red', None, None, 'forward', 'forward'), None): 0.0,
+ (('red', None, None, 'forward', 'right'), None): 0.0,
+ (('red', None, None, 'forward', 'right'), 'forward'): -1.0,
+ (('red', None, None, 'left', 'forward'), None): 0.0,
+ (('red', None, None, 'left', 'forward'), 'right'): -0.5,
+ (('red', None, 'forward', None, 'forward'), 'forward'): -1.0,
+ (('red', None, 'forward', None, 'forward'), 'left'): -1.0,
+ (('red', None, 'forward', None, 'forward'), 'right'): -1.0,
+ (('red', None, 'left', None, 'forward'), None): 0.0,
+ (('red', None, 'left', None, 'forward'), 'forward'): -1.0,
+ (('red', None, 'right', None, 'forward'), None): 0.0,
+ (('red', 'forward', None, None, 'forward'), None): 0.0,
+ (('red', 'forward', None, None, 'forward'), 'forward'): -1.0,
+ (('red', 'forward', None, None, 'forward'), 'left'): -1.0,
+ (('red', 'forward', None, None, 'forward'), 'right'): -0.5,
+ (('red', 'forward', None, None, 'left'), 'forward'): -1.0,
+ (('red', 'forward', None, None, 'left'), 'left'): -1.0,
+ (('red', 'forward', None, None, 'right'), 'right'): 2.0,
+ (('red', 'left', None, None, 'forward'), None): 0.0,
+ (('red', 'left', None, None, 'forward'), 'forward'): -1.0,
+ (('red', 'left', None, None, 'forward'), 'left'): -1.0,
+ (('red', 'left', None, None, 'forward'), 'right'): -0.5,
+ (('red', 'left', None, None, 'left'), 'forward'): -1.0,
+ (('red', 'left', None, None, 'left'), 'left'): -1.0,
+ (('red', 'right', None, None, 'forward'), None): 0.0,
+ (('red', 'right', None, None, 'forward'), 'forward'): -1.0,
+ (('red', 'right', None, None, 'forward'), 'right'): -0.5,
+ (('red', 'right', None, None, 'left'), None): 0.0}
+ ```
+**QUESTION:** _Does your agent get close to finding an optimal policy, i.e. reach 
+the destination in the minimum possible time, and not incur any penalties? How 
+would you describe an optimal policy for this problem?_
+
+
+
+
 
 
 
