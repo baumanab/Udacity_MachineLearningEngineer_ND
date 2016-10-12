@@ -299,6 +299,14 @@ the improvement began to level off.
 This behavior is occuring because with each sampled state, action combination we
 update the q-table, adding values to inform the action decision of the agent.
 
+The one very unusual behavior I noticed in from the driving agent was driving in circles.
+When confronted with a red light the agent often chose to drive around the red
+light rather than to simply wait until it turned green. This may work well in the
+grid-world but it would be considred odd in the real world. Why is this occuring?
+The highest quality state for all of the conditions studied, for a red light,
+is to turn right.  Any action other than turning right on a red (no matter the
+other elements of the state) has a q value <= 0.
+
 ### Improve the Q-Learning Driving Agent
 
 The starting paramaters for training the agent, which I refer to as base parameters
@@ -317,9 +325,61 @@ we "roll" less than or great than epsilon.
 of Q-Learning. For which set of parameters does the agent perform best? How well 
 does the final driving agent perform?_
 
+| Condition Name         | Alpha | Gamma | Epsilon |
+|------------------------|-------|:-----:|--------:|
+| alphap1_gammap9_epsp1  | 0.10  |  0.90 |  0.10 |
+| alphap5_gammap9_epsp1  | 0,50  |  0.90 |  0.10 |
+| alphap1_gammap25_epsp1 | 0.10  |  0.25 |  0.10 |
+| alphap1_gammap9_epsp25 | 0.10  | 0.90  | 0.25    |
+| alphap1_gammap5_epsp1  | 0.10  | 0.50  | 0.10    |
+| alphap25_gammap9_epsp1 | 0.25  | 0.90  | 0.10    |
+| alphap1_gammap9_epsp5  | 0.10  | 0.90  | 0.50    |
+
+
+
+| Condition Name         | Alpha | Gamma | Epsilon | Global Success Rate |
+|------------------------|-------|:-----:|--------:|---------------------|
+| alphap1_gammap9_epsp1  | 0.10  |  0,90 |    0.10 | 0.078352            |
+| alphap5_gammap9_epsp1  | 0,50  |  0,90 |    0.10 | 0.076028            |
+| alphap1_gammap25_epsp1 | 0.10  |  0,25 |    0.10 | 0.067832            |
+| alphap1_gammap9_epsp25 | 0.10  | 0,90  | 0.25    | 0.067712            |
+| alphap1_gammap5_epsp1  | 0.10  | 0,50  | 0.10    | 0.067391            |
+| alphap25_gammap9_epsp1 | 0.25  | 0,90  | 0.10    | 0.059043            |
+| alphap1_gammap9_epsp5  | 0.10  | 0,90  | 0,50    | 0.059043            |
+
+| Condition Name         | Alpha | Gamma | Epsilon | Number of Successes |
+|------------------------|-------|:-----:|--------:|---------------------|
+| alphap1_gammap9_epsp1  | 0.10  |  0,90 |    0.10 | 98                  |
+| alphap5_gammap9_epsp1  | 0,50  |  0,90 |    0.10 | 97                  |
+| alphap1_gammap25_epsp1 | 0.10  |  0,25 |    0.10 | 97                  |
+| alphap1_gammap9_epsp25 | 0.10  | 0,90  | 0.25    | 95                  |
+| alphap1_gammap5_epsp1  | 0.10  | 0,50  | 0.10    | 95                  |
+| alphap25_gammap9_epsp1 | 0.25  | 0,90  | 0.10    | 93                  |
+| alphap1_gammap9_epsp5  | 0.10  | 0,90  | 0,50    | 92                  |
+
+| Condition Name         | Alpha | Gamma | Epsilon | Table Length |
+|------------------------|-------|:-----:|--------:|--------------|
+| alphap1_gammap9_epsp1  | 0.10  |  0,90 |    0.10 | 87           |
+| alphap5_gammap9_epsp1  | 0,50  |  0,90 |    0.10 | 83           |
+| alphap1_gammap25_epsp1 | 0.10  |  0,25 |    0.10 | 78           |
+| alphap1_gammap9_epsp25 | 0.10  | 0,90  | 0.25    | 70           |
+| alphap1_gammap5_epsp1  | 0.10  | 0,50  | 0.10    | 69           |
+| alphap25_gammap9_epsp1 | 0.25  | 0,90  | 0.10    | 64           |
+| alphap1_gammap9_epsp5  | 0.10  | 0,90  | 0,50    | 62           |
+
+![Length of Q table by round](/report_images/len_qtable_plot.png)
+
+![Enhanced View of Q table Length by round](/report_images/len_qtable_plot_enhanced.png)
+
+![Sucess Rate](/report_imges/success_rate_plot.png)
+
+
+
+
 #### Final Q-table for the base case represented as a python dictionary:
 
 ```python
+
 {(('green', None, None, None, 'forward'), None): 0.0,
  (('green', None, None, None, 'forward'), 'forward'): 6.132283212465348,
  (('green', None, None, None, 'left'), 'left'): 8.43767377788923,
@@ -389,6 +449,7 @@ does the final driving agent perform?_
  (('red', 'right', None, None, 'forward'), 'forward'): -1.0,
  (('red', 'right', None, None, 'forward'), 'right'): -0.5,
  (('red', 'right', None, None, 'left'), None): 0.0}
+ 
  ```
 **QUESTION:** _Does your agent get close to finding an optimal policy, i.e. reach 
 the destination in the minimum possible time, and not incur any penalties? How 
