@@ -369,9 +369,9 @@ does the final driving agent perform?_
 
 ![Length of Q table by round](https://github.com/baumanab/Udacity_MachineLearningEngineer_ND/blob/master/projects/smartcab/smartcab/report_images/len_qtable_plot.png)
 
-![Enhanced View of Q table Length by round](https://github.com/baumanab/Udacity_MachineLearningEngineer_ND/tree/master/projects/smartcab/smartcab/report_images/len_qtable_plot_enhanced.png)
+![Enhanced View of Q table Length by round](https://github.com/baumanab/Udacity_MachineLearningEngineer_ND/blob/master/projects/smartcab/smartcab/report_images/len_qtable_plot_enhanced.png)
 
-![Sucess Rate](https://github.com/baumanab/Udacity_MachineLearningEngineer_ND/tree/master/projects/smartcab/smartcab/report_images/success_rate_plot.png)
+![Sucess Rate](https://github.com/baumanab/Udacity_MachineLearningEngineer_ND/blob/master/projects/smartcab/smartcab/report_images/success_rate_plot.png)
 
 
 
