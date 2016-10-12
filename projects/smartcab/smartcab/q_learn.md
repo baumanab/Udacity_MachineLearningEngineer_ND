@@ -367,7 +367,7 @@ does the final driving agent perform?_
 | alphap25_gammap9_epsp1 | 0.25  | 0.90  | 0.10    | 64           |
 | alphap1_gammap9_epsp5  | 0.10  | 0.90  | 0.50    | 62           |
 
-![Length of Q table by round](https://github.com/baumanab/Udacity_MachineLearningEngineer_ND/tree/master/projects/smartcab/smartcab/report_images/len_qtable_plot.png)
+![Length of Q table by round](https://github.com/baumanab/Udacity_MachineLearningEngineer_ND/blob/master/projects/smartcab/smartcab/report_images/len_qtable_plot.png)
 
 ![Enhanced View of Q table Length by round](https://github.com/baumanab/Udacity_MachineLearningEngineer_ND/tree/master/projects/smartcab/smartcab/report_images/len_qtable_plot_enhanced.png)
 
