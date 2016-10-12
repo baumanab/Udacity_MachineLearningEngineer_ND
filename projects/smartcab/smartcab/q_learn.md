@@ -328,7 +328,7 @@ does the final driving agent perform?_
 | Condition Name         | Alpha | Gamma | Epsilon |
 |------------------------|-------|:-----:|--------:|
 | alphap1_gammap9_epsp1  | 0.10  |  0.90 |  0.10 |
-| alphap5_gammap9_epsp1  | 0,50  |  0.90 |  0.10 |
+| alphap5_gammap9_epsp1  | 0.50  |  0.90 |  0.10 |
 | alphap1_gammap25_epsp1 | 0.10  |  0.25 |  0.10 |
 | alphap1_gammap9_epsp25 | 0.10  | 0.90  | 0.25    |
 | alphap1_gammap5_epsp1  | 0.10  | 0.50  | 0.10    |
@@ -339,39 +339,39 @@ does the final driving agent perform?_
 
 | Condition Name         | Alpha | Gamma | Epsilon | Global Success Rate |
 |------------------------|-------|:-----:|--------:|---------------------|
-| alphap1_gammap9_epsp1  | 0.10  |  0,90 |    0.10 | 0.078352            |
-| alphap5_gammap9_epsp1  | 0,50  |  0,90 |    0.10 | 0.076028            |
-| alphap1_gammap25_epsp1 | 0.10  |  0,25 |    0.10 | 0.067832            |
-| alphap1_gammap9_epsp25 | 0.10  | 0,90  | 0.25    | 0.067712            |
-| alphap1_gammap5_epsp1  | 0.10  | 0,50  | 0.10    | 0.067391            |
-| alphap25_gammap9_epsp1 | 0.25  | 0,90  | 0.10    | 0.059043            |
-| alphap1_gammap9_epsp5  | 0.10  | 0,90  | 0,50    | 0.059043            |
+| alphap1_gammap9_epsp1  | 0.10  |  0.90 |    0.10 | 0.078352            |
+| alphap5_gammap9_epsp1  | 0.50  |  0.90 |    0.10 | 0.076028            |
+| alphap1_gammap25_epsp1 | 0.10  |  0.25 |    0.10 | 0.067832            |
+| alphap1_gammap9_epsp25 | 0.10  | 0.90  | 0.25    | 0.067712            |
+| alphap1_gammap5_epsp1  | 0.10  | 0.50  | 0.10    | 0.067391            |
+| alphap25_gammap9_epsp1 | 0.25  | 0.90  | 0.10    | 0.059043            |
+| alphap1_gammap9_epsp5  | 0.10  | 0.90  | 0.50    | 0.059043            |
 
 | Condition Name         | Alpha | Gamma | Epsilon | Number of Successes |
 |------------------------|-------|:-----:|--------:|---------------------|
-| alphap1_gammap9_epsp1  | 0.10  |  0,90 |    0.10 | 98                  |
-| alphap5_gammap9_epsp1  | 0,50  |  0,90 |    0.10 | 97                  |
-| alphap1_gammap25_epsp1 | 0.10  |  0,25 |    0.10 | 97                  |
-| alphap1_gammap9_epsp25 | 0.10  | 0,90  | 0.25    | 95                  |
-| alphap1_gammap5_epsp1  | 0.10  | 0,50  | 0.10    | 95                  |
-| alphap25_gammap9_epsp1 | 0.25  | 0,90  | 0.10    | 93                  |
-| alphap1_gammap9_epsp5  | 0.10  | 0,90  | 0,50    | 92                  |
+| alphap1_gammap9_epsp1  | 0.10  |  0.90 |    0.10 | 98                  |
+| alphap5_gammap9_epsp1  | 0,50  |  0.90 |    0.10 | 97                  |
+| alphap1_gammap25_epsp1 | 0.10  |  0.25 |    0.10 | 97                  |
+| alphap1_gammap9_epsp25 | 0.10  | 0.90  | 0.25    | 95                  |
+| alphap1_gammap5_epsp1  | 0.10  | 0.50  | 0.10    | 95                  |
+| alphap25_gammap9_epsp1 | 0.25  | 0.90  | 0.10    | 93                  |
+| alphap1_gammap9_epsp5  | 0.10  | 0.90  | 0.50    | 92                  |
 
 | Condition Name         | Alpha | Gamma | Epsilon | Table Length |
 |------------------------|-------|:-----:|--------:|--------------|
-| alphap1_gammap9_epsp1  | 0.10  |  0,90 |    0.10 | 87           |
-| alphap5_gammap9_epsp1  | 0,50  |  0,90 |    0.10 | 83           |
-| alphap1_gammap25_epsp1 | 0.10  |  0,25 |    0.10 | 78           |
-| alphap1_gammap9_epsp25 | 0.10  | 0,90  | 0.25    | 70           |
-| alphap1_gammap5_epsp1  | 0.10  | 0,50  | 0.10    | 69           |
-| alphap25_gammap9_epsp1 | 0.25  | 0,90  | 0.10    | 64           |
-| alphap1_gammap9_epsp5  | 0.10  | 0,90  | 0,50    | 62           |
+| alphap1_gammap9_epsp1  | 0.10  |  0.90 |    0.10 | 87           |
+| alphap5_gammap9_epsp1  | 0,50  |  0.90 |    0.10 | 83           |
+| alphap1_gammap25_epsp1 | 0.10  |  0.25 |    0.10 | 78           |
+| alphap1_gammap9_epsp25 | 0.10  | 0.90  | 0.25    | 70           |
+| alphap1_gammap5_epsp1  | 0.10  | 0.50  | 0.10    | 69           |
+| alphap25_gammap9_epsp1 | 0.25  | 0.90  | 0.10    | 64           |
+| alphap1_gammap9_epsp5  | 0.10  | 0.90  | 0.50    | 62           |
 
-![Length of Q table by round](/report_images/len_qtable_plot.png)
+![Length of Q table by round](https://github.com/baumanab/Udacity_MachineLearningEngineer_ND/tree/master/projects/smartcab/smartcab/report_images/len_qtable_plot.png)
 
-![Enhanced View of Q table Length by round](/report_images/len_qtable_plot_enhanced.png)
+![Enhanced View of Q table Length by round](https://github.com/baumanab/Udacity_MachineLearningEngineer_ND/tree/master/projects/smartcab/smartcab/report_images/len_qtable_plot_enhanced.png)
 
-![Sucess Rate](/report_imges/success_rate_plot.png)
+![Sucess Rate](https://github.com/baumanab/Udacity_MachineLearningEngineer_ND/tree/master/projects/smartcab/smartcab/report_images/success_rate_plot.png)
 
 
 
