@@ -339,44 +339,47 @@ does the final driving agent perform?_
 
 | Condition Name         | Alpha | Gamma | Epsilon | Global Success Rate |
 |------------------------|-------|:-----:|--------:|---------------------|
-| alphap1_gammap9_epsp1  | 0.10  |  0.90 |    0.10 | 0.078352            |
-| alphap5_gammap9_epsp1  | 0.50  |  0.90 |    0.10 | 0.076028            |
-| alphap1_gammap25_epsp1 | 0.10  |  0.25 |    0.10 | 0.067832            |
-| alphap1_gammap9_epsp25 | 0.10  | 0.90  | 0.25    | 0.067712            |
-| alphap1_gammap5_epsp1  | 0.10  | 0.50  | 0.10    | 0.067391            |
-| alphap25_gammap9_epsp1 | 0.25  | 0.90  | 0.10    | 0.059043            |
-| alphap1_gammap9_epsp5  | 0.10  | 0.90  | 0.50    | 0.059043            |
+| alphap1_gammap9_epsp1  | 0.10  |  0.90 |    0.10 | 78%            |
+| alphap5_gammap9_epsp1  | 0.50  |  0.90 |    0.10 | 76%            |
+| alphap1_gammap25_epsp1 | 0.10  |  0.25 |    0.10 | 68%            |
+| alphap1_gammap9_epsp25 | 0.10  | 0.90  | 0.25    | 68%            |
+| alphap1_gammap5_epsp1  | 0.10  | 0.50  | 0.10    | 67%            |
+| alphap25_gammap9_epsp1 | 0.25  | 0.90  | 0.10    | 59%            |
+| alphap1_gammap9_epsp5  | 0.10  | 0.90  | 0.50    | 59%            |
 
 | Condition Name         | Alpha | Gamma | Epsilon | Number of Successes |
 |------------------------|-------|:-----:|--------:|---------------------|
-| alphap1_gammap9_epsp1  | 0.10  |  0.90 |    0.10 | 98                  |
-| alphap5_gammap9_epsp1  | 0,50  |  0.90 |    0.10 | 97                  |
+| alphap5_gammap9_epsp1  | 0.10  |  0.90 |    0.10 | 98                  |
+| alphap1_gammap9_epsp1  | 0,50  |  0.90 |    0.10 | 97                  |
 | alphap1_gammap25_epsp1 | 0.10  |  0.25 |    0.10 | 97                  |
-| alphap1_gammap9_epsp25 | 0.10  | 0.90  | 0.25    | 95                  |
-| alphap1_gammap5_epsp1  | 0.10  | 0.50  | 0.10    | 95                  |
-| alphap25_gammap9_epsp1 | 0.25  | 0.90  | 0.10    | 93                  |
+| alphap25_gammap9_epsp1 | 0.10  | 0.90  | 0.25    | 95                  |
+| alphap1_gammap9_epsp25  | 0.10  | 0.50  | 0.10    | 95                  |
+| alphap1_gammap5_epsp1 | 0.25  | 0.90  | 0.10    | 93                  |
 | alphap1_gammap9_epsp5  | 0.10  | 0.90  | 0.50    | 92                  |
 
 | Condition Name         | Alpha | Gamma | Epsilon | Table Length |
 |------------------------|-------|:-----:|--------:|--------------|
-| alphap1_gammap9_epsp1  | 0.10  |  0.90 |    0.10 | 87           |
-| alphap5_gammap9_epsp1  | 0,50  |  0.90 |    0.10 | 83           |
-| alphap1_gammap25_epsp1 | 0.10  |  0.25 |    0.10 | 78           |
+| alphap25_gammap9_epsp1 | 0.10  |  0.90 |    0.10 | 87           |
+| alphap1_gammap5_epsp1  | 0,50  |  0.90 |    0.10 | 83           |
+| alphap1_gammap9_epsp5  | 0.10  |  0.25 |    0.10 | 78           |
 | alphap1_gammap9_epsp25 | 0.10  | 0.90  | 0.25    | 70           |
-| alphap1_gammap5_epsp1  | 0.10  | 0.50  | 0.10    | 69           |
-| alphap25_gammap9_epsp1 | 0.25  | 0.90  | 0.10    | 64           |
-| alphap1_gammap9_epsp5  | 0.10  | 0.90  | 0.50    | 62           |
+| alphap1_gammap9_epsp1  | 0.10  | 0.50  | 0.10    | 69           |
+| alphap5_gammap9_epsp1  | 0.25  | 0.90  | 0.10    | 64           |
+| alphap1_gammap25_epsp1 | 0.10  | 0.90  | 0.50    | 62           |
 
+
+
+```
 ![Length of Q table by round](https://github.com/baumanab/Udacity_MachineLearningEngineer_ND/blob/master/projects/smartcab/smartcab/report_images/len_qtable_plot.png)
 
 ![Enhanced View of Q table Length by round](https://github.com/baumanab/Udacity_MachineLearningEngineer_ND/blob/master/projects/smartcab/smartcab/report_images/len_qtable_plot_enhanced.png)
 
 ![Sucess Rate](https://github.com/baumanab/Udacity_MachineLearningEngineer_ND/blob/master/projects/smartcab/smartcab/report_images/success_rate_plot.png)
+```
 
 
 
-
-#### Final Q-table for the base case represented as a python dictionary:
+#### Final Q-table for the base case (alphap1_gammap9_epsp1) represented as a python dictionary:
 
 ```python
 
@@ -451,9 +454,33 @@ does the final driving agent perform?_
  (('red', 'right', None, None, 'left'), None): 0.0}
  
  ```
+ 
+ #### Final Q-table for the best case () represented as a python dictionary:
+ 
+ ```python
+ 
+ 
+ 
+ 
+ ```
 **QUESTION:** _Does your agent get close to finding an optimal policy, i.e. reach 
 the destination in the minimum possible time, and not incur any penalties? How 
 would you describe an optimal policy for this problem?_
+
+I do think my agent comes close to reaching the destination in the minimal possible
+time without incurring penalties. The final policy for the base case (alphap1_gammap9_epsp1)
+shows that only actions that follow driving rules are high qulaity whereas those that don't
+are low quality.  The only thing that I find suboptimal is that for a red light
+only right turns have a positive Q.  All other actions have either a negative Q
+or a Q of zero. The 0 Q's are likely the result of this action not being explored/sampled.
+The end result is that the agent tends to drive around in circles. This may play 
+out well in the grid world but in the real world it would be odd at best and at worst
+it wastes gas and potentially time, as traffic conditions and delays from making 
+a circle are not as predictibable as the grid world.
+
+I would describe an optimal policy as one in which the destination is reach in 
+the smallest time frame given that traffic rules are followed and unuusual driving
+behavior is not exhibited.
 
 
 
