@@ -3,105 +3,105 @@
 ## Preface
 
 The object of this project is to train a smartcab to drive.  Notice this is train,
-not teach or tell the smartcab to drive, but train it.We want our agent, a smartcab 
-to get from point A to point B in duration (elpased time or turns) x. The smartcab is 
-operating in a gridworld of streets, traffic lights, and other agents, where 
-the other agents are other cars.  The perspective of the cab is egocentric. 
+not teach or tell the smartcab to drive, but train it. We want our agent, a smartcab
+to get from point A to point B in duration (elapsed time or turns) x. The smartcab is
+operating in a gridworld of streets, traffic lights, and other agents, where
+the other agents are other cars.  The perspective of the cab is egocentric.
 That is, it can only observe what is going on in its immediate environment. So,
 how do we get the cab to go from point A to point B?  There are three main options:
 
-1. **Tell:** We could write a set of rules using flow control to force the cab to 
+1. **Tell:** We could write a set of rules using flow control to force the cab to
 make certain decisions in every case. For example, this is what you do at a red
-light with oppsosing traffic, or without opposing traffic, etc. etc.  The challenge 
-with this approach is that it doesn't take very much to create an environment 
-that is so complex it would be daunting to think of every possiblilty and tell 
-the cab what to do. We would also have to hard code in new elements encountered 
+light with opposing traffic, or without opposing traffic, etc. etc.  The challenge
+with this approach is that it doesn't take very much to create an environment
+that is so complex it would be daunting to think of every possibility and tell
+the cab what to do. We would also have to hard code in new elements encountered
 into the environment.
 
-2. **Teach:** Teaching would be akin to a supervised learning approach.  We could 
-have agents drive around the virtual grid world and experience things and then use 
-the record of those experiences to teach a new agent what to do.  This would be 
-daunting for even fairly simple real-world applications and would not necesarily 
+2. **Teach:** Teaching would be akin to a supervised learning approach.  We could
+have agents drive around the virtual grid world and experience things and then use
+the record of those experiences to teach a new agent what to do.  This would be
+daunting for even fairly simple real-world applications and would not necessarily
 account for all new environmental elements
 
-3. **Train:** Training is just what it sounds like. The agent drives around and experinces 
-things. Some actions turn out great, some not so great. The agent stores these 
-experiences and uses them to form a policy of behavior. That is, given a situation, 
+3. **Train:** Training is just what it sounds like. The agent drives around and experiences
+things. Some actions turn out great, some not so great. The agent stores these
+experiences and uses them to form a policy of behavior. That is, given a situation,
 what is the best action to take?
 
 ## Approach and Resources
 
-So how do we do this? Through reinformcement learning.  Specifically we use Markov 
+So how do we do this? Through reinforcement learning.  Specifically we use Markov
 decision processes and unsupervised learning to train our agent.  The approach I
-have chosen for this task is Q learning.  There are many resources that explain 
-Q learning, but these are the three I found most useful for building intuition as 
+have chosen for this task is Q learning.  There are many resources that explain
+Q learning, but these are the three I found most useful for building intuition as
 well as implementing Q learning in code.
 
-1. The [Study Wolf Blog](https://studywolf.wordpress.com/2012/11/25/reinforcement-learning-q-learning-and-exploration/) 
-blog contains a great overview of reinforcement learning and Q-learning and even 
+1. The [Study Wolf Blog](https://studywolf.wordpress.com/2012/11/25/reinforcement-learning-q-learning-and-exploration/)
+blog contains a great overview of reinforcement learning and Q-learning and even
 a [python code implementation](https://github.com/studywolf/blog/tree/master/RL/Cat%20vs%20Mouse%20exploration)
 
-2. [This](http://mnemstudio.org/path-finding-q-learning-tutorial.htm) great tutorial 
-shows how Q-learning tables could be applied to teach an agent to move from a 
+2. [This](http://mnemstudio.org/path-finding-q-learning-tutorial.htm) great tutorial
+shows how Q-learning tables could be applied to teach an agent to move from a
 randomly selected room, out of a house.
 
-3. [Demystifying Deep Reinforcement Learning](http://neuro.cs.ut.ee/demystifying-deep-reinforcement-learning/) 
-is another great resource with explanations of how Q learning, reinforcement learning, 
-and Markov decision processes relate. 
+3. [Demystifying Deep Reinforcement Learning](http://neuro.cs.ut.ee/demystifying-deep-reinforcement-learning/)
+is another great resource with explanations of how Q learning, reinforcement learning,
+and Markov decision processes relate.
 
-The resources listed above do a comprehensive job of explaining the principles 
-and approach to reinforcement and Q learning but I paraphrase below, per my understanding. 
+The resources listed above do a comprehensive job of explaining the principles
+and approach to reinforcement and Q learning but I paraphrase below, per my understanding.
 
-Essentially we have an agent who is operating on a grid or network, where locations 
-are nodes and paths are edges. In the case of a smartcab each intersection would 
-be a node and each road an edge. The primary agent has a goal, in our case to 
-go from point A to the destination. In this gridworld there are states. The states 
-in our case are made up of the following elements [traffic signal, position of other 
-agents relative to our agent, and position of our agent relative to the next waypoint]. 
-Where traffic signal has the states [red, green] and a car can be to our left, right, 
-or in front us. Our actions can be to stay put,turn left, turn right, or go forward. 
+Essentially we have an agent who is operating on a grid or network, where locations
+are nodes and paths are edges. In the case of a smartcab each intersection would
+be a node and each road an edge. The primary agent has a goal, in our case to
+go from point A to the destination. In this gridworld there are states. The states
+in our case are made up of the following elements [traffic signal, position of other
+agents relative to our agent, and position of our agent relative to the next waypoint].
+Where traffic signal has the states [red, green] and a car can be to our left, right,
+or in front us. Our actions can be to stay put, turn left, turn right, or go forward.
 From the gridworld perspective our agent can choose to stay put or to advance in
 one of the four cardinal directions.
 
 Each state, action combination (s,a) is associated with a value, which acts as a
-reward or penalty. So if our car is like pac man, just running around gobling up
+reward or penalty. So if our car is like pac man, just running around gobbling up
 rewards and trying not to hit other agents/ghosts, what is the motive force that
 moves us to the goal?  The rewards can be thought of as the immediate gratification
 for  taking a particular action in a particular state. To learn the agent must also
-consider the future impact of an action.  This is where Q comes in. Q is a measure 
+consider the future impact of an action.  This is where Q comes in. Q is a measure
 of the quality of an action taken in a state. It is defined by the Bellman equation
 
 > Q(s,a)= r + (gamma * (max)a'Q(s',a'))
 
 where s and a are the current state and action and s' and a' are the next state
-and the action taken in that state. (max selects for the maximum Q for all possible 
+and the action taken in that state. (max selects for the maximum Q for all possible
 a' in s') gamma is a value between 0 and 1 that discounts the future reward. If
-gamma is 0 then we only have the immediate reward whereas if gamma = 1 we add in 
-the maximum future reward. A value of 1 would only make sense in a deterministic 
-environment (no random events), but since this is a stochastic enviroment values
-of .5 to .9 are typical. So the Q value for each state and action combination is 
-affected by the maximum utility of the next state and the best possible action in 
-that state, which in turn is affected by the all possible states and actions linked 
-to that state, etc. etc. In other words, the value of Q is back propogated from 
+gamma is 0 then we only have the immediate reward whereas if gamma = 1 we add in
+the maximum future reward. A value of 1 would only make sense in a deterministic
+environment (no random events), but since this is a stochastic environment values
+of .5 to .9 are typical. So the Q value for each state and action combination is
+affected by the maximum utility of the next state and the best possible action in
+that state, which in turn is affected by the all possible states and actions linked
+to that state, etc. etc. In other words, the value of Q is back propagated from
 the goal.
 
 So, our agent starts out with a reward matrix R with state as the index (rows)
-and actions as columns. Each intersection of state and action has a reward. At the 
+and actions as columns. Each intersection of state and action has a reward. At the
 start of the learning process we have a Q matrix as well, which is initialized
 to 0. As the agent samples states and actions the Q matrix is filled in. Eventually
 this leaves us with a mapping of every state and action to a Q value. The states and
 actions that are more likely to lead us to the goal have a higher Q than those who
-are less likely to lead us to the goal. In some ways this reminds me of chemotaxis. 
-That is the propensity to move towards a target by sensing the strength of a chemical 
-signal. As the organism gets closer to the source of the chemical, the signal gets 
-stronger. So, it follows a chemical gradient in a similar way as our agent follows 
-a Q gradient. 
+are less likely to lead us to the goal. In some ways this reminds me of chemotaxis.
+That is the propensity to move towards a target by sensing the strength of a chemical
+signal. As the organism gets closer to the source of the chemical, the signal gets
+stronger. So, it follows a chemical gradient in a similar way as our agent follows
+a Q gradient.
 
 The practical form of updating Q is:
 
 > Q(s,a) += alpha * (actual reward - expected reward)
 
-Where the actual reward is 
+Where the actual reward is
 
 > reward(s,a) + Q(s',a')
 
@@ -115,7 +115,7 @@ and therefore the rate at which Q changes.
 
 ### Expressing Q learning in Psuedo Code
 
-#### Resource [2](http://mnemstudio.org/path-finding-q-learning-tutorial.htm) above 
+#### Resource [2](http://mnemstudio.org/path-finding-q-learning-tutorial.htm) above
 expressed this as:
 
 ```python
@@ -158,7 +158,7 @@ until terminated
 ### Exploration
 
 At some point we will have a lookup table where state action combinations are mapped
-to a Q value, so our agent simply needs to lookup Q to determine what action to 
+to a Q value, so our agent simply needs to lookup Q to determine what action to
 take in any state. What if our Q is not the result of complete sampling or what if
 there are better options in the future? That is, how do we generalize our policy
 to prepare for future states and actions or states and actions we have yet to discover?
@@ -166,11 +166,11 @@ We can add a wildcard term, epsilon, that is compared to a randomly generated nu
 if the number is less than epsilon, explore, otherwise exploit (follow the Q gradient).
 There are two main methods of exploration that I am aware of:
 
-1. In the explore mode choose a random action. This is typically coupled with 
+1. In the explore mode choose a random action. This is typically coupled with
 a reduction of epsilon per step, so that the agent explores less as time goes on.
 
 2. In the explore mode randomly add values to Q values for that state scaled by
-the maximum Q value for this state. In this way the exploration action is still 
+the maximum Q value for this state. In this way the exploration action is still
 based on Q rather than a completely random choice.
 
 ### Python Code Implementation
@@ -185,7 +185,7 @@ approach is to create a Q class.
 ```python
 The Q-Learning algorithm goes as follows:
 
-1. Set the gamma parameter, and environment rewards in matrix R. 
+1. Set the gamma parameter, and environment rewards in matrix R.
 
 '''
 Complete: Environment rewards matrix is part of the environment code
@@ -206,13 +206,13 @@ Do While the goal state hasn't been reached.
     Select one among all possible actions for the current state.    
     Using this possible action, consider going to the next state.
     #TODO: Build selection method as part of the Q class
-    
+
     Get maximum Q value for this next state based on all possible actions.
     Compute: Q(state, action) = R(state, action) + Gamma * Max[Q(next state, all actions)]
     Set the next state as the current state.
-    #TODO: Create a function or functons to calculate Q via the Bellman equation
+    #TODO: Create a function or functions to calculate Q via the Bellman equation
     and update Q for each state action combination.
-    
+
 End Do
 
 End For
@@ -230,20 +230,20 @@ valid_actions = [None, 'forward', 'left', 'right']
 action = random.choice(valid_actions)
 ```
 
-**QUESTION:** _Observe what you see with the agent's behavior as it takes random actions. 
-Does the smartcab eventually make it to the destination? Are there any other interesting 
+**QUESTION:** _Observe what you see with the agent's behavior as it takes random actions.
+Does the smartcab eventually make it to the destination? Are there any other interesting
 observations to note?_
 
-As consitent with the implementation the agent wanders about the grid world randomly.
+As consistent with the implementation the agent wanders about the grid world randomly.
 It infrequently reaches the destination. The most pertinent observations are:
 - The agent does not learn, that is, it never becomes a better driver.
 - The agent has no regard for the rules of the road, and if the gridworld was
 subject to the physical limitations of the real world, it wouldn't last very long.
 
-### Informat the Driving Agent
+### Inform the Driving Agent
 
-**QUESTION:** _What states have you identified that are appropriate for modeling the 
-smartcab and environment? Why do you believe each of these states to be appropriate 
+**QUESTION:** _What states have you identified that are appropriate for modeling the
+smartcab and environment? Why do you believe each of these states to be appropriate
 for this problem?_
 
 Inputs and states are implemented in the following manner:
@@ -265,65 +265,67 @@ The states consist of:
 - Traffic right: None, forward, left, right
 - Next Waypoint: None, forward, left, right
 
-These states are a comprehensive set of states available from the evironment and
+These states are a comprehensive set of states available from the environment and
 represent a set of common states experienced by actual drivers in the real world.
 
 
-**QUESTION:** _How many states in total exist for the smartcab in this environment? 
-Does this number seem reasonable given that the goal of Q-Learning is to learn 
+**QUESTION:** _How many states in total exist for the smartcab in this environment?
+Does this number seem reasonable given that the goal of Q-Learning is to learn
 and make informed decisions about each state? Why or why not?_
 
 The number of states in this environment are 2 * 4 for each other input included
 since traffic light has two possible values and each additional input has 4 possible
-values. So, for the inputs chosen for self.state we have num_states= 2 * 4 * 4 * 4 * 4 
+values. So, for the inputs chosen for self.state we have num_states= 2 * 4 * 4 * 4 * 4
 which yields 512. So the qtable would represent a 512 X 4 (4 valid actions for each
 state) matrix. Since this is represented as a dictionary, this results in a dictionary
 with 2048 distinct keys.
 
 This number does see fairly large to sample and learn relevant states in 100 trial.
-if the smartcab does have trouble learning the best option would likely to remmove 
-input['right'] since a car on the right does not represent the complext traffic 
+if the smartcab does have trouble learning the best option would likely to remove
+input['right'] since a car on the right does not represent the complex traffic
 situations that can result from a car on the left, particularly at intersections.
-This would reduce the number of states to 128, which is a more reasonable number to 
+This would reduce the number of states to 128, which is a more reasonable number to
 sample in 100 trials.
 
 ### Implement a Q-Learning Driving Agent
 
-**QUESTION:** _What changes do you notice in the agent's behavior when compared to the 
+**QUESTION:** _What changes do you notice in the agent's behavior when compared to the
 basic driving agent when random actions were always taken? Why is this behavior occurring?_
 
 At first I didn't think my implementation was working because the initial rounds
 appeared random.  Soon the agent changed from driving aimlessly to honing in on
-the target. The agent's driving approved dramaticaly in a short time period and then
+the target. The agent's driving approved dramatically in a short time period and then
 the improvement began to level off.  
-This behavior is occuring because with each sampled state, action combination we
+This behavior is occurring because with each sampled state, action combination we
 update the q-table, adding values to inform the action decision of the agent.
 
 The one very unusual behavior I noticed in from the driving agent was driving in circles.
 When confronted with a red light the agent often chose to drive around the red
 light rather than to simply wait until it turned green. This may work well in the
-grid-world but it would be considred odd in the real world. Why is this occuring?
+grid-world but it would be considered odd in the real world. Why is this occurring?
 The highest quality state for all of the conditions studied, for a red light,
 is to turn right.  Any action other than turning right on a red (no matter the
 other elements of the state) has a q value <= 0.
 
 ### Improve the Q-Learning Driving Agent
 
-The starting paramaters for training the agent, which I refer to as base parameters
+The starting parameters for training the agent, which I refer to as base parameters
 are alpha (learning rate)= 0.1, gamma (discounted future reward)= 0.9, epsilon= 0.1
 
-The alpha value is fairly low which helps prevent changes in q from occuring too
+The alpha value is fairly low which helps prevent changes in q from occurring too
 rapidly. The gamma value is close to what we would choose in a deterministic instead
-of a stochastic enviroment.  This is value I was most interested in changing to see
+of a stochastic environment.  This is value I was most interested in changing to see
 the impact from the base case. Epsilon is low to allow for exploration.  I was less
-interested in this value because of the way exploration is implemented, that is 
+interested in this value because of the way exploration is implemented, that is
 if a random value is > epsilon with add a random value to q. This is a more gradual
 way of introducing exploration, since exploration is not purely dependent on whether
 we "roll" less than or great than epsilon.
 
-**QUESTION:** _Report the different values for the parameters tuned in your basic implementation 
-of Q-Learning. For which set of parameters does the agent perform best? How well 
+**QUESTION:** _Report the different values for the parameters tuned in your basic implementation
+of Q-Learning. For which set of parameters does the agent perform best? How well
 does the final driving agent perform?_
+
+#### Condition and Parameter Key
 
 | Condition Name         | Alpha | Gamma | Epsilon |
 |------------------------|-------|:-----:|--------:|
@@ -335,7 +337,7 @@ does the final driving agent perform?_
 | alphap25_gammap9_epsp1 | 0.25  | 0.90  | 0.10    |
 | alphap1_gammap9_epsp5  | 0.10  | 0.90  | 0.50    |
 
-
+### Global Success Rate
 
 | Condition Name         | Alpha | Gamma | Epsilon | Global Success Rate |
 |------------------------|-------|:-----:|--------:|---------------------|
@@ -347,36 +349,43 @@ does the final driving agent perform?_
 | alphap25_gammap9_epsp1 | 0.25  | 0.90  | 0.10    | 59%            |
 | alphap1_gammap9_epsp5  | 0.10  | 0.90  | 0.50    | 59%            |
 
+#### Success Count
+
 | Condition Name         | Alpha | Gamma | Epsilon | Number of Successes |
 |------------------------|-------|:-----:|--------:|---------------------|
-| alphap5_gammap9_epsp1  | 0.10  |  0.90 |    0.10 | 98                  |
-| alphap1_gammap9_epsp1  | 0,50  |  0.90 |    0.10 | 97                  |
+| alphap5_gammap9_epsp1  | 0.50  |  0.90 |    0.10 | 98                  |
+| alphap1_gammap9_epsp1  | 0.10 |  0.90 |    0.10 | 97                  |
 | alphap1_gammap25_epsp1 | 0.10  |  0.25 |    0.10 | 97                  |
-| alphap25_gammap9_epsp1 | 0.10  | 0.90  | 0.25    | 95                  |
-| alphap1_gammap9_epsp25  | 0.10  | 0.50  | 0.10    | 95                  |
-| alphap1_gammap5_epsp1 | 0.25  | 0.90  | 0.10    | 93                  |
+| alphap25_gammap9_epsp1 | 0.25  | 0.90  | 0.10    | 95                  |
+| alphap1_gammap9_epsp25  | 0.10  | 0.90  | 0.25    | 95                  |
+| alphap1_gammap5_epsp1 | 0.10  | 0.50  | 0.10    | 93                  |
 | alphap1_gammap9_epsp5  | 0.10  | 0.90  | 0.50    | 92                  |
+
+#### Q-table Length
 
 | Condition Name         | Alpha | Gamma | Epsilon | Table Length |
 |------------------------|-------|:-----:|--------:|--------------|
-| alphap25_gammap9_epsp1 | 0.10  |  0.90 |    0.10 | 87           |
-| alphap1_gammap5_epsp1  | 0,50  |  0.90 |    0.10 | 83           |
-| alphap1_gammap9_epsp5  | 0.10  |  0.25 |    0.10 | 78           |
+| alphap25_gammap9_epsp1 | 0.25  |  0.90 |    0.10 | 87           |
+| alphap1_gammap5_epsp1  | 0.10  |  0.50 |    0.10 | 83           |
+| alphap1_gammap9_epsp5  | 0.10  |  0.90 |    0.50 | 78           |
 | alphap1_gammap9_epsp25 | 0.10  | 0.90  | 0.25    | 70           |
-| alphap1_gammap9_epsp1  | 0.10  | 0.50  | 0.10    | 69           |
-| alphap5_gammap9_epsp1  | 0.25  | 0.90  | 0.10    | 64           |
-| alphap1_gammap25_epsp1 | 0.10  | 0.90  | 0.50    | 62           |
+| alphap1_gammap9_epsp1  | 0.10  | 0.90  | 0.10    | 69           |
+| alphap5_gammap9_epsp1  | 0.50  | 0.90  | 0.10    | 64           |
+| alphap1_gammap25_epsp1 | 0.10  | 0.25  | 0.10    | 62           |
 
+#### Plots
 
-
-```
 ![Length of Q table by round](https://github.com/baumanab/Udacity_MachineLearningEngineer_ND/blob/master/projects/smartcab/smartcab/report_images/len_qtable_plot.png)
 
 ![Enhanced View of Q table Length by round](https://github.com/baumanab/Udacity_MachineLearningEngineer_ND/blob/master/projects/smartcab/smartcab/report_images/len_qtable_plot_enhanced.png)
 
-![Sucess Rate](https://github.com/baumanab/Udacity_MachineLearningEngineer_ND/blob/master/projects/smartcab/smartcab/report_images/success_rate_plot.png)
-```
+![Success Rate](https://github.com/baumanab/Udacity_MachineLearningEngineer_ND/blob/master/projects/smartcab/smartcab/report_images/success_rate_plot.png)
 
+![Length of Q table by round](./report_images/len_qtable_plot.png)
+
+![Enhanced View of Q table Length by round](./report_images/len_qtable_plot_enhanced.png)
+
+![Success Rate](./report_images/success_rate_plot.png)
 
 
 #### Final Q-table for the base case (alphap1_gammap9_epsp1) represented as a python dictionary:
@@ -452,40 +461,33 @@ does the final driving agent perform?_
  (('red', 'right', None, None, 'forward'), 'forward'): -1.0,
  (('red', 'right', None, None, 'forward'), 'right'): -0.5,
  (('red', 'right', None, None, 'left'), None): 0.0}
- 
+
  ```
- 
- #### Final Q-table for the best case () represented as a python dictionary:
- 
+
+
+#### Final Q-table for the best case () represented as a python dictionary:
+
  ```python
- 
- 
- 
- 
+
+
+
+
  ```
-**QUESTION:** _Does your agent get close to finding an optimal policy, i.e. reach 
-the destination in the minimum possible time, and not incur any penalties? How 
+**QUESTION:** _Does your agent get close to finding an optimal policy, i.e. reach
+the destination in the minimum possible time, and not incur any penalties? How
 would you describe an optimal policy for this problem?_
 
 I do think my agent comes close to reaching the destination in the minimal possible
 time without incurring penalties. The final policy for the base case (alphap1_gammap9_epsp1)
-shows that only actions that follow driving rules are high qulaity whereas those that don't
+shows that only actions that follow driving rules are high quality whereas those that don't
 are low quality.  The only thing that I find suboptimal is that for a red light
 only right turns have a positive Q.  All other actions have either a negative Q
 or a Q of zero. The 0 Q's are likely the result of this action not being explored/sampled.
-The end result is that the agent tends to drive around in circles. This may play 
+The end result is that the agent tends to drive around in circles. This may play
 out well in the grid world but in the real world it would be odd at best and at worst
-it wastes gas and potentially time, as traffic conditions and delays from making 
-a circle are not as predictibable as the grid world.
+it wastes gas and potentially time, as traffic conditions and delays from making
+a circle are not as predictable as the grid world.
 
-I would describe an optimal policy as one in which the destination is reach in 
-the smallest time frame given that traffic rules are followed and unuusual driving
+I would describe an optimal policy as one in which the destination is reach in
+the smallest time frame given that traffic rules are followed and unusual driving
 behavior is not exhibited.
-
-
-
-
-
-
-
-
