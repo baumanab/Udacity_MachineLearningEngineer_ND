@@ -40,6 +40,7 @@ well as implementing Q learning in code.
 1. The [Study Wolf Blog](https://studywolf.wordpress.com/2012/11/25/reinforcement-learning-q-learning-and-exploration/)
 blog contains a great overview of reinforcement learning and Q-learning and even
 a [python code implementation](https://github.com/studywolf/blog/tree/master/RL/Cat%20vs%20Mouse%20exploration)
+This implementation was modified for use in this project see q_learn.py.
 
 2. [This](http://mnemstudio.org/path-finding-q-learning-tutorial.htm) great tutorial
 shows how Q-learning tables could be applied to teach an agent to move from a
@@ -650,3 +651,18 @@ behavior is avoided.
   (('red', 'right', None, None, 'forward'), 'forward'): -1.0,
   (('red', 'right', None, None, 'left'), 'forward'): -1.0}
  ```
+
+ ### References and Resources
+
+ 1. The [Study Wolf Blog](https://studywolf.wordpress.com/2012/11/25/reinforcement-learning-q-learning-and-exploration/)
+ blog contains a great overview of reinforcement learning and Q-learning and even
+ a [python code implementation](https://github.com/studywolf/blog/tree/master/RL/Cat%20vs%20Mouse%20exploration).
+ This implementation was modified for use in this project see q_learn.py.
+
+ 2. [This](http://mnemstudio.org/path-finding-q-learning-tutorial.htm) great tutorial
+ shows how Q-learning tables could be applied to teach an agent to move from a
+ randomly selected room, out of a house.
+
+ 3. [Demystifying Deep Reinforcement Learning](http://neuro.cs.ut.ee/demystifying-deep-reinforcement-learning/)
+ is another great resource with explanations of how Q learning, reinforcement learning,
+ and Markov decision processes relate.
