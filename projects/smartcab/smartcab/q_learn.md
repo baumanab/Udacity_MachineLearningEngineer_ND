@@ -325,6 +325,11 @@ we "roll" less than or great than epsilon.
 of Q-Learning. For which set of parameters does the agent perform best? How well
 does the final driving agent perform?_
 
+Parameters tuned (alpha, gamma, epsilon), their values, and the results for Key
+metrics, are tabulated and plotted, below. Parameters were sampled in a range where
+the intent is to fill in the parameters space between ranges if any particular
+setting demonstrates a promising trend.
+
 #### Condition and Parameter Key
 
 | Condition Name         | Alpha | Gamma | Epsilon |
@@ -337,7 +342,7 @@ does the final driving agent perform?_
 | alphap25_gammap9_epsp1 | 0.25  | 0.90  | 0.10    |
 | alphap1_gammap9_epsp5  | 0.10  | 0.90  | 0.50    |
 
-### Global Success Rate
+### Global Success Rate (successes/round)
 
 | Condition Name         | Alpha | Gamma | Epsilon | Global Success Rate |
 |------------------------|-------|:-----:|--------:|---------------------|
@@ -348,6 +353,12 @@ does the final driving agent perform?_
 | alphap1_gammap5_epsp1  | 0.10  | 0.50  | 0.10    | 67%            |
 | alphap25_gammap9_epsp1 | 0.25  | 0.90  | 0.10    | 59%            |
 | alphap1_gammap9_epsp5  | 0.10  | 0.90  | 0.50    | 59%            |
+
+- Success rate is measured as successes/round
+- The best success rates (78%, 76%) corresponds to:
+    + [alpha: 0.10, gamma: 0.90, epsilon: 0.10 ]
+    + [alpha: 0.5, gamma: 0.90, epsilon: 0.10]
+- The remaining conditions are 10 - 19% lower than the top conditions.
 
 #### Success Count
 
@@ -361,6 +372,14 @@ does the final driving agent perform?_
 | alphap1_gammap5_epsp1 | 0.10  | 0.50  | 0.10    | 93                  |
 | alphap1_gammap9_epsp5  | 0.10  | 0.90  | 0.50    | 92                  |
 
+- The overall number of successes per 100 trials are only marginally different per
+condition.
+- Combined with the success rate data that indicates that the agent is able to
+reach it's destination reliably, independent of the conditions, and that the primary
+difference is how many rounds this takes.
+- It's not clear if this is a function of agent parameters or random variation
+in the distance of the destination from the agent origin.
+
 #### Q-table Length
 
 | Condition Name         | Alpha | Gamma | Epsilon | Table Length |
@@ -373,20 +392,95 @@ does the final driving agent perform?_
 | alphap5_gammap9_epsp1  | 0.50  | 0.90  | 0.10    | 64           |
 | alphap1_gammap25_epsp1 | 0.10  | 0.25  | 0.10    | 62           |
 
+- Q-table length represents the number of distinct states encountered by the agent and
+assigned a Q-value.
+- The most samples state is [alpha: 0.25, gamma: 0.90, epsilon: 0.10 ]
+- Followed by [alpha: 0.10, gamma: 0.50, epsilon: 0.10 ]
+- and [alpha: 0.10, gamma: 0.90, epsilon: 0.50 ]
+- These settings also correspond to the lowest 3 success rates, so once again
+it is challenging to say whether or not this is truly a function of the parameters
+or the stochastic nature of the environment.
+
 #### Plots
 
+#### Length of Q-table by round
 ![Length of Q table by round](https://github.com/baumanab/Udacity_MachineLearningEngineer_ND/blob/master/projects/smartcab/smartcab/report_images/len_qtable_plot.png)
 
+#### Length of Q-table for first 200 rounds
 ![Enhanced View of Q table Length by round](https://github.com/baumanab/Udacity_MachineLearningEngineer_ND/blob/master/projects/smartcab/smartcab/report_images/len_qtable_plot_enhanced.png)
+
+#### Success Rate
 
 ![Success Rate](https://github.com/baumanab/Udacity_MachineLearningEngineer_ND/blob/master/projects/smartcab/smartcab/report_images/success_rate_plot.png)
 
-![Length of Q table by round](./report_images/len_qtable_plot.png)
+#### Agent with Largest Q-table vs. Agent with Highest Success Rate
 
-![Enhanced View of Q table Length by round](./report_images/len_qtable_plot_enhanced.png)
+- The agent with settings that generate the largest Q-table [alpha: 0.25, gamma: 0.90, gamma: 0.10]
+has 95 successes, a success rate of 59%, and a q table with 87 (state, action) combinations
+- The agent with settings that generate the best success rate [alpha: 0.25, gamma: 0.90, gamma: 0.10]
+has 97 successes, a success rate of 78%, and a q-table with 69 (state, action) combinations
+- There are 52 unique (state, action) combinations for largest - highest
+- There are 34 unique (state, action) combinations for highest - largest
 
-![Success Rate](./report_images/success_rate_plot.png)
 
+ #### Largest Q (state, action) combinations in largest not in highest
+
+```python
+[((('red', 'left', None, None, 'right'), 'right'), 7.823596515641668),
+ ((('red', None, None, 'left', 'right'), 'right'), 2.0),
+ ((('green', None, 'right', None, 'right'), 'right'), 2.0),
+ ((('green', None, None, 'left', 'right'), 'right'), 2.0),
+ ((('green', None, None, 'right', 'right'), 'right'), 2.0),
+ ((('red', None, None, 'forward', 'right'), 'right'), 2.0),
+ ((('green', None, None, 'right', 'forward'), 'forward'), 9.649999999999999),
+ ((('green', None, 'left', None, 'right'), 'right'), 2.0)]
+ ```
+
+ - Right hand turns are incentivized for most of the differences
+
+ #### Largest Q (state, action) combinations in highest not in largest
+
+```python
+[((('green', None, 'forward', None, 'forward'), 'forward'), 12.0),
+ ((('green', None, None, 'forward', 'right'), 'right'), 2.0),
+ ((('red', 'forward', None, None, 'right'), 'right'), 2.0),
+ ((('green', None, None, 'left', 'forward'), 'forward'), 12.1592),
+ ((('green', None, None, 'forward', 'forward'), 'forward'), 2.162),
+ ((('green', None, 'right', None, 'left'), 'left'), 2.0)]
+```
+- Other light behavior (left and forward) incentivized for differences
+
+#### For which set of parameters does the agent perform best?
+
+It's challenging to determine which set of parameters yields the best performance.
+In terms of overall successes per 100 trials, there is only a marginal differences
+for agents give the tested parameter sets. In terms of rate and explored state action
+combinations, there are larger differences.  All things considered I chose the agent
+with the highest success rate, partially since the unique (state, action) combinations
+for the agent with the largest Q-table incentivize behaviors best avoided (see below).
+
+- The agent with settings that generate the best success rate [alpha: 0.25, gamma: 0.90, gamma: 0.10]
+has 97 successes, a success rate of 78%, and a q-table with 69 (state, action) combinations
+
+
+**QUESTION:** _Does your agent get close to finding an optimal policy, i.e. reach
+the destination in the minimum possible time, and not incur any penalties? How
+would you describe an optimal policy for this problem?_
+
+I do think my agent comes close to reaching the destination in the minimal possible
+time without incurring penalties. The final policy for the base case (alphap1_gammap9_epsp1)
+shows that only actions that follow driving rules are high quality whereas those that don't
+are low quality.  The only thing that I find suboptimal is that right turns are
+highly incentivized. The end result is that the agent tends to drive around in circles. This may play
+out well in the grid world but in the real world it would be odd at best and at worst
+it would waste gas and potentially time, as traffic conditions and delays from making
+a circle are not as predictable as the grid world (gridworld is more deterministic).
+
+I would describe an optimal policy as one in which the destination is reached in
+the smallest time frame given that traffic rules are followed and unusual driving
+behavior is avoided.
+
+### Q-tables
 
 #### Final Q-table for the base case (alphap1_gammap9_epsp1) represented as a python dictionary:
 
@@ -465,29 +559,94 @@ does the final driving agent perform?_
  ```
 
 
-#### Final Q-table for the best case () represented as a python dictionary:
+#### Final Q-table for largest Q-Table (alphap25_gammap9_epsp1) represented as a python dictionary:
 
  ```python
-
-
-
-
+ {(('green', None, None, None, 'forward'), None): 0.0,
+  (('green', None, None, None, 'forward'), 'forward'): 11.473222212188928,
+  (('green', None, None, None, 'forward'), 'left'): -0.5,
+  (('green', None, None, None, 'forward'), 'right'): -0.5,
+  (('green', None, None, None, 'left'), 'left'): 11.858519166007213,
+  (('green', None, None, None, 'right'), None): 0.0,
+  (('green', None, None, None, 'right'), 'forward'): -0.5,
+  (('green', None, None, None, 'right'), 'left'): -0.5,
+  (('green', None, None, None, 'right'), 'right'): 11.5790139087193,
+  (('green', None, None, 'forward', 'right'), 'forward'): -0.5,
+  (('green', None, None, 'left', 'forward'), 'right'): -0.5,
+  (('green', None, None, 'left', 'right'), 'right'): 2.0,
+  (('green', None, None, 'right', 'forward'), 'forward'): 9.649999999999999,
+  (('green', None, None, 'right', 'forward'), 'left'): -0.5,
+  (('green', None, None, 'right', 'right'), 'forward'): -0.5,
+  (('green', None, None, 'right', 'right'), 'right'): 2.0,
+  (('green', None, 'forward', None, 'forward'), 'right'): -0.5,
+  (('green', None, 'forward', None, 'left'), None): 0.0,
+  (('green', None, 'forward', None, 'left'), 'forward'): -0.5,
+  (('green', None, 'forward', None, 'left'), 'right'): -0.5,
+  (('green', None, 'forward', None, 'right'), 'forward'): -0.5,
+  (('green', None, 'left', None, 'forward'), None): 0.0,
+  (('green', None, 'left', None, 'forward'), 'forward'): 2.0,
+  (('green', None, 'left', None, 'forward'), 'left'): -0.5,
+  (('green', None, 'left', None, 'forward'), 'right'): -0.5,
+  (('green', None, 'left', None, 'left'), None): 0.0,
+  (('green', None, 'left', None, 'left'), 'forward'): -0.5,
+  (('green', None, 'left', None, 'left'), 'right'): -0.5,
+  (('green', None, 'left', None, 'right'), None): 0.0,
+  (('green', None, 'left', None, 'right'), 'right'): 2.0,
+  (('green', None, 'left', 'right', 'right'), 'left'): -0.5,
+  (('green', None, 'right', None, 'right'), 'right'): 2.0,
+  (('green', 'forward', None, None, 'left'), None): 0.0,
+  (('green', 'left', None, None, 'forward'), 'forward'): 6.0249028008791345,
+  (('green', 'left', None, None, 'forward'), 'right'): -0.5,
+  (('green', 'left', None, None, 'right'), None): 0.0,
+  (('green', 'left', None, None, 'right'), 'forward'): -0.5,
+  (('green', 'left', None, None, 'right'), 'left'): -0.5,
+  (('green', 'right', None, None, 'forward'), None): 0.0,
+  (('green', 'right', None, None, 'forward'), 'left'): -1.0,
+  (('green', 'right', None, None, 'right'), None): 0.0,
+  (('red', None, None, None, 'forward'), None): 0.0,
+  (('red', None, None, None, 'forward'), 'forward'): -1.0,
+  (('red', None, None, None, 'forward'), 'left'): -1.0,
+  (('red', None, None, None, 'forward'), 'right'): 8.842588452559566,
+  (('red', None, None, None, 'left'), None): 0.0,
+  (('red', None, None, None, 'left'), 'forward'): -1.0,
+  (('red', None, None, None, 'left'), 'left'): -1.0,
+  (('red', None, None, None, 'left'), 'right'): 10.273587054351314,
+  (('red', None, None, None, 'right'), None): 0.0,
+  (('red', None, None, None, 'right'), 'forward'): -1.0,
+  (('red', None, None, None, 'right'), 'left'): -1.0,
+  (('red', None, None, None, 'right'), 'right'): 13.034483252238077,
+  (('red', None, None, 'forward', 'forward'), None): 0.0,
+  (('red', None, None, 'forward', 'forward'), 'left'): -1.0,
+  (('red', None, None, 'forward', 'left'), 'forward'): -1.0,
+  (('red', None, None, 'forward', 'right'), 'left'): -1.0,
+  (('red', None, None, 'forward', 'right'), 'right'): 2.0,
+  (('red', None, None, 'left', 'left'), 'right'): -0.5,
+  (('red', None, None, 'left', 'right'), 'right'): 2.0,
+  (('red', None, None, 'right', 'forward'), 'left'): -1.0,
+  (('red', None, None, 'right', 'right'), None): 0.0,
+  (('red', None, None, 'right', 'right'), 'left'): -1.0,
+  (('red', None, 'forward', None, 'left'), 'forward'): -1.0,
+  (('red', None, 'forward', None, 'right'), 'right'): -1.0,
+  (('red', None, 'left', None, 'forward'), None): 0.0,
+  (('red', None, 'left', None, 'forward'), 'left'): -1.0,
+  (('red', None, 'left', None, 'forward'), 'right'): -0.5,
+  (('red', None, 'right', None, 'forward'), 'left'): -1.0,
+  (('red', 'forward', None, None, 'forward'), None): 0.0,
+  (('red', 'forward', None, None, 'forward'), 'left'): -1.0,
+  (('red', 'forward', None, None, 'forward'), 'right'): -0.5,
+  (('red', 'forward', None, None, 'left'), 'right'): -0.5,
+  (('red', 'left', None, None, 'forward'), None): 0.0,
+  (('red', 'left', None, None, 'forward'), 'forward'): -1.0,
+  (('red', 'left', None, None, 'forward'), 'left'): -1.0,
+  (('red', 'left', None, None, 'forward'), 'right'): -0.5,
+  (('red', 'left', None, None, 'left'), None): 0.0,
+  (('red', 'left', None, None, 'left'), 'forward'): -1.0,
+  (('red', 'left', None, None, 'left'), 'left'): -1.0,
+  (('red', 'left', None, None, 'left'), 'right'): -0.5,
+  (('red', 'left', None, None, 'right'), None): 0.0,
+  (('red', 'left', None, None, 'right'), 'forward'): -1.0,
+  (('red', 'left', None, None, 'right'), 'left'): -1.0,
+  (('red', 'left', None, None, 'right'), 'right'): 7.823596515641668,
+  (('red', 'right', None, None, 'forward'), 'forward'): -1.0,
+  (('red', 'right', None, None, 'left'), 'forward'): -1.0}
  ```
-**QUESTION:** _Does your agent get close to finding an optimal policy, i.e. reach
-the destination in the minimum possible time, and not incur any penalties? How
-would you describe an optimal policy for this problem?_
-
-I do think my agent comes close to reaching the destination in the minimal possible
-time without incurring penalties. The final policy for the base case (alphap1_gammap9_epsp1)
-shows that only actions that follow driving rules are high quality whereas those that don't
-are low quality.  The only thing that I find suboptimal is that for a red light
-only right turns have a positive Q.  All other actions have either a negative Q
-or a Q of zero. The 0 Q's are likely the result of this action not being explored/sampled.
-The end result is that the agent tends to drive around in circles. This may play
-out well in the grid world but in the real world it would be odd at best and at worst
-it wastes gas and potentially time, as traffic conditions and delays from making
-a circle are not as predictable as the grid world.
-
-I would describe an optimal policy as one in which the destination is reach in
-the smallest time frame given that traffic rules are followed and unusual driving
-behavior is not exhibited.
