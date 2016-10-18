@@ -23,7 +23,7 @@ class LearningAgent(Agent):
         # Initialize any additional variables
         self.ai= None # reset
         self.actions= self.env.valid_actions
-        self.ai = qlearn.QLearn(self.actions, alpha=0.1, gamma=0.9, epsilon=0.5) 
+        self.ai = qlearn.QLearn(self.actions, alpha=0.1, gamma=0.9, epsilon=0.1) 
         # create a container to hold metric data
         self.data_dict= dict(successes= list(), lenq= list(), qtables= list())      
  
