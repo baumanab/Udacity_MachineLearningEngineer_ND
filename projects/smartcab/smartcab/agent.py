@@ -23,7 +23,7 @@ class LearningAgent(Agent):
         # Initialize any additional variables
         self.ai= None # reset
         self.actions= self.env.valid_actions
-        self.ai = qlearn.QLearn(self.actions, alpha=0.1, gamma=0.9, epsilon=0.1) 
+        self.ai = qlearn.QLearn(self.actions, alpha=0.1, gamma=0.9, epsilon=0.5) 
         # create a container to hold metric data
         self.data_dict= dict(successes= list(), lenq= list(), qtables= list())      
  
@@ -46,13 +46,29 @@ class LearningAgent(Agent):
             data_dict['successes'].append(1)
         else:
             data_dict['successes'].append(0)
+   
+    def create__suffix(self, alpha, gamma, epsilon):
     
+        param= [alpha, gamma, epsilon]
+        params= [str(x) for x in param]
+        paramsp= [x.replace('.', 'p') for x in params]
+        
+        suffix= ''
+        for x in paramsp:            
+            suffix= suffix + '_' + x
+            
+        suffix= suffix + '.pkl'
+        
+        return suffix
     
-    def dump_pkl(self, my_object, filename):
+    def dump_pkl(self, my_object, filename, suffix): 
+        
+        filename= filename + suffix
+            
         with open(filename, "w") as outfile:
             pickle.dump(my_object, outfile)
   
-
+   
     def update(self, t):
         # Gather inputs
         self.next_waypoint = self.planner.next_waypoint()  # from route planner, also displayed by simulator
@@ -80,6 +96,7 @@ class LearningAgent(Agent):
         self.ai.learn(self.state, action, reward, next_state)
 
         #print "LearningAgent.update(): deadline = {}, inputs = {}, action = {}, reward = {}".format(deadline, inputs, action, reward)  # [debug]
+     
         
         # aceess variables for metrics
         location = self.env.agent_states[self]["location"] 
@@ -87,7 +104,7 @@ class LearningAgent(Agent):
         
         self.data_collector(location, destination, self.ai.q, self.data_dict)
         
-                
+           
         
         
             
@@ -111,8 +128,9 @@ def run():
     sim.run(n_trials=100)  # run for a specified number of trials
     # NOTE: To quit midway, press Esc or close pygame window, or hit Ctrl+C on the command-line
     
-    a.dump_pkl(a.data_dict, 'data_dict.pkl')
-    
+    suffix= a.create__suffix(a.ai.alpha, a.ai.gamma, a.ai.epsilon)
+    a.dump_pkl(a.data_dict, 'data_dict', suffix)
+   
     
     
  
