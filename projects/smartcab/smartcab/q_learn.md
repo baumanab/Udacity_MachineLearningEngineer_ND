@@ -258,17 +258,29 @@ deadline = self.env.get_deadline(self)
 # Update current state
 self.state = (inputs['light'], inputs['oncoming'], inputs['left'], inputs['right'], self.next_waypoint)
 ```
-
-The states consist of:
-- Lights: red or green
-- Oncoming traffic: None, forward, left, or right
-- Traffic left: None, forward, left, right
-- Traffic right: None, forward, left, right
-- Next Waypoint: None, forward, left, right
-
-These states are a comprehensive set of states available from the environment and
+Included states are a comprehensive set of states available from the environment and
 represent a set of common states experienced by actual drivers in the real world.
 
+The included states consist of:
+- **Lights:** {red or green} - This is a critical input that should impact driving behavior.
+For a red light the agent should stop or turn right.  For a green light the agent
+may go forward, left (accounting for traffic), or right.
+- **Oncoming traffic:** {None, forward, left, or right} - The agent must be aware
+of the positon of oncoming traffic to determine if a particular action is safe or not.
+For example, a right turn at a red light is not advisable with oncomiing traffic to the left.
+A left turn at a green light is not advisable with forward oncoming traffic.
+- **Traffic left:** {None, forward, left, right} - The agent needs to know where
+surrounding traffic is at a light to know whether to execute a turn and in which 
+direction.
+- **Traffic right:** {None, forward, left, right}- The agent needs to know where
+surrounding traffic is at a light to know whether to execute a turn and in which 
+direction.
+- **Next Waypoint:** {None, forward, left, right} - The agent needs to know where
+the next waypoint is, in terms of direction, in order to move towards the destination.
+
+The state deadline could be included but this would not serve the agent in making
+reasonabble decisons based on traffic.  Including deadline wouuld only serve to 
+increase the potential states that would need to be experienced to learn how to drive.
 
 **QUESTION:** _How many states in total exist for the smartcab in this environment?
 Does this number seem reasonable given that the goal of Q-Learning is to learn
@@ -342,18 +354,28 @@ setting demonstrates a promising trend.
 | alphap1_gammap5_epsp1  | 0.10  | 0.50  | 0.10    |
 | alphap25_gammap9_epsp1 | 0.25  | 0.90  | 0.10    |
 | alphap1_gammap9_epsp5  | 0.10  | 0.90  | 0.50    |
+| alphap1_gammap1_epsp25  | 0.10  | 0.10  | 0.25    |
+| alphap25_gammap1_epsp25 | 0.25  | 0.10  | 0.25    |
+| alphap1_gammap1_epsp5  | 0.10  | 0.10  | 0.50    |
+
+
 
 ### Global Success Rate (successes/round)
 
 | Condition Name         | Alpha | Gamma | Epsilon | Global Success Rate |
 |------------------------|-------|:-----:|--------:|---------------------|
-| alphap1_gammap9_epsp1  | 0.10  |  0.90 |    0.10 | 78%            |
-| alphap5_gammap9_epsp1  | 0.50  |  0.90 |    0.10 | 76%            |
-| alphap1_gammap25_epsp1 | 0.10  |  0.25 |    0.10 | 68%            |
-| alphap1_gammap9_epsp25 | 0.10  | 0.90  | 0.25    | 68%            |
-| alphap1_gammap5_epsp1  | 0.10  | 0.50  | 0.10    | 67%            |
-| alphap25_gammap9_epsp1 | 0.25  | 0.90  | 0.10    | 59%            |
-| alphap1_gammap9_epsp5  | 0.10  | 0.90  | 0.50    | 59%            |
+| alphap1_gammap9_epsp5  | 0.10  |  0.90 |    0.10 | 79%            |
+| alphap25_gammap1_epsp25  | 0.25  |  0.10 |    0.25 | 72%            |
+| alphap1_gammap9_epsp25 | 0.10  |  0.90 |    0.25 | 71%            |
+| alphap1_gammap1_epsp5 | 0.10  | 0.10  | 0.50    | 70%            |
+| alphap1_gammap25_epsp1  | 0.10  | 0.25  | 0.10    | 70%            |
+| alphap1_gammap1_epsp25 | 0.10  | 0.10  | 0.25    | 70%            |
+| alphap1_gammap5_epsp1  | 0.10  | 0.50  | 0.10    | 69%            |
+| alphap5_gammap9_epsp1  | 0.50  | 0.90  | 0.10    | 66%            |
+| alphap1_gammap9_epsp1 | 0.10  | 0.90  | 0.10     | 58%            |
+| alphap25_gammap9_epsp1  | 0.25  | 0.90  | 0.10    | 39%            |
+
+
 
 - Success rate is measured as successes/round
 - The best success rates (78%, 76%) corresponds to:
@@ -365,13 +387,17 @@ setting demonstrates a promising trend.
 
 | Condition Name         | Alpha | Gamma | Epsilon | Number of Successes |
 |------------------------|-------|:-----:|--------:|---------------------|
-| alphap5_gammap9_epsp1  | 0.50  |  0.90 |    0.10 | 98                  |
-| alphap1_gammap9_epsp1  | 0.10 |  0.90 |    0.10 | 97                  |
-| alphap1_gammap25_epsp1 | 0.10  |  0.25 |    0.10 | 97                  |
-| alphap25_gammap9_epsp1 | 0.25  | 0.90  | 0.10    | 95                  |
-| alphap1_gammap9_epsp25  | 0.10  | 0.90  | 0.25    | 95                  |
-| alphap1_gammap5_epsp1 | 0.10  | 0.50  | 0.10    | 93                  |
-| alphap1_gammap9_epsp5  | 0.10  | 0.90  | 0.50    | 92                  |
+|   alphap1_gammap9_epsp5  | 0.10  |  0.90 |    0.50 | 100                  |
+|   alphap25_gammap1_epsp25  | 0.25 |  0.10 |    0.25 | 99                  |
+|   alphap1_gammap25_epsp1 | 0.10  |  0.25 |    0.10 | 99                  |
+|   alphap1_gammap5_epsp1 | 0.10  | 0.50  | 0.10    | 98                  |
+|   alphap1_gammap1_epsp5  | 0.10  | 0.10  | 0.50    | 98                  |
+|   alphap5_gammap9_epsp1 | 0.50  | 0.10  | 0.10    | 97                  |
+|   alphap1_gammap1_epsp25  | 0.10  | 0.90  | 0.50    | 96                  |
+|   alphap1_gammap9_epsp25  | 0.10  | 0.90  | 0.25    | 95                  |
+|   alphap1_gammap9_epsp1 | 0.10  | 0.90  | 0.10    | 92                  |
+|   alphap25_gammap9_epsp1  | 0.10  | 0.90  | 0.50    | 73                  |
+
 
 - The overall number of successes per 100 trials are only marginally different per
 condition.
@@ -385,13 +411,17 @@ in the distance of the destination from the agent origin.
 
 | Condition Name         | Alpha | Gamma | Epsilon | Table Length |
 |------------------------|-------|:-----:|--------:|--------------|
-| alphap25_gammap9_epsp1 | 0.25  |  0.90 |    0.10 | 87           |
-| alphap1_gammap5_epsp1  | 0.10  |  0.50 |    0.10 | 83           |
-| alphap1_gammap9_epsp5  | 0.10  |  0.90 |    0.50 | 78           |
-| alphap1_gammap9_epsp25 | 0.10  | 0.90  | 0.25    | 70           |
-| alphap1_gammap9_epsp1  | 0.10  | 0.90  | 0.10    | 69           |
-| alphap5_gammap9_epsp1  | 0.50  | 0.90  | 0.10    | 64           |
-| alphap1_gammap25_epsp1 | 0.10  | 0.25  | 0.10    | 62           |
+|  alphap1_gammap9_epsp1 | 0.10  |  0.90 |    0.10 | 82           |
+|  alphap1_gammap9_epsp25  | 0.10  |  0.90 |    0.25 | 80         |
+|  alphap25_gammap9_epsp1  | 0.25  |  0.90 |    0.10 | 72         |
+|  alphap1_gammap1_epsp25 | 0.10  | 0.10  | 0.25    | 70          |
+|  alphap5_gammap9_epsp1  | 0.10  | 0.50  | 0.10    | 68          |
+|  alphap25_gammap1_epsp25  | 0.250  | 0.10  | 0.25    | 66       |
+|  alphap1_gammap5_epsp1 | 0.10  | 0.50  | 0.10    | 66           |
+|  alphap1_gammap1_epsp5  | 0.10  | 0.10  | 0.50    | 64          |
+|  alphap1_gammap25_epsp1  | 0.10  | 0.25  | 0.10    | 57         |
+|  alphap1_gammap9_epsp5 | 0.10  | 0.90  | 0.50    | 54           |
+
 
 - Q-table length represents the number of distinct states encountered by the agent and
 assigned a Q-value.
@@ -471,11 +501,17 @@ would you describe an optimal policy for this problem?_
 I do think my agent comes close to reaching the destination in the minimal possible
 time without incurring penalties. The final policy for the base case (alphap1_gammap9_epsp1)
 shows that only actions that follow driving rules are high quality whereas those that don't
-are low quality.  The only thing that I find suboptimal is that right turns are
+are low quality.  One thing that I find suboptimal is that right turns are
 highly incentivized. The end result is that the agent tends to drive around in circles. This may play
 out well in the grid world but in the real world it would be odd at best and at worst
 it would waste gas and potentially time, as traffic conditions and delays from making
 a circle are not as predictable as the grid world (gridworld is more deterministic).
+Another consideration is that the agent was only able to explore __ (state, action) pairs
+out of ___ (state, action), or %. Note only is this not a very comprehensive set of
+experience, we don't know how many times each state was experienced.  It may take 
+several visits to a state to learn the optimal action for that state. This situation
+will result in an agent that encouteres new situations frequently, without the experience
+to make the optimal choice of action for that state.
 
 I would describe an optimal policy as one in which the destination is reached in
 the smallest time frame given that traffic rules are followed and unusual driving
