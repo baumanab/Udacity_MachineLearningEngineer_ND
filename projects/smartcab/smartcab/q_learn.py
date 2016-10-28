@@ -30,11 +30,10 @@ class QLearn:
 
     def updateQ(self, state, action, reward, value):
     
-        priorQ = self.q.get((state, action), None)
-        if priorQ is None:
-            self.q[(state, action)] = reward
-        else:
-            self.q[(state, action)] = priorQ + self.alpha * (value - priorQ)
+    
+        priorQ = self.getQ(state, action)
+
+        self.q[(state, action)] = priorQ + self.alpha * (value - priorQ)
 
     def chooseAction(self, state):
     
