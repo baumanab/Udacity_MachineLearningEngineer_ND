@@ -364,7 +364,7 @@ setting demonstrates a promising trend.
 
 | Condition Name         | Alpha | Gamma | Epsilon | Global Success Rate |
 |------------------------|-------|:-----:|--------:|---------------------|
-| alphap1_gammap9_epsp5  | 0.10  |  0.90 |    0.10 | 79%            |
+| alphap1_gammap9_epsp5  | 0.10  |  0.90 |    0.50 | 79%            |
 | alphap25_gammap1_epsp25  | 0.25  |  0.10 |    0.25 | 72%            |
 | alphap1_gammap9_epsp25 | 0.10  |  0.90 |    0.25 | 71%            |
 | alphap1_gammap1_epsp5 | 0.10  | 0.10  | 0.50    | 70%            |
@@ -377,11 +377,17 @@ setting demonstrates a promising trend.
 
 
 
-- Success rate is measured as successes/round
-- The best success rates (78%, 76%) corresponds to:
+- Success rate is measured as successes/round (number of successes normalized by rounds)
+- The best success rates (79%) corresponds [alpha: 0.10, gamma: 0.90, epsilon: 0.50 ]
+- Most other condtiions are in the range of 66 - 72%
+- The worst performing conditions had rates of 39 and 58%, respectively corresponding to
     + [alpha: 0.10, gamma: 0.90, epsilon: 0.10 ]
-    + [alpha: 0.5, gamma: 0.90, epsilon: 0.10]
-- The remaining conditions are 10 - 19% lower than the top conditions.
+    + [alpha: 0.25, gamma: 0.90, epsilon: 0.10 ]
+
+ Generally speaking the higher performing conditions correspond to those with higher
+ epsilon, suggesting that a larger exploration rate is not conducive to success
+ over 100 trials.  It would be interesting to see how exploration would contribute
+ to long terms success with a set of trials much greater than 100.
 
 #### Success Count
 
@@ -399,8 +405,8 @@ setting demonstrates a promising trend.
 |   alphap25_gammap9_epsp1  | 0.10  | 0.90  | 0.50    | 73                  |
 
 
-- The overall number of successes per 100 trials are only marginally different per
-condition.
+- The overall number of successes per 100 trials are only marginally different for 
+most conditons (8 of 10 conditons are within 5%, 9 of 10 withing 7%)
 - Combined with the success rate data that indicates that the agent is able to
 reach it's destination reliably, independent of the conditions, and that the primary
 difference is how many rounds this takes.
@@ -425,10 +431,10 @@ in the distance of the destination from the agent origin.
 
 - Q-table length represents the number of distinct states encountered by the agent and
 assigned a Q-value.
-- The most samples state is [alpha: 0.25, gamma: 0.90, epsilon: 0.10 ]
-- Followed by [alpha: 0.10, gamma: 0.50, epsilon: 0.10 ]
-- and [alpha: 0.10, gamma: 0.90, epsilon: 0.50 ]
-- These settings also correspond to the lowest 3 success rates, so once again
+- The most sampled state is [alpha: 0.10, gamma: 0.90, epsilon: 0.10 ]
+- Followed by [alpha: 0.10, gamma: 0.90, epsilon: 0.25 ]
+- and [alpha: 0.25, gamma: 0.90, epsilon: 0.10 ]
+- Two of these conditions also correspond to the lowest 3 success rates, so once again
 it is challenging to say whether or not this is truly a function of the parameters
 or the stochastic nature of the environment.
 
@@ -446,52 +452,49 @@ or the stochastic nature of the environment.
 
 #### Agent with Largest Q-table vs. Agent with Highest Success Rate
 
-- The agent with settings that generate the largest Q-table [alpha: 0.25, gamma: 0.90, gamma: 0.10]
-has 95 successes, a success rate of 59%, and a q table with 87 (state, action) combinations
-- The agent with settings that generate the best success rate [alpha: 0.25, gamma: 0.90, gamma: 0.10]
-has 97 successes, a success rate of 78%, and a q-table with 69 (state, action) combinations
+- The agent with settings that generate the largest Q-table [alpha: 0.10, gamma: 0.90, gamma: 0.10]
+achieved 92 successes, a success rate of 59%, and a q table with 82 (state, action) combinations
+- The agent with settings that generate the best success rate [alpha: 0.10, gamma: 0.90, gamma: 0.50]
+achieved 100 successes, a success rate of 79%, and a q-table with 54 (state, action) combinations
 - There are 52 unique (state, action) combinations for largest - highest
-- There are 34 unique (state, action) combinations for highest - largest
+- There are 24 unique (state, action) combinations for highest - largest
 
 
- #### Largest Q (state, action) combinations in largest not in highest
-
-```python
-[((('red', 'left', None, None, 'right'), 'right'), 7.823596515641668),
- ((('red', None, None, 'left', 'right'), 'right'), 2.0),
- ((('green', None, 'right', None, 'right'), 'right'), 2.0),
- ((('green', None, None, 'left', 'right'), 'right'), 2.0),
- ((('green', None, None, 'right', 'right'), 'right'), 2.0),
- ((('red', None, None, 'forward', 'right'), 'right'), 2.0),
- ((('green', None, None, 'right', 'forward'), 'forward'), 9.649999999999999),
- ((('green', None, 'left', None, 'right'), 'right'), 2.0)]
- ```
-
- - Right hand turns are incentivized for most of the differences
-
- #### Largest Q (state, action) combinations in highest not in largest
+ #### Largest Postive Q (state, action) combinations in largest not in highest
 
 ```python
-[((('green', None, 'forward', None, 'forward'), 'forward'), 12.0),
- ((('green', None, None, 'forward', 'right'), 'right'), 2.0),
- ((('red', 'forward', None, None, 'right'), 'right'), 2.0),
- ((('green', None, None, 'left', 'forward'), 'forward'), 12.1592),
- ((('green', None, None, 'forward', 'forward'), 'forward'), 2.162),
- ((('green', None, 'right', None, 'left'), 'left'), 2.0)]
+[((('green', None, None, 'forward', 'right'), 'right'), 0.56),
+ ((('green', None, 'left', None, 'left'), 'left'), 0.2),
+ ((('green', 'right', None, None, 'right'), 'right'), 1.0728817731752178),
+ ((('green', None, 'right', None, 'left'), 'left'), 0.2),
+ ((('green', None, 'right', None, 'right'), 'right'), 0.2),
+ ((('green', None, None, 'left', 'left'), 'left'), 0.2),
+ ((('green', 'left', None, None, 'forward'), 'left'), 2.538488747917375),
+ ((('green', 'forward', None, None, 'right'), 'forward'), 1.610371982973119)]
 ```
-- Other light behavior (left and forward) incentivized for differences
+
+ #### Largest Positive Q (state, action) combinations in highest not in largest
+
+```python
+[((('red', 'left', None, None, 'right'), 'right'), 0.4518415754314937),
+ ((('green', None, 'left', None, 'forward'), 'forward'), 3.5702372),
+ ((('green', None, None, 'left', 'forward'), 'forward'), 0.5582),
+ ((('green', None, 'forward', None, 'forward'), 'forward'), 0.398),
+ ((('green', None, 'left', None, 'right'), 'right'), 0.542),
+ ((('green', 'forward', None, None, 'forward'), 'forward'), 1.2800000000000002),
+ ((('green', 'left', None, None, 'right'), 'forward'), 0.5248207968130907)]
+```
 
 #### For which set of parameters does the agent perform best?
 
 It's challenging to determine which set of parameters yields the best performance.
 In terms of overall successes per 100 trials, there is only a marginal differences
-for agents give the tested parameter sets. In terms of rate and explored state action
+for most agents given the tested parameter sets. In terms of rate and explored state action
 combinations, there are larger differences.  All things considered I chose the agent
-with the highest success rate, partially since the unique (state, action) combinations
-for the agent with the largest Q-table incentivize behaviors best avoided (see below).
+with the highest success rate.
 
-- The agent with settings that generate the best success rate [alpha: 0.25, gamma: 0.90, gamma: 0.10]
-has 97 successes, a success rate of 78%, and a q-table with 69 (state, action) combinations
+- The agent with settings that generate the best success rate [alpha: 0.10, gamma: 0.90, gamma: 0.50]
+achieved 100 successes, a success rate of 79%, and a q-table with 54 (state, action) combinations
 
 
 **QUESTION:** _Does your agent get close to finding an optimal policy, i.e. reach
@@ -499,18 +502,18 @@ the destination in the minimum possible time, and not incur any penalties? How
 would you describe an optimal policy for this problem?_
 
 I do think my agent comes close to reaching the destination in the minimal possible
-time without incurring penalties. The final policy for the base case (alphap1_gammap9_epsp1)
-shows that only actions that follow driving rules are high quality whereas those that don't
-are low quality.  One thing that I find suboptimal is that right turns are
-highly incentivized. The end result is that the agent tends to drive around in circles. This may play
+time without incurring penalties. The final policy shows that only actions that 
+follow driving rules are high quality whereas those that don't are low quality.  
+One thing that I find suboptimal is that right turns are highly incentivized. The 
+end result is that the agent tends to drive around in circles. This may play
 out well in the grid world but in the real world it would be odd at best and at worst
 it would waste gas and potentially time, as traffic conditions and delays from making
 a circle are not as predictable as the grid world (gridworld is more deterministic).
-Another consideration is that the agent was only able to explore __ (state, action) pairs
-out of ___ (state, action), or %. Note only is this not a very comprehensive set of
-experience, we don't know how many times each state was experienced.  It may take 
+Another consideration is that the agent was only able to explore a small fraction
+of the (state, action) space . Note only is this not a very comprehensive set of
+experience,s we don't know how many times each state was experienced.  It may take 
 several visits to a state to learn the optimal action for that state. This situation
-will result in an agent that encouteres new situations frequently, without the experience
+will result in an agent that encouters new situations frequently, without the experience
 to make the optimal choice of action for that state.
 
 I would describe an optimal policy as one in which the destination is reached in
@@ -522,76 +525,88 @@ behavior is avoided.
 #### Final Q-table for the base case (alphap1_gammap9_epsp1) represented as a python dictionary:
 
 ```python
-
 {(('green', None, None, None, 'forward'), None): 0.0,
- (('green', None, None, None, 'forward'), 'forward'): 6.132283212465348,
- (('green', None, None, None, 'left'), 'left'): 8.43767377788923,
- (('green', None, None, None, 'right'), 'left'): -0.5,
- (('green', None, None, None, 'right'), 'right'): 6.809170982132021,
- (('green', None, None, 'forward', 'forward'), 'forward'): 2.162,
- (('green', None, None, 'forward', 'left'), 'right'): -0.5,
- (('green', None, None, 'forward', 'right'), 'right'): 2.0,
+ (('green', None, None, None, 'forward'), 'forward'): 10.76721511186147,
+ (('green', None, None, None, 'forward'), 'left'): -0.05,
+ (('green', None, None, None, 'forward'), 'right'): -0.05,
+ (('green', None, None, None, 'left'), 'left'): 11.198237683682358,
+ (('green', None, None, None, 'right'), None): 0.0,
+ (('green', None, None, None, 'right'), 'left'): -0.05,
+ (('green', None, None, None, 'right'), 'right'): 11.974904353302415,
+ (('green', None, None, 'forward', 'forward'), None): 0.0,
+ (('green', None, None, 'forward', 'forward'), 'forward'): 0.2,
+ (('green', None, None, 'forward', 'forward'), 'left'): -0.05,
+ (('green', None, None, 'forward', 'forward'), 'right'): -0.05,
+ (('green', None, None, 'forward', 'left'), 'right'): -0.05,
+ (('green', None, None, 'forward', 'right'), None): 0.0,
+ (('green', None, None, 'forward', 'right'), 'left'): -0.05,
+ (('green', None, None, 'forward', 'right'), 'right'): 0.56,
  (('green', None, None, 'left', 'forward'), None): 0.0,
- (('green', None, None, 'left', 'forward'), 'forward'): 12.1592,
- (('green', None, None, 'left', 'forward'), 'left'): -0.5,
- (('green', None, None, 'left', 'forward'), 'right'): -0.5,
- (('green', None, None, 'left', 'left'), 'right'): -0.5,
- (('green', None, None, 'right', 'forward'), 'left'): -0.5,
- (('green', None, 'forward', None, 'forward'), 'forward'): 12.0,
+ (('green', None, None, 'left', 'forward'), 'left'): -0.05,
+ (('green', None, None, 'left', 'forward'), 'right'): -0.05,
+ (('green', None, None, 'left', 'left'), None): 0.0,
+ (('green', None, None, 'left', 'left'), 'left'): 0.2,
+ (('green', None, None, 'left', 'left'), 'right'): -0.05,
+ (('green', None, None, 'left', 'right'), None): 0.0,
+ (('green', None, None, 'left', 'right'), 'right'): 0.542,
+ (('green', None, None, 'right', 'forward'), None): 0.0,
+ (('green', None, None, 'right', 'forward'), 'forward'): 0.2,
+ (('green', None, None, 'right', 'right'), 'forward'): -0.05,
+ (('green', None, 'forward', None, 'forward'), None): 0.0,
+ (('green', None, 'forward', None, 'forward'), 'left'): -0.05,
+ (('green', None, 'forward', None, 'forward'), 'right'): -0.031999999999999994,
+ (('green', None, 'forward', None, 'left'), 'forward'): -0.05,
+ (('green', None, 'forward', None, 'left'), 'left'): 0.38,
+ (('green', None, 'forward', None, 'right'), None): 0.0,
+ (('green', None, 'forward', None, 'right'), 'forward'): -0.05,
+ (('green', None, 'forward', None, 'right'), 'right'): 0.5582,
  (('green', None, 'left', None, 'forward'), None): 0.0,
- (('green', None, 'left', None, 'forward'), 'forward'): 12.0,
- (('green', None, 'left', None, 'forward'), 'right'): -0.5,
- (('green', None, 'left', None, 'left'), 'right'): -0.5,
- (('green', None, 'left', None, 'right'), 'forward'): -0.5,
- (('green', None, 'right', None, 'forward'), 'left'): -0.5,
- (('green', None, 'right', None, 'forward'), 'right'): -0.5,
- (('green', None, 'right', None, 'left'), 'left'): 2.0,
- (('green', 'forward', None, None, 'forward'), None): 0.0,
- (('green', 'forward', None, None, 'right'), 'left'): -1.0,
- (('green', 'left', None, None, 'forward'), None): 0.0,
- (('green', 'left', None, None, 'forward'), 'forward'): 11.582030313240434,
- (('green', 'left', None, None, 'forward'), 'left'): -0.5,
- (('green', 'left', None, None, 'forward'), 'right'): -0.5,
- (('green', 'right', None, None, 'forward'), 'right'): -0.5,
- (('green', 'right', None, None, 'right'), 'forward'): -0.5,
+ (('green', None, 'left', None, 'forward'), 'left'): -0.05,
+ (('green', None, 'left', None, 'forward'), 'right'): -0.05,
+ (('green', None, 'left', None, 'left'), None): 0.0,
+ (('green', None, 'left', None, 'left'), 'left'): 0.2,
+ (('green', None, 'left', None, 'right'), 'forward'): -0.05,
+ (('green', None, 'right', None, 'left'), 'left'): 0.2,
+ (('green', None, 'right', None, 'right'), 'right'): 0.2,
+ (('green', 'forward', None, None, 'left'), None): 0.0,
+ (('green', 'forward', None, None, 'right'), 'forward'): 1.610371982973119,
+ (('green', 'left', None, None, 'forward'), 'left'): 2.538488747917375,
+ (('green', 'left', None, None, 'right'), 'left'): -0.05,
+ (('green', 'right', None, None, 'right'), None): 0.0,
+ (('green', 'right', None, None, 'right'), 'left'): -0.1,
+ (('green', 'right', None, None, 'right'), 'right'): 1.0728817731752178,
  (('red', None, None, None, 'forward'), None): 0.0,
- (('red', None, None, None, 'forward'), 'forward'): -1.0,
- (('red', None, None, None, 'forward'), 'left'): -1.0,
- (('red', None, None, None, 'forward'), 'right'): -0.5,
+ (('red', None, None, None, 'forward'), 'forward'): -0.1,
+ (('red', None, None, None, 'forward'), 'left'): -0.1,
+ (('red', None, None, None, 'forward'), 'right'): 8.979774326070656,
  (('red', None, None, None, 'left'), None): 0.0,
- (('red', None, None, None, 'left'), 'forward'): -1.0,
- (('red', None, None, None, 'left'), 'left'): -1.0,
- (('red', None, None, None, 'left'), 'right'): -0.10283403044109152,
- (('red', None, None, None, 'right'), 'left'): -1.0,
- (('red', None, None, None, 'right'), 'right'): 6.218542206861301,
- (('red', None, None, 'forward', 'forward'), None): 0.0,
- (('red', None, None, 'forward', 'right'), None): 0.0,
- (('red', None, None, 'forward', 'right'), 'forward'): -1.0,
+ (('red', None, None, None, 'left'), 'forward'): -0.1,
+ (('red', None, None, None, 'left'), 'left'): -0.1,
+ (('red', None, None, None, 'left'), 'right'): 8.50928047333976,
+ (('red', None, None, None, 'right'), None): 0.0,
+ (('red', None, None, None, 'right'), 'left'): -0.1,
+ (('red', None, None, None, 'right'), 'right'): 11.901697724458542,
+ (('red', None, None, 'forward', 'left'), 'right'): -0.05,
  (('red', None, None, 'left', 'forward'), None): 0.0,
- (('red', None, None, 'left', 'forward'), 'right'): -0.5,
- (('red', None, 'forward', None, 'forward'), 'forward'): -1.0,
- (('red', None, 'forward', None, 'forward'), 'left'): -1.0,
- (('red', None, 'forward', None, 'forward'), 'right'): -1.0,
+ (('red', None, None, 'left', 'forward'), 'forward'): -0.1,
+ (('red', None, 'forward', None, 'left'), 'right'): -0.1,
+ (('red', None, 'forward', None, 'right'), 'forward'): -0.1,
+ (('red', None, 'forward', None, 'right'), 'left'): -0.1,
  (('red', None, 'left', None, 'forward'), None): 0.0,
- (('red', None, 'left', None, 'forward'), 'forward'): -1.0,
- (('red', None, 'right', None, 'forward'), None): 0.0,
+ (('red', None, 'right', None, 'forward'), 'forward'): -0.1,
+ (('red', None, 'right', None, 'right'), None): 0.0,
+ (('red', None, 'right', None, 'right'), 'left'): -0.1,
  (('red', 'forward', None, None, 'forward'), None): 0.0,
- (('red', 'forward', None, None, 'forward'), 'forward'): -1.0,
- (('red', 'forward', None, None, 'forward'), 'left'): -1.0,
- (('red', 'forward', None, None, 'forward'), 'right'): -0.5,
- (('red', 'forward', None, None, 'left'), 'forward'): -1.0,
- (('red', 'forward', None, None, 'left'), 'left'): -1.0,
- (('red', 'forward', None, None, 'right'), 'right'): 2.0,
+ (('red', 'forward', None, None, 'forward'), 'right'): 2.2583345018952494,
+ (('red', 'forward', None, None, 'left'), 'forward'): -0.1,
+ (('red', 'forward', None, None, 'left'), 'left'): -0.1,
+ (('red', 'forward', None, None, 'right'), None): 0.0,
+ (('red', 'forward', None, None, 'right'), 'left'): -0.1,
  (('red', 'left', None, None, 'forward'), None): 0.0,
- (('red', 'left', None, None, 'forward'), 'forward'): -1.0,
- (('red', 'left', None, None, 'forward'), 'left'): -1.0,
- (('red', 'left', None, None, 'forward'), 'right'): -0.5,
- (('red', 'left', None, None, 'left'), 'forward'): -1.0,
- (('red', 'left', None, None, 'left'), 'left'): -1.0,
- (('red', 'right', None, None, 'forward'), None): 0.0,
- (('red', 'right', None, None, 'forward'), 'forward'): -1.0,
- (('red', 'right', None, None, 'forward'), 'right'): -0.5,
- (('red', 'right', None, None, 'left'), None): 0.0}
+ (('red', 'left', None, None, 'forward'), 'forward'): -0.1,
+ (('red', 'left', None, None, 'forward'), 'left'): -0.1,
+ (('red', 'left', None, None, 'forward'), 'right'): -0.05,
+ (('red', 'left', None, None, 'left'), 'right'): 2.332101588336318}
 
  ```
 
@@ -599,93 +614,62 @@ behavior is avoided.
 #### Final Q-table for largest Q-Table (alphap25_gammap9_epsp1) represented as a python dictionary:
 
  ```python
- {(('green', None, None, None, 'forward'), None): 0.0,
-  (('green', None, None, None, 'forward'), 'forward'): 11.473222212188928,
-  (('green', None, None, None, 'forward'), 'left'): -0.5,
-  (('green', None, None, None, 'forward'), 'right'): -0.5,
-  (('green', None, None, None, 'left'), 'left'): 11.858519166007213,
-  (('green', None, None, None, 'right'), None): 0.0,
-  (('green', None, None, None, 'right'), 'forward'): -0.5,
-  (('green', None, None, None, 'right'), 'left'): -0.5,
-  (('green', None, None, None, 'right'), 'right'): 11.5790139087193,
-  (('green', None, None, 'forward', 'right'), 'forward'): -0.5,
-  (('green', None, None, 'left', 'forward'), 'right'): -0.5,
-  (('green', None, None, 'left', 'right'), 'right'): 2.0,
-  (('green', None, None, 'right', 'forward'), 'forward'): 9.649999999999999,
-  (('green', None, None, 'right', 'forward'), 'left'): -0.5,
-  (('green', None, None, 'right', 'right'), 'forward'): -0.5,
-  (('green', None, None, 'right', 'right'), 'right'): 2.0,
-  (('green', None, 'forward', None, 'forward'), 'right'): -0.5,
-  (('green', None, 'forward', None, 'left'), None): 0.0,
-  (('green', None, 'forward', None, 'left'), 'forward'): -0.5,
-  (('green', None, 'forward', None, 'left'), 'right'): -0.5,
-  (('green', None, 'forward', None, 'right'), 'forward'): -0.5,
-  (('green', None, 'left', None, 'forward'), None): 0.0,
-  (('green', None, 'left', None, 'forward'), 'forward'): 2.0,
-  (('green', None, 'left', None, 'forward'), 'left'): -0.5,
-  (('green', None, 'left', None, 'forward'), 'right'): -0.5,
-  (('green', None, 'left', None, 'left'), None): 0.0,
-  (('green', None, 'left', None, 'left'), 'forward'): -0.5,
-  (('green', None, 'left', None, 'left'), 'right'): -0.5,
-  (('green', None, 'left', None, 'right'), None): 0.0,
-  (('green', None, 'left', None, 'right'), 'right'): 2.0,
-  (('green', None, 'left', 'right', 'right'), 'left'): -0.5,
-  (('green', None, 'right', None, 'right'), 'right'): 2.0,
-  (('green', 'forward', None, None, 'left'), None): 0.0,
-  (('green', 'left', None, None, 'forward'), 'forward'): 6.0249028008791345,
-  (('green', 'left', None, None, 'forward'), 'right'): -0.5,
-  (('green', 'left', None, None, 'right'), None): 0.0,
-  (('green', 'left', None, None, 'right'), 'forward'): -0.5,
-  (('green', 'left', None, None, 'right'), 'left'): -0.5,
-  (('green', 'right', None, None, 'forward'), None): 0.0,
-  (('green', 'right', None, None, 'forward'), 'left'): -1.0,
-  (('green', 'right', None, None, 'right'), None): 0.0,
-  (('red', None, None, None, 'forward'), None): 0.0,
-  (('red', None, None, None, 'forward'), 'forward'): -1.0,
-  (('red', None, None, None, 'forward'), 'left'): -1.0,
-  (('red', None, None, None, 'forward'), 'right'): 8.842588452559566,
-  (('red', None, None, None, 'left'), None): 0.0,
-  (('red', None, None, None, 'left'), 'forward'): -1.0,
-  (('red', None, None, None, 'left'), 'left'): -1.0,
-  (('red', None, None, None, 'left'), 'right'): 10.273587054351314,
-  (('red', None, None, None, 'right'), None): 0.0,
-  (('red', None, None, None, 'right'), 'forward'): -1.0,
-  (('red', None, None, None, 'right'), 'left'): -1.0,
-  (('red', None, None, None, 'right'), 'right'): 13.034483252238077,
-  (('red', None, None, 'forward', 'forward'), None): 0.0,
-  (('red', None, None, 'forward', 'forward'), 'left'): -1.0,
-  (('red', None, None, 'forward', 'left'), 'forward'): -1.0,
-  (('red', None, None, 'forward', 'right'), 'left'): -1.0,
-  (('red', None, None, 'forward', 'right'), 'right'): 2.0,
-  (('red', None, None, 'left', 'left'), 'right'): -0.5,
-  (('red', None, None, 'left', 'right'), 'right'): 2.0,
-  (('red', None, None, 'right', 'forward'), 'left'): -1.0,
-  (('red', None, None, 'right', 'right'), None): 0.0,
-  (('red', None, None, 'right', 'right'), 'left'): -1.0,
-  (('red', None, 'forward', None, 'left'), 'forward'): -1.0,
-  (('red', None, 'forward', None, 'right'), 'right'): -1.0,
-  (('red', None, 'left', None, 'forward'), None): 0.0,
-  (('red', None, 'left', None, 'forward'), 'left'): -1.0,
-  (('red', None, 'left', None, 'forward'), 'right'): -0.5,
-  (('red', None, 'right', None, 'forward'), 'left'): -1.0,
-  (('red', 'forward', None, None, 'forward'), None): 0.0,
-  (('red', 'forward', None, None, 'forward'), 'left'): -1.0,
-  (('red', 'forward', None, None, 'forward'), 'right'): -0.5,
-  (('red', 'forward', None, None, 'left'), 'right'): -0.5,
-  (('red', 'left', None, None, 'forward'), None): 0.0,
-  (('red', 'left', None, None, 'forward'), 'forward'): -1.0,
-  (('red', 'left', None, None, 'forward'), 'left'): -1.0,
-  (('red', 'left', None, None, 'forward'), 'right'): -0.5,
-  (('red', 'left', None, None, 'left'), None): 0.0,
-  (('red', 'left', None, None, 'left'), 'forward'): -1.0,
-  (('red', 'left', None, None, 'left'), 'left'): -1.0,
-  (('red', 'left', None, None, 'left'), 'right'): -0.5,
-  (('red', 'left', None, None, 'right'), None): 0.0,
-  (('red', 'left', None, None, 'right'), 'forward'): -1.0,
-  (('red', 'left', None, None, 'right'), 'left'): -1.0,
-  (('red', 'left', None, None, 'right'), 'right'): 7.823596515641668,
-  (('red', 'right', None, None, 'forward'), 'forward'): -1.0,
-  (('red', 'right', None, None, 'left'), 'forward'): -1.0}
+ {(('green', None, None, None, 'forward'), 'forward'): 7.675603101959724,
+ (('green', None, None, None, 'left'), None): 0.0,
+ (('green', None, None, None, 'left'), 'left'): 7.015414916808173,
+ (('green', None, None, None, 'left'), 'right'): -0.05,
+ (('green', None, None, None, 'right'), None): 0.0,
+ (('green', None, None, None, 'right'), 'left'): -0.05,
+ (('green', None, None, None, 'right'), 'right'): 7.127456058551888,
+ (('green', None, None, 'forward', 'forward'), 'forward'): 0.5582,
+ (('green', None, None, 'forward', 'right'), 'left'): -0.031999999999999994,
+ (('green', None, None, 'left', 'forward'), 'forward'): 0.5582,
+ (('green', None, None, 'left', 'forward'), 'right'): -0.031999999999999994,
+ (('green', None, None, 'left', 'right'), 'right'): 0.542,
+ (('green', None, None, 'right', 'forward'), 'forward'): 2.2800000000000002,
+ (('green', None, None, 'right', 'left'), None): 0.0,
+ (('green', None, 'forward', None, 'forward'), None): 0.0,
+ (('green', None, 'forward', None, 'forward'), 'forward'): 0.398,
+ (('green', None, 'forward', None, 'forward'), 'left'): -0.05,
+ (('green', None, 'forward', None, 'left'), 'left'): 0.21800000000000003,
+ (('green', None, 'forward', None, 'right'), 'forward'): -0.05,
+ (('green', None, 'forward', None, 'right'), 'left'): -0.05,
+ (('green', None, 'forward', None, 'right'), 'right'): 0.2,
+ (('green', None, 'left', None, 'forward'), 'forward'): 3.5702372,
+ (('green', None, 'left', None, 'left'), 'forward'): -0.05,
+ (('green', None, 'left', None, 'right'), 'right'): 0.542,
+ (('green', None, 'right', None, 'forward'), 'left'): -0.05,
+ (('green', None, 'right', None, 'forward'), 'right'): -0.05,
+ (('green', 'forward', None, None, 'forward'), 'forward'): 1.2800000000000002,
+ (('green', 'forward', None, None, 'forward'),
+  'right'): -0.0028207219999999925,
+ (('green', 'forward', None, None, 'left'), 'left'): -0.1,
+ (('green', 'left', None, None, 'forward'), None): 0.0,
+ (('green', 'left', None, None, 'right'), 'forward'): 0.5248207968130907,
+ (('red', None, None, None, 'forward'), None): 0.0,
+ (('red', None, None, None, 'forward'), 'forward'): -0.1,
+ (('red', None, None, None, 'forward'), 'left'): -0.1,
+ (('red', None, None, None, 'forward'), 'right'): -0.095,
+ (('red', None, None, None, 'left'), None): 0.0,
+ (('red', None, None, None, 'left'), 'forward'): -0.1,
+ (('red', None, None, None, 'left'), 'left'): -0.1,
+ (('red', None, None, None, 'left'), 'right'): 4.608480614717924,
+ (('red', None, None, None, 'right'), None): 0.0,
+ (('red', None, None, None, 'right'), 'right'): 7.230478561053751,
+ (('red', None, None, 'forward', 'forward'), 'right'): -0.05,
+ (('red', None, 'forward', None, 'right'), 'forward'): -0.1,
+ (('red', 'forward', None, None, 'forward'), 'right'): 0.19248306912735896,
+ (('red', 'left', None, None, 'forward'), None): 0.0,
+ (('red', 'left', None, None, 'forward'), 'right'): 0.8995643310846098,
+ (('red', 'left', None, None, 'left'), None): 0.0,
+ (('red', 'left', None, None, 'left'), 'forward'): -0.1,
+ (('red', 'left', None, None, 'left'), 'left'): -0.1,
+ (('red', 'left', None, None, 'left'), 'right'): 0.5732363694944478,
+ (('red', 'left', None, None, 'right'), 'forward'): -0.1,
+ (('red', 'left', None, None, 'right'), 'right'): 0.4518415754314937,
+ (('red', 'right', None, None, 'forward'), 'left'): -0.1,
+ (('red', 'right', None, None, 'right'), None): 0.0}
+ 
  ```
 
  ### References and Resources
