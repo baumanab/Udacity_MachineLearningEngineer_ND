@@ -266,20 +266,20 @@ The included states consist of:
 For a red light the agent should stop or turn right.  For a green light the agent
 may go forward, left (accounting for traffic), or right.
 - **Oncoming traffic:** {None, forward, left, or right} - The agent must be aware
-of the positon of oncoming traffic to determine if a particular action is safe or not.
-For example, a right turn at a red light is not advisable with oncomiing traffic to the left.
+of the position of oncoming traffic to determine if a particular action is safe or not.
+For example, a right turn at a red light is not advisable with oncoming traffic to the left.
 A left turn at a green light is not advisable with forward oncoming traffic.
 - **Traffic left:** {None, forward, left, right} - The agent needs to know where
-surrounding traffic is at a light to know whether to execute a turn and in which 
+surrounding traffic is at a light to know whether to execute a turn and in which
 direction.
 - **Traffic right:** {None, forward, left, right}- The agent needs to know where
-surrounding traffic is at a light to know whether to execute a turn and in which 
+surrounding traffic is at a light to know whether to execute a turn and in which
 direction.
 - **Next Waypoint:** {None, forward, left, right} - The agent needs to know where
 the next waypoint is, in terms of direction, in order to move towards the destination.
 
 The state deadline could be included but this would not serve the agent in making
-reasonabble decisons based on traffic.  Including deadline wouuld only serve to 
+reasonable decisions based on traffic.  Including deadline would only serve to
 increase the potential states that would need to be experienced to learn how to drive.
 
 **QUESTION:** _How many states in total exist for the smartcab in this environment?
@@ -379,7 +379,7 @@ setting demonstrates a promising trend.
 
 - Success rate is measured as successes/round (number of successes normalized by rounds)
 - The best success rates (79%) corresponds [alpha: 0.10, gamma: 0.90, epsilon: 0.50 ]
-- Most other condtiions are in the range of 66 - 72%
+- Most other conditions are in the range of 66 - 72%
 - The worst performing conditions had rates of 39 and 58%, respectively corresponding to
     + [alpha: 0.10, gamma: 0.90, epsilon: 0.10 ]
     + [alpha: 0.25, gamma: 0.90, epsilon: 0.10 ]
@@ -405,8 +405,8 @@ setting demonstrates a promising trend.
 |   alphap25_gammap9_epsp1  | 0.10  | 0.90  | 0.50    | 73                  |
 
 
-- The overall number of successes per 100 trials are only marginally different for 
-most conditons (8 of 10 conditons are within 5%, 9 of 10 withing 7%)
+- The overall number of successes per 100 trials are only marginally different for
+most conditions (8 of 10 conditions are within 5%, 9 of 10 within 7%)
 - Combined with the success rate data that indicates that the agent is able to
 reach it's destination reliably, independent of the conditions, and that the primary
 difference is how many rounds this takes.
@@ -460,7 +460,7 @@ achieved 100 successes, a success rate of 79%, and a q-table with 54 (state, act
 - There are 24 unique (state, action) combinations for highest - largest
 
 
- #### Largest Postive Q (state, action) combinations in largest not in highest
+ #### Largest Positive Q (state, action) combinations in largest not in highest
 
 ```python
 [((('green', None, None, 'forward', 'right'), 'right'), 0.56),
@@ -502,18 +502,18 @@ the destination in the minimum possible time, and not incur any penalties? How
 would you describe an optimal policy for this problem?_
 
 I do think my agent comes close to reaching the destination in the minimal possible
-time without incurring penalties. The final policy shows that only actions that 
+time without incurring penalties. The final policy shows that only actions that
 follow driving rules are high quality whereas those that don't are low quality.  
-One thing that I find suboptimal is that right turns are highly incentivized. The 
+One thing that I find suboptimal is that right turns are highly incentivized. The
 end result is that the agent tends to drive around in circles. This may play
 out well in the grid world but in the real world it would be odd at best and at worst
 it would waste gas and potentially time, as traffic conditions and delays from making
 a circle are not as predictable as the grid world (gridworld is more deterministic).
 Another consideration is that the agent was only able to explore a small fraction
 of the (state, action) space . Note only is this not a very comprehensive set of
-experience,s we don't know how many times each state was experienced.  It may take 
+experiences we don't know how many times each state was experienced.  It may take
 several visits to a state to learn the optimal action for that state. This situation
-will result in an agent that encouters new situations frequently, without the experience
+will result in an agent that encounters new situations frequently, without the experience
 to make the optimal choice of action for that state.
 
 I would describe an optimal policy as one in which the destination is reached in
@@ -669,7 +669,7 @@ behavior is avoided.
  (('red', 'left', None, None, 'right'), 'right'): 0.4518415754314937,
  (('red', 'right', None, None, 'forward'), 'left'): -0.1,
  (('red', 'right', None, None, 'right'), None): 0.0}
- 
+
  ```
 
  ### References and Resources
