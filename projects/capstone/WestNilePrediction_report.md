@@ -7,10 +7,15 @@ December 13, 2016
 
 ### Project Overview
 
+West Nile virus (WNV), which can result in [West Nile Fever]( https://en.wikipedia.org/wiki/West_Nile_fever) is a bloodborne virus that whose mode of transmission is primarily mosquito to human. According to the World Health Organization [West Nile Virus Fact Sheet]( http://www.who.int/mediacentre/factsheets/fs354/en/)
 
-In this section, look to provide a high-level overview of the project in layman’s terms. Questions to ask yourself when writing this section:
-- _Has an overview of the project been provided, such as the problem domain, project origin, and related datasets or input data?_
-- _Has enough background information been given so that an uninformed reader would understand the problem domain and following problem statement?_
+-	West Nile virus can cause a fatal neurological disease in humans.
+-	Approximately 80% of people who are infected will not show symptoms.
+-	West Nile virus is mainly transmitted to people through the bites of infected mosquitoes.
+-	The virus can cause severe disease and death in horses.
+-	Vaccines are available for use in horses but not yet available for people.
+-	Birds are the natural hosts of West Nile virus.
+
 
 ### Problem Statement
 In this section, you will want to clearly define the problem that you are trying to solve, including the strategy (outline of tasks) you will use to achieve the desired solution. You should also thoroughly discuss what the intended solution will be for this problem. Questions to ask yourself when writing this section:
