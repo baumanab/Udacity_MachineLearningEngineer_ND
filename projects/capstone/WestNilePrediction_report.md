@@ -1,5 +1,5 @@
 # Machine Learning Engineer Nanodegree
-## Capstone Project (West Nile Virus Prediction)
+## Capstone Project (West Nile Virus Prediction in Chicago)
 Andrew Bauman  
 December 13, 2016
 
@@ -15,6 +15,32 @@ West Nile virus (WNV), which can result in [West Nile Fever]( https://en.wikiped
 -	The virus can cause severe disease and death in horses.
 -	Vaccines are available for use in horses but not yet available for people.
 -	Birds are the natural hosts of West Nile virus.
+
+#### Transmission and Control Considerations
+
+-	WNV is maintained through a mosquito --> bird --> mosquito cycle where birds are the reservoir hosts
+-	The principle vector is considered to be mosquitoes of genus _Culex_ particularly _Cx Pipiens_
+-	Birds in North America are particularly susceptible to WNV where infection is highly pathogenic, particularly in crows
+-	While birds are a reservoir host, horses are a dead-end host (become infected but don’t spread the infection)
+-	WNV outbreaks in animals typically precede human cases so animal health surveillance (bird and horse) are important for early warnings
+-	Vector control is achieved through mosquito surveillance and control.  Control  measures consist mainly of source reduction which includes:
+    + elimination of mosquito breeding areas through water management (stagnant water is a breeding ground for mosquitoes)
+    + administration of chemical and biological agents to destroy mosquito populations
+    
+
+#### West Nile Virus in Chicago
+
+The first cases of West Nile in Chicago were reorted in 2002 and by 2004 the City of Chicago and the Chicago Department of Public Health (CDPH) had established a comprehensive survellance and control system.
+
+- Every week from late spring through the fall, mosquitos in traps across the city are tested for the virus - - Results of these tests influence when and where the city will spray airborne pesticides to control adult mosquito populations.
+- The associated [Kagglecompetition](https://www.kaggle.com/c/predict-west-nile-virus) asks develepers to predict when and where different species of mosquitos will test positive for West Nile virus, in an effort to more effecvitely allocate survellance and control resources.
+
+#### Personal Interest
+
+This competition is particularly interesting to the author of this report due to personal contributions to efforts directed at recommending safe and effective control strategies (spray agents as well as timing and manner of spraying) while a graduate student in **Oregon State University's Department of Environmental and Molecular Toxicology Department**.
+
+
+
 
 
 ### Problem Statement
