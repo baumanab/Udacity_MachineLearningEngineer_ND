@@ -92,6 +92,37 @@ The origin of this data is as follows:
 - Map data is primarily for visualization purposes but may also be used in model development
 
 
+#### Evaluation
+
+From the [submission section of the competition](https://www.kaggle.com/c/predict-west-nile-virus/details/evaluation)
+
+> Submissions are evaluated on area under the ROC curve between the predicted probability that West Nile Virus is present and the observed outcomes.
+
+A receiver operating characteristic (ROC) curve is well explained [here](http://www.dataschool.io/roc-curves-and-auc-explained/).  Essentially it is a plot of True positives as a functino of false positives where each point on the curve is a (x, y) is the (tru pos, false pos) at any given probability cutoff threshold.  That is the threshold in a binary classification where we label a data instance as one class or another.  By integrating the area under the curve (AUC) we have a single number by which we cna compare models.  The larger the AUC the better or model is at discriminating between classes.
+
+#### Process and Submission
+
+- The model will be developed on publin training data and test data both supplied by the host
+- The model will be evaluated on private test data supplied by the host, but not revealed to developers
+
+From the submission section of the competition:
+
+> For each record in the test set, you should predict a real-valued probability that WNV is present. The file should contain a header and have the following format:
+
+**Example:**
+
+```
+Id,WnvPresent
+1,0
+2,1
+3,0.9
+4,0.2
+etc.
+```
+
+#### Approach to Model
+
+
 
 
 
