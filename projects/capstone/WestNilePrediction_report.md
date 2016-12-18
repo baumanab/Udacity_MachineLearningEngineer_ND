@@ -72,12 +72,12 @@ The origin of this data is as follows:
 - Not all locations are tested at all times and records only exist when particular species is found at a certain trap at a certain time.  While predictions will be made on all possible combinations, only actual observations will be scored.
 
 
-#### Spray Data
+##### Spray Data
 
 - GIS data from 2011 - 2013 mosquito spraying
 - Spraying reduces mosquito populatinos and may impact the presence of WNV
 
-#### Weather Data
+##### Weather Data
 
 - NOAA weather data from 2007 - 2014 during test months
 - Hot and dry conditions may favor WNV reltative to cold and wet conditions
@@ -86,10 +86,13 @@ The origin of this data is as follows:
     + Station 2: CHICAGO MIDWAY INTL ARPT Lat: 41.786 Lon: -87.752 Elev: 612 ft. above sea level
 
 
-#### Map Data
+##### Map Data
 
 - Map data is provided from Open Streetmap
 - Map data is primarily for visualization purposes but may also be used in model development
+
+
+
 
 
 
