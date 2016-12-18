@@ -102,7 +102,7 @@ A receiver operating characteristic (ROC) curve is well explained [here](http://
 
 #### Process and Submission
 
-- The model will be developed on publin training data and test data both supplied by the host
+- The model will be developed on public training data and test data both supplied by the host
 - The model will be evaluated on private test data supplied by the host, but not revealed to developers
 
 From the submission section of the competition:
