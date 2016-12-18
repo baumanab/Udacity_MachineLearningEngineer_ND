@@ -33,7 +33,7 @@ West Nile virus (WNV), which can result in [West Nile Fever]( https://en.wikiped
 The first cases of West Nile in Chicago were reorted in 2002 and by 2004 the City of Chicago and the Chicago Department of Public Health (CDPH) had established a comprehensive survellance and control system.
 
 - Every week from late spring through the fall, mosquitos in traps across the city are tested for the virus - - Results of these tests influence when and where the city will spray airborne pesticides to control adult mosquito populations.
-- The associated [Kagglecompetition](https://www.kaggle.com/c/predict-west-nile-virus) asks develepers to predict when and where different species of mosquitos will test positive for West Nile virus, in an effort to more effecvitely allocate survellance and control resources.
+- The associated [Kaggle competition](https://www.kaggle.com/c/predict-west-nile-virus) asks develepers to predict when and where different species of mosquitos will test positive for West Nile virus, in an effort to more effecvitely allocate survellance and control resources.
 
 #### Personal Interest
 
@@ -44,6 +44,55 @@ This competition is particularly interesting to the author of this report due to
 
 
 ### Problem Statement
+
+From the [Kaggle competition description](https://www.kaggle.com/c/predict-west-nile-virus):
+
+
+
+> Given weather, location, testing, and spraying data, this competition asks you to predict when and where different species of mosquitos will test positive for West Nile virus. 
+
+More specifically, from the [Data](https://www.kaggle.com/c/predict-west-nile-virus/data) section:
+
+> In this competition, you will be analyzing weather data and GIS data and predicting whether or not West Nile virus is present, for a given time, location, and species. 
+
+The origin of this data is as follows:
+
+- Public health workers set up traps from late May to early October
+- From M - W of each week the traps collect mosquitos which are tested for West Nile by the end  of the week
+- Test results include [number of mosquitoes, mosquito species, presense or absence of WNV for the cohort]
+
+
+#### Overview of Data
+
+##### Main Data (Trap Data)
+
+- Each record represents up to 50 tested mosquitos
+- Trap locations are described by block number and street name and mapped to Longitude and Latitude
+- Satellite traps were used to enhance surveillance.  Each satellite is name by postfixing letters on the parent trap identifier (e.g. T220A is a satellite of T220) 
+- Not all locations are tested at all times and records only exist when particular species is found at a certain trap at a certain time.  While predictions will be made on all possible combinations, only actual observations will be scored.
+
+
+#### Spray Data
+
+- GIS data from 2011 - 2013 mosquito spraying
+- Spraying reduces mosquito populatinos and may impact the presence of WNV
+
+#### Weather Data
+
+- NOAA weather data from 2007 - 2014 during test months
+- Hot and dry conditions may favor WNV reltative to cold and wet conditions
+- Monitoring stations:
+    + Station 1: CHICAGO O'HARE INTERNATIONAL AIRPORT Lat: 41.995 Lon: -87.933 Elev: 662 ft. above sea level
+    + Station 2: CHICAGO MIDWAY INTL ARPT Lat: 41.786 Lon: -87.752 Elev: 612 ft. above sea level
+
+
+#### Map Data
+
+- Map data is provided from Open Streetmap
+- Map data is primarily for visualization purposes but may also be used in model development
+
+
+
 In this section, you will want to clearly define the problem that you are trying to solve, including the strategy (outline of tasks) you will use to achieve the desired solution. You should also thoroughly discuss what the intended solution will be for this problem. Questions to ask yourself when writing this section:
 - _Is the problem statement clearly defined? Will the reader understand what you are expecting to solve?_
 - _Have you thoroughly discussed how you will attempt to solve the problem?_
