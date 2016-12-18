@@ -144,9 +144,8 @@ This task is well suited to supervised binary classification models, and specifi
 
 
 ### Metrics
-In this section, you will need to clearly define the metrics or calculations you will use to measure performance of a model or result in your project. These calculations and metrics should be justified based on the characteristics of the problem and problem domain. Questions to ask yourself when writing this section:
-- _Are the metrics you’ve chosen to measure the performance of your models clearly discussed and defined?_
-- _Have you provided reasonable justification for the metrics chosen based on the problem and solution?_
+
+Each model will be evaluatied by the AUC of its ROC, as described in the problem statement section. Several other acronyms may be thrown in as part of an intellectual shock and awe campaign.
 
 
 ## II. Analysis
