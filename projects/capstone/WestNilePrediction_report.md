@@ -120,17 +120,28 @@ Id,WnvPresent
 etc.
 ```
 
-#### Approach to Model
+#### Approach to Model Development
+
+This task is well suited to supervised binary classification models, and specifically those models which generate reliable probabilities. Not all suprervised models are amenable to this, Naive Bayes models, I'm looking at you.  I will most likely start with an out of the box ensemble model that scales well, such as XGBoost, but may also try a neural net or or nueral net baesed deep learning model using Keras.
+
+- Prepare Data (wrangling, pre-processing, etc.)
+- Explore data
+- Perform additional preparation as reveled by exploration (address outliers and missing data, engineer features, transform data, etc.)
+- Determine candidate feature set
+- Train and Test several models
+- Pick a model to move into further development
+- Tune model
+- Revisit any previous steps to further inform model
+- Submit results
+- Revisit or repeat any or all of the prior steps until a satisfacotry result has been achieved
 
 
 
 
 
 
-In this section, you will want to clearly define the problem that you are trying to solve, including the strategy (outline of tasks) you will use to achieve the desired solution. You should also thoroughly discuss what the intended solution will be for this problem. Questions to ask yourself when writing this section:
-- _Is the problem statement clearly defined? Will the reader understand what you are expecting to solve?_
-- _Have you thoroughly discussed how you will attempt to solve the problem?_
-- _Is an anticipated solution clearly defined? Will the reader understand what results you are looking for?_
+
+
 
 ### Metrics
 In this section, you will need to clearly define the metrics or calculations you will use to measure performance of a model or result in your project. These calculations and metrics should be justified based on the characteristics of the problem and problem domain. Questions to ask yourself when writing this section:
