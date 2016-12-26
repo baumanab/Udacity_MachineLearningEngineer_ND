@@ -75,7 +75,7 @@ The origin of this data is as follows:
 ##### Spray Data
 
 - GIS data from 2011 - 2013 mosquito spraying
-- Spraying reduces mosquito populatinos and may impact the presence of WNV
+- Spraying reduces mosquito populations and may impact the presence of WNV
 
 ##### Weather Data
 
@@ -134,6 +134,80 @@ This task is well suited to supervised binary classification models, and specifi
 - Revisit any previous steps to further inform model
 - Submit results
 - Revisit or repeat any or all of the prior steps until a satisfacotry result has been achieved
+
+
+#### Key initial Decisions
+
+Prior to exploring the data or developing models I have made some initial decisions on how features and data sets will be handled.
+
+##### Weather Data
+
+There is an abundance of climate based WNV models as well as several papers on how meteorological factors impact WNV and WNV carrying mosquito populations.  I will use this literature  to determine which weather features will be retained as well as to guide feature engineering.  This will be done prior to data exploration and features not validated by the literature will not be explored.  The reasoning behind this is that even if a feature seem to impact WNV probabilyt in this data set, if the literature does not validate it's use, it may have a detrimental impact on the ability of the model to generalize to future data.
+
+**Papers that sum up use of weather data effectively**
+
+https://parasitesandvectors.biomedcentral.com/articles/10.1186/1756-3305-3-19  covers what factors have the most impacton the model and how predictive previous season and local data have on WNV  
+
+http://m.ajtmh.org/content/92/5/1013.long?view=long&pmid=25802435  Covers general climate impact and how rain considerations vary in east and west climate zones and why
+
+http://www.mimosq.org/presentations/2016/4WestcottClimateWNV.pdf Good summary of midwestern climate models and what features impact WNV.  This will be potentially useful for feature engineeering.
+
+
+
+** interesting possible map data**
+
+http://online.liebertpub.com/doi/pdfplus/10.1089/vbz.2006.6.91 paer covers how WNV is impacted on proximity to a specific river
+
+
+
+**Features retained:**
+
+The following feauture will be retained but may be eliminated based on exploration, contribution to engineered features, and/or impact on model.
+
+- Station (handle station data per  notes above)
+- Date (for merge with trap data)
+- Tmax
+- Tmin
+- Tavg
+- Depart (departure from normal temperature)
+- Sunrise
+- Sunset
+- Precipitation total
+
+
+
+** Features to be engineered:**
+
+
+** Missing Data **
+
+Missing data is indicated by M or T
+
+
+
+##### Spray Data
+
+Spray data will not be used on the first versions of the model but may introduced later to see if spray data can have a positive impact on performance while minimizing any increases in model variance.
+
+
+##### How to handle data from two weather stations
+
+There are two weather stations which contribute to meteorilogical data.  They will be handled as follows:
+
+1. consider models where each station is handled seperately
+2. consider models where each station is blended (blending method TBD)
+3. consider models where the nearest weather station is chosen as the "true" weather data.  
+
+Strategy 1 and 2 will be used initially.  Strategy 3 may not be deployed.  It isn't clear that the closest weather station is governing weather at a particular trap.  It's tempting to assume this but wind patterns and terrain can impact this and it may not be any more effective than the simpler cases of 1 and 2.
+
+
+
+
+
+
+
+
+
 
 
 
