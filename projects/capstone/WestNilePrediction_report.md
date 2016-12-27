@@ -26,14 +26,14 @@ West Nile virus (WNV), which can result in [West Nile Fever]( https://en.wikiped
 -	Vector control is achieved through mosquito surveillance and control.  Control  measures consist mainly of source reduction which includes:
     + elimination of mosquito breeding areas through water management (stagnant water is a breeding ground for mosquitoes)
     + administration of chemical and biological agents to destroy mosquito populations
-    
+
 
 #### West Nile Virus in Chicago
 
-The first cases of West Nile in Chicago were reorted in 2002 and by 2004 the City of Chicago and the Chicago Department of Public Health (CDPH) had established a comprehensive survellance and control system.
+The first cases of West Nile in Chicago were reported in 2002 and by 2004 the City of Chicago and the Chicago Department of Public Health (CDPH) had established a comprehensive surveillance and control system.
 
 - Every week from late spring through the fall, mosquitos in traps across the city are tested for the virus - - Results of these tests influence when and where the city will spray airborne pesticides to control adult mosquito populations.
-- The associated [Kaggle competition](https://www.kaggle.com/c/predict-west-nile-virus) asks develepers to predict when and where different species of mosquitos will test positive for West Nile virus, in an effort to more effecvitely allocate survellance and control resources.
+- The associated [Kaggle competition](https://www.kaggle.com/c/predict-west-nile-virus) asks developers to predict when and where different species of mosquitos will test positive for West Nile virus, in an effort to more effectively allocate surveillance and control resources.
 
 #### Personal Interest
 
@@ -49,11 +49,11 @@ From the [Kaggle competition description](https://www.kaggle.com/c/predict-west-
 
 
 
-> Given weather, location, testing, and spraying data, this competition asks you to predict when and where different species of mosquitos will test positive for West Nile virus. 
+> Given weather, location, testing, and spraying data, this competition asks you to predict when and where different species of mosquitos will test positive for West Nile virus.
 
 More specifically, from the [Data](https://www.kaggle.com/c/predict-west-nile-virus/data) section:
 
-> In this competition, you will be analyzing weather data and GIS data and predicting whether or not West Nile virus is present, for a given time, location, and species. 
+> In this competition, you will be analyzing weather data and GIS data and predicting whether or not West Nile virus is present, for a given time, location, and species.
 
 The origin of this data is as follows:
 
@@ -68,23 +68,26 @@ The origin of this data is as follows:
 
 - Each record represents up to 50 tested mosquitos
 - Trap locations are described by block number and street name and mapped to Longitude and Latitude
-- Satellite traps were used to enhance surveillance.  Each satellite is name by postfixing letters on the parent trap identifier (e.g. T220A is a satellite of T220) 
+- Satellite traps were used to enhance surveillance.  Each satellite is name by postfixing letters on the parent trap identifier (e.g. T220A is a satellite of T220)
 - Not all locations are tested at all times and records only exist when particular species is found at a certain trap at a certain time.  While predictions will be made on all possible combinations, only actual observations will be scored.
 
 
 ##### Spray Data
 
 - GIS data from 2011 - 2013 mosquito spraying
-- Spraying reduces mosquito populatinos and may impact the presence of WNV
+- Spraying reduces mosquito populations and may impact the presence of WNV
+- This data will not be incorporated into initial models but may be utilized during
+model refinement to see if it leads to improvements
+
 
 ##### Weather Data
 
 - NOAA weather data from 2007 - 2014 during test months
-- Hot and dry conditions may favor WNV reltative to cold and wet conditions
+- Hot and dry conditions may favor WNV relative to cold and wet conditions
 - Monitoring stations:
     + Station 1: CHICAGO O'HARE INTERNATIONAL AIRPORT Lat: 41.995 Lon: -87.933 Elev: 662 ft. above sea level
     + Station 2: CHICAGO MIDWAY INTL ARPT Lat: 41.786 Lon: -87.752 Elev: 612 ft. above sea level
-
+- Missing date is indicated by "M" (missing) and "T" (trace)
 
 ##### Map Data
 
@@ -98,7 +101,7 @@ From the [submission section of the competition](https://www.kaggle.com/c/predic
 
 > Submissions are evaluated on area under the ROC curve between the predicted probability that West Nile Virus is present and the observed outcomes.
 
-A receiver operating characteristic (ROC) curve is well explained [here](http://www.dataschool.io/roc-curves-and-auc-explained/).  Essentially it is a plot of True positives as a functino of false positives where each point on the curve is a (x, y) is the (tru pos, false pos) at any given probability cutoff threshold.  That is the threshold in a binary classification where we label a data instance as one class or another.  By integrating the area under the curve (AUC) we have a single number by which we cna compare models.  The larger the AUC the better or model is at discriminating between classes.
+A receiver operating characteristic (ROC) curve is well explained [here](http://www.dataschool.io/roc-curves-and-auc-explained/).  Essentially it is a plot of True positives as a function of false positives where each point on the curve is a (x, y) is the (tru pos, false pos) at any given probability cutoff threshold.  That is the threshold in a binary classification where we label a data instance as one class or another.  By integrating the area under the curve (AUC) we have a single number by which we cna compare models.  The larger the AUC the better or model is at discriminating between classes.
 
 #### Process and Submission
 
@@ -122,19 +125,77 @@ etc.
 
 #### Approach to Model Development
 
-This task is well suited to supervised binary classification models, and specifically those models which generate reliable probabilities. Not all suprervised models are amenable to this, Naive Bayes models, I'm looking at you.  I will most likely start with an out of the box ensemble model that scales well, such as XGBoost, but may also try a neural net or or nueral net baesed deep learning model using Keras.
+This task is well suited to supervised binary classification models, and specifically those models which generate reliable probabilities. Not all supervised models are amenable to this, Naive Bayes models, I'm looking at you.  I will most likely start with an out of the box ensemble model that scales well, such as XGBoost, but may also try a neural net or neural net based deep learning model using Keras.
 
 - Prepare Data (wrangling, pre-processing, etc.)
 - Explore data
-- Perform additional preparation as reveled by exploration (address outliers and missing data, engineer features, transform data, etc.)
+- Perform additional preparation as revealed by exploration (address outliers and missing data, engineer features, transform data, etc.)
 - Determine candidate feature set
 - Train and Test several models
 - Pick a model to move into further development
 - Tune model
 - Revisit any previous steps to further inform model
 - Submit results
-- Revisit or repeat any or all of the prior steps until a satisfacotry result has been achieved
+- Revisit or repeat any or all of the prior steps until a satisfactory result has been achieved
 
+##### Weather Data
+
+The body of literature regarding WNV mosquito populations and meteorological factors
+will be leveraged to select weather features. Only those features which have been
+well established in the literature to be predictive of WNV will be retained.  While
+other features may be predictive to this local data set a strategy of using literature
+validated features may promote a lower variance (more general) model. Literature
+information may also inform any features to be engineered.
+
+** Retained Weather Features **
+
+- Station (will be dropped once data sets are complete)
+- Date (for use in merging data sets)
+- Tmax        
+- Tmin          
+- Tavg           
+- Depart       
+- Heat       
+- Cool
+- Sunrise   
+- Sunset    
+- PrecipTotal
+
+
+** Weather Stations **
+
+There are two weather stations which contributed to the weather data.  There are
+several options for handling this and I have chosen to handle it in the following
+manner.
+
+1.  Train models considering each station separately
+2.  Train a model with blended station data (mean or median values TBD)
+
+Another option is to calculate which station is nearest each trap and use that data
+however geographical proximity to the station does not necessarily mean that stations
+reading is more accurate than another, given that neither station is significantly
+distant from any trap and that local terrain and geographical features may have such
+an impact as to render distance less relevant.  This strategy was abandoned in favor
+of the more straight forward strategies listed above.
+
+
+
+
+##### Selected Weather Related Literature
+
+There are several key references that help explain the relationship between
+weather and WNV. An important take home message is that many of the WNV predictive
+models that incorporate climate data are based on temperature and precipitation
+departures from long term averages (30 year averages etc.), as well as factors
+such as level of precipitation several months prior to the data we are using, for
+each year (precipitation during major larvae hatch periods informs the base mosquito
+population)  While this information is not part of the data allowed for this
+competition many of the spatio-temporal models also use shorter term averages as
+well as general concepts that will help inform decisions for the models developed
+in this project.
+
+
+##### Geographical Considerations
 
 
 
@@ -145,7 +206,7 @@ This task is well suited to supervised binary classification models, and specifi
 
 ### Metrics
 
-Each model will be evaluatied by the AUC of its ROC, as described in the problem statement section. Several other acronyms may be thrown in as part of an intellectual shock and awe campaign.
+Each model will be evaluated by the AUC of its ROC, as described in the problem statement section. Several other acronyms may be thrown in as part of an intellectual shock and awe campaign.
 
 
 ## II. Analysis
