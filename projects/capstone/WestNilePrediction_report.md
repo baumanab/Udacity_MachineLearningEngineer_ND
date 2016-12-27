@@ -179,8 +179,6 @@ an impact as to render distance less relevant.  This strategy was abandoned in f
 of the more straight forward strategies listed above.
 
 
-
-
 ##### Selected Weather Related Literature
 
 There are several key references that help explain the relationship between
@@ -194,9 +192,32 @@ competition many of the spatio-temporal models also use shorter term averages as
 well as general concepts that will help inform decisions for the models developed
 in this project.
 
+- [Illinois WNV Threat and Climate Division Model](http://mrcc.isws.illinois.edu/research/westnile/IL_CD/index.jsp)
+    + climate divisions as the basic spatial unit to aggregate non-homogenous WNV human and mosquito case sampling, and for averaging daily weather data
+    + use of precipitation and temperature departures from daily 30-year normals, rather than based on weekly degree days
+    + incorporation of 10-day daily temperature and 3-day daily precipitation forecasts to increase the lead time of model usefulness
+    + incorporation of the number of mosquito pools testing positive for WNV as reported to the Illinois Department of Public Health
+
+- [Meteorological Conditions Associated with Increased Incidence of West Nile Virus Disease in the United States, 2004–2012](http://m.ajtmh.org/content/92/5/1013.long?view=long&pmid=25802435) A general discussion of weather factors impacting occurence of WNV.
+- [The Effects of Weather and Environmental Factors on West Nile Virus Mosquito Abundance in Greater Toronto Area](http://journals.ametsoc.org/doi/pdf/10.1175/EI-D-15-0003.1) Development of a spatiotemporal model variability in Culex pipiens and it's impact on WNV
+- [West Nile Virus and Climate](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3456354/pdf/11524_2006_Article_34.pdf)
+- [Local impact of temperature and precipitation on West Nile virus infection in Culex species mosquitoes in northeast Illinois, USA](https://parasitesandvectors.biomedcentral.com/articles/10.1186/1756-3305-3-19) Discusses temporal and spatial patterns of precipitation and air temperature on the timing and location of increased mosquito infection in the northeastern Illinois area.
+- [Climate and Weather Impacts on West Nile Virus](http://www.mimosq.org/presentations/2016/4WestcottClimateWNV.pdf) An excellent summary of the impact of climate and weather on WNV prevelance in Illinois and MI (summarizes much of the first few references in a slide show)
+
+
+
+
+
+
 
 ##### Geographical Considerations
 
+The following publication highlights increased WNV risk as a function of proximity
+to the Des Plaines River (Cook County Illinois). This may bare some relevance to
+the current task but also suggests, as common sense would dictate, that proximity
+to major water bodies may be a useful feature in predicting WNV mosquito prevalance.
+
+http://online.liebertpub.com/doi/pdfplus/10.1089/vbz.2006.6.91
 
 
 
