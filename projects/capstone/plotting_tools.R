@@ -20,7 +20,7 @@ my_theme <- function(base_size = 12, base_family = "sans"){
       legend.position = "bottom",
       legend.justification = "top", 
       legend.box = "horizontal",
-      legend.box.background = element_rect(colour = "grey50"),
+      legend.background = element_rect(colour = "grey50"),
       legend.background = element_blank(),
       panel.border = element_rect(color = "grey", fill = NA, size = 0.5)
     )
