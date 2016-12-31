@@ -135,7 +135,3 @@ iter_plot_scatter <- function(names,data=vaccReported, xvar, alpha=1,add_color=T
                        color_factor,add_smooth,method,smooth_color_factor))
   }
 }
-exemptions <- c("medical_exempt","nonmedical_exempt","exempt_MMR")
-
-percent_exemptions <- c("percent_medical_exempt","percent_nonmedexempt",
-                        "percent_exempt_MMR")
