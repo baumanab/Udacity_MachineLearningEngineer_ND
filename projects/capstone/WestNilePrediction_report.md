@@ -138,7 +138,109 @@ This task is well suited to supervised binary classification models, and specifi
 - Submit results
 - Revisit or repeat any or all of the prior steps until a satisfactory result has been achieved
 
+
+### Metrics
+
+Each model will be evaluated by the AUC of its ROC, as described in the problem statement section. Several other acronyms may be thrown in as part of an intellectual shock and awe campaign.
+
+
+## II. Analysis
+_(approx. 2-4 pages)_
+
+### Data Exploration
+
+
+#### Training Data
+
+The training data consists of 12 columns as described below and is comprised of
+the odd data years 2007, 2009, 2011, and 2013.
+
+
+**Training Data**
+
+Data columns (total 12 columns):
+Date                      10506 non-null datetime64[ns]
+Address                   10506 non-null object
+Species                   10506 non-null object
+Block                     10506 non-null int64
+Street                    10506 non-null object
+Trap                      10506 non-null object
+AddressNumberAndStreet    10506 non-null object
+Latitude                  10506 non-null float64
+Longitude                 10506 non-null float64
+AddressAccuracy           10506 non-null int64
+NumMosquitos              10506 non-null int64
+WnvPresent                10506 non-null int64
+
+The following columns will be excluded from the training data:
+
+```python
+['Address', 'AddressNumberAndStreet', 'AddressAccuracy', 'NumMosquitos']
+```
+Data will be used to merge the  weather and train/test data and will then
+be removed.  Note that NumMosquitos was removed because it is not a test data field.
+
+#### Test Data
+
+The test data consists of 11 columns as described below and is comprised of the
+even data years 2008, 2010, 2012, 2014.
+
+**Test Data**
+
+Data columns (total 11 columns):
+Id                        116293 non-null int64
+Date                      116293 non-null datetime64[ns]
+Address                   116293 non-null object
+Species                   116293 non-null object
+Block                     116293 non-null int64
+Street                    116293 non-null object
+Trap                      116293 non-null object
+AddressNumberAndStreet    116293 non-null object
+Latitude                  116293 non-null float64
+Longitude                 116293 non-null float64
+AddressAccuracy           116293 non-null int64
+
+The following columns will be excluded from the test data:
+
+```python
+['Address', 'AddressNumberAndStreet', 'AddressAccuracy', 'Id']
+```
+Data will be used to merge the  weather and train/test data and will then
+be removed.
+
 ##### Weather Data
+
+The weather data consists of 22 columns as described below. Station 1 has the  full
+complement of data whereas Station 1 is  missing [depart, depth, water1, snowfall
+sunset, and sunrise]
+
+
+**Weather**
+
+Data columns (total 22 columns):
+Station        2944 non-null int64
+Date           2944 non-null datetime64[ns]
+Tmax           2944 non-null int64
+Tmin           2944 non-null int64
+Tavg           2944 non-null object
+Depart         2944 non-null object
+DewPoint       2944 non-null int64
+WetBulb        2944 non-null object
+Heat           2944 non-null object
+Cool           2944 non-null object
+Sunrise        2944 non-null object
+Sunset         2944 non-null object
+CodeSum        2944 non-null object
+Depth          2944 non-null object
+Water1         2944 non-null object
+SnowFall       2944 non-null object
+PrecipTotal    2944 non-null object
+StnPressure    2944 non-null object
+SeaLevel       2944 non-null object
+ResultSpeed    2944 non-null float64
+ResultDir      2944 non-null int64
+AvgSpeed       2944 non-null object
+
 
 The body of literature regarding WNV mosquito populations and meteorological factors
 will be leveraged to select weather features. Only those features which have been
@@ -151,32 +253,32 @@ information may also inform any features to be engineered.
 
 - Station (will be dropped once data sets are complete)
 - Date (for use in merging data sets)
-- Tmax        
-- Tmin          
-- Tavg           
-- Depart       
+- Tmax: Daily maximum temperature in Fahrenheit     
+- Tmin: Daily minimum temperature in Fahrenheit      
+- Tavg: Daily average temperature in Fahrenheit         
+- Depart: Departure from normal temperature in Fahrenheit      
 - Heat       
 - Cool
-- Sunrise   
-- Sunset    
+- Sunrise: Calculated time of sunrise CST
+- Sunset: Calculated sunset CST   
 - PrecipTotal
 
 
-** Weather Stations **
+**Weather Stations**
 
 There are two weather stations which contributed to the weather data.  There are
 several options for handling this and I have chosen to handle it in the following
 manner.
 
 1.  Train models considering each station separately
-2.  Train a model with blended station data (mean or median values TBD)
+2.  Train a model with blended (mean) station data
 
 Another option is to calculate which station is nearest each trap and use that data
 however geographical proximity to the station does not necessarily mean that stations
 reading is more accurate than another, given that neither station is significantly
 distant from any trap and that local terrain and geographical features may have such
-an impact as to render distance less relevant.  This strategy was abandoned in favor
-of the more straight forward strategies listed above.
+an impact as to render distance less relevant. Were this strategy to be employed
+the Haversine formula would be used since it accounts for the curvature of the earth.
 
 
 ##### Selected Weather Related Literature
@@ -202,7 +304,7 @@ in this project.
 - [The Effects of Weather and Environmental Factors on West Nile Virus Mosquito Abundance in Greater Toronto Area](http://journals.ametsoc.org/doi/pdf/10.1175/EI-D-15-0003.1) Development of a spatiotemporal model variability in Culex pipiens and it's impact on WNV
 - [West Nile Virus and Climate](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3456354/pdf/11524_2006_Article_34.pdf)
 - [Local impact of temperature and precipitation on West Nile virus infection in Culex species mosquitoes in northeast Illinois, USA](https://parasitesandvectors.biomedcentral.com/articles/10.1186/1756-3305-3-19) Discusses temporal and spatial patterns of precipitation and air temperature on the timing and location of increased mosquito infection in the northeastern Illinois area.
-- [Climate and Weather Impacts on West Nile Virus](http://www.mimosq.org/presentations/2016/4WestcottClimateWNV.pdf) An excellent summary of the impact of climate and weather on WNV prevelance in Illinois and MI (summarizes much of the first few references in a slide show)
+- [Climate and Weather Impacts on West Nile Virus](http://www.mimosq.org/presentations/2016/4WestcottClimateWNV.pdf) An excellent summary of the impact of climate and weather on WNV prevalance in Illinois and MI (summarizes much of the first few references in a slide show)
 
 
 
@@ -221,24 +323,14 @@ http://online.liebertpub.com/doi/pdfplus/10.1089/vbz.2006.6.91
 
 
 
-
-
-
-
-### Metrics
-
-Each model will be evaluated by the AUC of its ROC, as described in the problem statement section. Several other acronyms may be thrown in as part of an intellectual shock and awe campaign.
-
-
-## II. Analysis
-_(approx. 2-4 pages)_
-
-### Data Exploration
 In this section, you will be expected to analyze the data you are using for the problem. This data can either be in the form of a dataset (or datasets), input data (or input files), or even an environment. The type of data should be thoroughly described and, if possible, have basic statistics and information presented (such as discussion of input features or defining characteristics about the input or environment). Any abnormalities or interesting qualities about the data that may need to be addressed have been identified (such as features that need to be transformed or the possibility of outliers). Questions to ask yourself when writing this section:
 - _If a dataset is present for this problem, have you thoroughly discussed certain features about the dataset? Has a data sample been provided to the reader?_
 - _If a dataset is present for this problem, are statistics about the dataset calculated and reported? Have any relevant results from this calculation been discussed?_
 - _If a dataset is **not** present for this problem, has discussion been made about the input space or input data for your problem?_
 - _Are there any abnormalities or characteristics about the input space or dataset that need to be addressed? (categorical variables, missing values, outliers, etc.)_
+-
+
+
 
 ### Exploratory Visualization
 In this section, you will need to provide some form of visualization that summarizes or extracts a relevant characteristic or feature about the data. The visualization should adequately support the data being used. Discuss why this visualization was chosen and how it is relevant. Questions to ask yourself when writing this section:
