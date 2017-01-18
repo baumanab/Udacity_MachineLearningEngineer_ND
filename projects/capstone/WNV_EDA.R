@@ -78,37 +78,43 @@ ggplot(train, aes(x=Cool, fill=Station)) +
 
 ggplot(train_station_1, aes(x=reorder(Block, WnvPresent, function(x){mean(x)}),
                             y= WnvPresent)) +
-  geom_bar(stat= "summary", fun.y= "mean", color= "black", fill= 'yellow') +
+  geom_bar(stat= "summary", fun.y= "mean", color= "blue",
+           width= 0.05) +
   coord_flip()
 
 ggplot(train_station_1, aes(x=reorder(Street, WnvPresent, function(x){mean(x)}),
                             y= WnvPresent)) +
-  geom_bar(stat= "summary", fun.y= "mean", color= "black", fill= 'yellow') +
+  geom_bar(stat= "summary", fun.y= "mean", color= "blue", width= 0.05) +
   coord_flip()
 
 ggplot(train_station_1, aes(x=reorder(Species, WnvPresent, function(x){mean(x)}),
                             y= WnvPresent)) +
-  geom_bar(stat= "summary", fun.y= "mean", color= "black", fill= 'yellow') +
+  geom_bar(stat= "summary", fun.y= "mean", color= "blue",
+           width= 0.1) +
   coord_flip()
 
 ggplot(train_station_1, aes(x=reorder(month, WnvPresent, function(x){mean(x)}),
                             y= WnvPresent)) +
-  geom_bar(stat= "summary", fun.y= "mean", color= "black", fill= 'yellow') +
+  geom_bar(stat= "summary", fun.y= "mean", color= "blue",
+           width= 0.1) +
   coord_flip()
 
 ggplot(train_station_1, aes(x=reorder(week, WnvPresent, function(x){mean(x)}),
                             y= WnvPresent)) +
-  geom_bar(stat= "summary", fun.y= "mean", color= "black", fill= 'yellow') +
+  geom_bar(stat= "summary", fun.y= "mean", color= "blue",
+           width= 0.1) +
   coord_flip()
 
 ggplot(train_station_1, aes(x=reorder(day, WnvPresent, function(x){mean(x)}),
                             y= WnvPresent)) +
-  geom_bar(stat= "summary", fun.y= "mean", color= "black", fill= 'yellow') +
+  geom_bar(stat= "summary", fun.y= "mean", color= "blue",
+           width= 0.1) +
   coord_flip()
 
 ggplot(train_station_1, aes(x=reorder(day_of_year, WnvPresent, function(x){mean(x)}),
                             y= WnvPresent)) +
-  geom_bar(stat= "summary", fun.y= "mean", color= "black", fill= 'yellow') +
+  geom_bar(stat= "summary", fun.y= "mean", color= "blue",
+           width= 0.1) +
   coord_flip()
 
 
