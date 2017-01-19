@@ -117,16 +117,56 @@ ggplot(train_station_1, aes(x=reorder(day_of_year, WnvPresent, function(x){mean(
            width= 0.1) +
   coord_flip()
 
+ggplot(train, aes(x=reorder(DayLength, WnvPresent, function(x){mean(x)}),
+                            y= WnvPresent, fill= Station)) +
+  geom_bar(stat= "summary", fun.y= "mean", color= "blue",
+           width= 0.1, position= "dodge") +
+  coord_flip()
 
 
 
 
+# workbench https://www.r-bloggers.com/from-continuous-to-categorical/
 
-# scatterplots
 
-ggplot(train, aes(x=xvar, y=yvar)) +
-  geom_point(shape=1) +    # Use hollow circles
-  geom_smooth(method=lm) 
+ggplot(train, aes(x= cut(train$Tavg, seq(40,100,5), right=FALSE),y= WnvPresent,
+                  color= Station)) +
+  geom_point(stat= "summary", fun.y= 'mean', size= 2)
+
+ggplot(train, aes(x= cut(train$Tmin, seq(40,100,5), right=FALSE),y= WnvPresent,
+                  color= Station)) +
+  geom_point(stat= "summary", fun.y= 'mean', size= 2)
+
+ggplot(train, aes(x= cut(train$blended_Tmin, seq(40,100,5), right=FALSE),y= WnvPresent,
+                  color= Station)) +
+  geom_point(stat= "summary", fun.y= 'mean', size= 2)
+
+ggplot(train, aes(x= cut(train$Tmax, seq(40,100,5), right=FALSE),y= WnvPresent,
+                  color= Station)) +
+  geom_point(stat= "summary", fun.y= 'mean', size= 2)
+
+ggplot(train, aes(x= cut(train$blended_Tmax, seq(40,100,5), right=FALSE),y= WnvPresent,
+                  color= Station)) +
+  geom_point(stat= "summary", fun.y= 'mean', size= 2)
+
+
+ggplot(train, aes(x= cut(train$Depart, seq(-12,18,5), right=FALSE),y= WnvPresent)) +
+  geom_point(stat= "summary", fun.y= 'mean', size= 2)
+
+ggplot(train, aes(x= cut(train$Heat, seq(0,15,3), right=FALSE),y= WnvPresent)) +
+  geom_point(stat= "summary", fun.y= 'mean', size= 2)
+
+ggplot(train, aes(x= cut(train$Cool, seq(0,22,4), right=FALSE),y= WnvPresent)) +
+  geom_point(stat= "summary", fun.y= 'mean', size= 2)
+
+
+ggplot(train, aes(x= cut(train$PrecipTotal, seq(0,4,1), right=FALSE),y= WnvPresent)) +
+  geom_point(stat= "summary", fun.y= 'mean', size= 2)
+
+
+# sunrise, sunset
+
+train$Sunrise
 
 
 
