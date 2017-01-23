@@ -64,7 +64,7 @@ ggplot(train, aes(x=Heat, fill=Station)) +
 ggplot(train, aes(x=Heat, fill=Station)) +
   geom_density(alpha= 0.2) +
   geom_density(aes(x = blended_Tmax), alpha= 0, linetype= 'dashed') +
-  scale_x_log10()
+  scale_x_log10() +
   my_theme()
 
 ggplot(train, aes(x=Cool, fill=Station)) +
@@ -117,11 +117,18 @@ ggplot(train_station_1, aes(x=reorder(day_of_year, WnvPresent, function(x){mean(
            width= 0.1) +
   coord_flip()
 
-ggplot(train, aes(x=reorder(DayLength, WnvPresent, function(x){mean(x)}),
+ggplot(train, aes(x=reorder(DayLength_NearH, WnvPresent, function(x){mean(x)}),
                             y= WnvPresent, fill= Station)) +
   geom_bar(stat= "summary", fun.y= "mean", color= "blue",
            width= 0.1, position= "dodge") +
   coord_flip()
+
+ggplot(train, aes(x=reorder(NightLength_NearH, WnvPresent, function(x){mean(x)}),
+                  y= WnvPresent, fill= Station)) +
+  geom_bar(stat= "summary", fun.y= "mean", color= "blue",
+           width= 0.1, position= "dodge") +
+  coord_flip()
+
 
 
 
@@ -166,7 +173,13 @@ ggplot(train, aes(x= cut(train$PrecipTotal, seq(0,4,1), right=FALSE),y= WnvPrese
 
 # sunrise, sunset
 
-train$Sunrise
+min(train$Sunset_hours)
+max(train$Sunset_hours)
 
 
+ggplot(train, aes(x= cut(train$Sunrise_hours, seq(4,6,0.1), right=FALSE),y= WnvPresent)) +
+  geom_point(stat= "summary", fun.y= 'mean', size= 2)
+
+ggplot(train, aes(x= cut(train$Sunset_hours, seq(17,20,0.25), right=FALSE),y= WnvPresent)) +
+  geom_point(stat= "summary", fun.y= 'mean', size= 2)
 
