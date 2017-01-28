@@ -1,0 +1,175 @@
+---
+title: "WNV Model EDA Highlights"
+author: "Andrew Bauman, PhD"
+date: "January 28, 2017"
+output: github_document
+---
+
+# Introduction #
+
+
+```{r global_options, include=FALSE}
+
+knitr::opts_chunk$set(warning=FALSE, message=FALSE)
+
+```
+
+```{r echo=FALSE}
+# read training data
+train <- read.csv('train.csv') # train data merged with weather data (both stations)
+train_station_1 <- read.csv('train_station_1.csv') # station 1 weather only
+train_station_2 <- read.csv('train_station_2.csv') # station 2 weather only
+
+# convert staton to factor for use in plotting
+train$Station <- factor(train$Station)
+```
+
+```{r echo=FALSE, message=FALSE, warning=FALSE, packages}
+# Load libraries
+
+library(ggplot2)
+library(tidyr)
+library(dplyr)
+library(data.table)
+library(RColorBrewer)
+library(scales)
+source('plotting_tools.R')
+```
+# Selected Density Pots #
+
+Overlaid density plots of Tmin and Tmax by station, where the dashed plot is the mean
+of the station data. Note that both stations cover the same temperature range, this
+information is not informative of whether or not to retain data from one station
+over another or to use the mean. This may be informed by plots temparature vs. 
+WNV rates or through the ML feature selection process.
+
+```{r echo=FALSE}
+ggplot(train, aes(x=Tmax, fill=Station)) +
+  geom_density(alpha= 0.2) +
+  geom_density(aes(x = blended_Tmax), alpha= 0, linetype= 'dashed') +
+  my_theme() +
+  ggtitle("Density Plot of Tmax by Station")
+
+ggplot(train, aes(x=Tmin, fill=Station)) +
+  geom_density(alpha= 0.2) +
+  geom_density(aes(x = blended_Tmin), alpha= 0, linetype= 'dashed') +
+  my_theme() +
+  ggtitle("Density Plot of Tmin by Station")
+```
+
+# WNV Rate by Location #
+
+The plots below demonstrate a clear relationship between location and the WNV rate.
+
+```{r echo=FALSE, fig.height= 15, fig.width= 12}
+ggplot(train_station_1, aes(x=reorder(Block, WnvPresent, function(x){mean(x)}),
+                            y= WnvPresent)) +
+  geom_bar(stat= "summary", fun.y= "mean", color= "blue",
+           width= 0.05) +
+  coord_flip() +
+  ggtitle("WNV Rate by Block") +
+  xlab("Block") +
+  ylab("WNV Rate")
+```
+
+```{r echo=FALSE, fig.height= 15, fig.width= 12}
+
+ggplot(train_station_1, aes(x=reorder(Street, WnvPresent, function(x){mean(x)}),
+                            y= WnvPresent)) +
+  geom_bar(stat= "summary", fun.y= "mean", color= "blue", width= 0.05) +
+  coord_flip() +
+  ggtitle("WNV Rate by Street") +
+  xlab("Street") +
+  ylab("WNV Rate")
+```
+
+# WNV Rate by Species #
+```{r echo=FALSE}
+ggplot(train_station_1, aes(x=reorder(Species, WnvPresent, function(x){mean(x)}),
+                            y= WnvPresent)) +
+  geom_bar(stat= "summary", fun.y= "mean", color= "blue",
+           width= 0.1, fill= 'blue') +
+  coord_flip() +
+  ggtitle("WNV Rate by Species") +
+  xlab("Species") +
+  ylab("WNV Rate")
+```
+
+
+# WNV Rate by Length of Day #
+```{r echo=FALSE}
+ggplot(train, aes(x=reorder(DayLength_NearH, WnvPresent, function(x){mean(x)}),
+                            y= WnvPresent)) +
+  geom_bar(stat= "summary", fun.y= "mean", color= "blue",
+           width= 0.1, position= "dodge", fill= 'blue') +
+  coord_flip() +
+  ggtitle("WNV Rate by Day Length") +
+  xlab("Length of Day (hours)") +
+  ylab("WNV Rate")
+```
+
+
+# WNV Rate by Sunrise Time #
+```{r echo=FALSE}
+ggplot(train, aes(x= cut(train$Sunrise_hours, seq(4,6,0.1), right=FALSE),y= WnvPresent)) +
+  geom_point(stat= "summary", fun.y= 'mean', size= 2) +
+  ggtitle("WNV Rate by Sunrise Hours") +
+  xlab("Hours since Midnight") +
+  ylab("WNV Rate")
+```
+
+
+# WNV Rate by Temperature Related Variables #
+```{r echo=FALSE}
+ggplot(train, aes(x= cut(train$Tavg, seq(40,100,5), right=FALSE),y= WnvPresent,
+                  color= Station)) +
+  geom_point(stat= "summary", fun.y= 'mean', size= 2) +
+  ggtitle("WNV Rate by Average Temperature") +
+  xlab("Celsius") +
+  ylab("WNV Rate")
+  
+
+ggplot(train, aes(x= cut(train$Tmin, seq(40,100,5), right=FALSE),y= WnvPresent,
+                  color= Station)) +
+  geom_point(stat= "summary", fun.y= 'mean', size= 2) +
+  ggtitle("WNV Rate by Minimum Temperature") +
+  xlab("Celsius") +
+  ylab("WNV Rate")
+
+
+ggplot(train, aes(x= cut(train$Tmax, seq(40,100,5), right=FALSE),y= WnvPresent,
+                  color= Station)) +
+  geom_point(stat= "summary", fun.y= 'mean', size= 2) +
+  ggtitle("WNV Rate by Maximum Temperature") +
+  xlab("Celsius") +
+  ylab("WNV Rate")
+
+ggplot(train, aes(x= cut(train$Depart, seq(-12,18,5), right=FALSE),y= WnvPresent)) +
+  geom_point(stat= "summary", fun.y= 'mean', size= 2) +
+  ggtitle("WNV Rate by Depart") +
+  xlab("Celsius") +
+  ylab("WNV Rate")
+
+ggplot(train, aes(x= cut(train$Heat, seq(0,15,3), right=FALSE),y= WnvPresent)) +
+  geom_point(stat= "summary", fun.y= 'mean', size= 2) +
+  ggtitle("WNV Rate by Heat") +
+  xlab("Celsius") +
+  ylab("WNV Rate")
+
+ggplot(train, aes(x= cut(train$Cool, seq(0,22,4), right=FALSE),y= WnvPresent)) +
+  geom_point(stat= "summary", fun.y= 'mean', size= 2) +
+  ggtitle("WNV Rate by Cool") +
+  xlab("Celsius") +
+  ylab("WNV Rate")
+
+```
+
+
+# WNV Rate by Total Precipitation #
+```{r echo=FALSE}
+ggplot(train, aes(x= cut(train$PrecipTotal, seq(0,4,1), right=FALSE),y= WnvPresent)) +
+  geom_point(stat= "summary", fun.y= 'mean', size= 2) +
+  ggtitle("WNV Rate by Total Precipitation") +
+  xlab("Precipitation (inches)") +
+  ylab("WNV Rate")
+```
