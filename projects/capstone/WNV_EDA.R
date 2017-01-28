@@ -20,16 +20,18 @@ glimpse(train)
 
 
 
-#distribution of temperatures via overlaid histograms
+#distribution of temperatures via overlaid density plots
 ggplot(train, aes(x=Tmax, fill=Station)) +
   geom_density(alpha= 0.2) +
   geom_density(aes(x = blended_Tmax), alpha= 0, linetype= 'dashed') +
-  my_theme()
+  my_theme() +
+  ggtitle("Density Plot of Tmax by Station")
 
 ggplot(train, aes(x=Tmin, fill=Station)) +
   geom_density(alpha= 0.2) +
   geom_density(aes(x = blended_Tmin), alpha= 0, linetype= 'dashed') +
-  my_theme()
+  my_theme() +
+  ggtitle("Density Plot of Tmin by Station")
 
 ggplot(train, aes(x=Tavg, fill=Station)) +
   geom_density(alpha= 0.2) +
@@ -80,18 +82,27 @@ ggplot(train_station_1, aes(x=reorder(Block, WnvPresent, function(x){mean(x)}),
                             y= WnvPresent)) +
   geom_bar(stat= "summary", fun.y= "mean", color= "blue",
            width= 0.05) +
-  coord_flip()
+  coord_flip() +
+  ggtitle("WNV Rate by Block") +
+  xlab("Block") +
+  ylab("WNV Rate")
 
 ggplot(train_station_1, aes(x=reorder(Street, WnvPresent, function(x){mean(x)}),
                             y= WnvPresent)) +
   geom_bar(stat= "summary", fun.y= "mean", color= "blue", width= 0.05) +
-  coord_flip()
+  coord_flip() +
+  ggtitle("WNV Rate by Street") +
+  xlab("Street") +
+  ylab("WNV Rate")
 
 ggplot(train_station_1, aes(x=reorder(Species, WnvPresent, function(x){mean(x)}),
                             y= WnvPresent)) +
   geom_bar(stat= "summary", fun.y= "mean", color= "blue",
            width= 0.1) +
-  coord_flip()
+  coord_flip() +
+  ggtitle("WNV Rate by Species") +
+  xlab("Species") +
+  ylab("WNV Rate")
 
 ggplot(train_station_1, aes(x=reorder(month, WnvPresent, function(x){mean(x)}),
                             y= WnvPresent)) +
@@ -103,7 +114,10 @@ ggplot(train_station_1, aes(x=reorder(week, WnvPresent, function(x){mean(x)}),
                             y= WnvPresent)) +
   geom_bar(stat= "summary", fun.y= "mean", color= "blue",
            width= 0.1) +
-  coord_flip()
+  coord_flip() +
+  ggtitle("WNV Rate by Week of Year") +
+  xlab("Week of Year") +
+  ylab("WNV Rate")
 
 ggplot(train_station_1, aes(x=reorder(day, WnvPresent, function(x){mean(x)}),
                             y= WnvPresent)) +
@@ -118,10 +132,13 @@ ggplot(train_station_1, aes(x=reorder(day_of_year, WnvPresent, function(x){mean(
   coord_flip()
 
 ggplot(train, aes(x=reorder(DayLength_NearH, WnvPresent, function(x){mean(x)}),
-                            y= WnvPresent, fill= Station)) +
+                            y= WnvPresent)) +
   geom_bar(stat= "summary", fun.y= "mean", color= "blue",
            width= 0.1, position= "dodge") +
-  coord_flip()
+  coord_flip() +
+  ggtitle("WNV Rate by Day Length") +
+  xlab("Length of Day (hours)") +
+  ylab("WNV Rate")
 
 ggplot(train, aes(x=reorder(NightLength_NearH, WnvPresent, function(x){mean(x)}),
                   y= WnvPresent, fill= Station)) +
@@ -138,19 +155,32 @@ ggplot(train, aes(x=reorder(NightLength_NearH, WnvPresent, function(x){mean(x)})
 
 ggplot(train, aes(x= cut(train$Tavg, seq(40,100,5), right=FALSE),y= WnvPresent,
                   color= Station)) +
-  geom_point(stat= "summary", fun.y= 'mean', size= 2)
+  geom_point(stat= "summary", fun.y= 'mean', size= 2) +
+  ggtitle("WNV Rate by Average Temperature") +
+  xlab("Celsius") +
+  ylab("WNV Rate")
+  
 
 ggplot(train, aes(x= cut(train$Tmin, seq(40,100,5), right=FALSE),y= WnvPresent,
                   color= Station)) +
-  geom_point(stat= "summary", fun.y= 'mean', size= 2)
+  geom_point(stat= "summary", fun.y= 'mean', size= 2) +
+  ggtitle("WNV Rate by Minimum Temperature") +
+  xlab("Celsius") +
+  ylab("WNV Rate")
 
 ggplot(train, aes(x= cut(train$blended_Tmin, seq(40,100,5), right=FALSE),y= WnvPresent,
                   color= Station)) +
-  geom_point(stat= "summary", fun.y= 'mean', size= 2)
+  geom_point(stat= "summary", fun.y= 'mean', size= 2) 
+  ggtitle("WNV Rate by Minimum Temperature") +
+  xlab("Celsius") +
+  ylab("WNV Rate")
 
 ggplot(train, aes(x= cut(train$Tmax, seq(40,100,5), right=FALSE),y= WnvPresent,
                   color= Station)) +
-  geom_point(stat= "summary", fun.y= 'mean', size= 2)
+  geom_point(stat= "summary", fun.y= 'mean', size= 2) +
+  ggtitle("WNV Rate by Maximum Temperature") +
+  xlab("Celsius") +
+  ylab("WNV Rate")
 
 ggplot(train, aes(x= cut(train$blended_Tmax, seq(40,100,5), right=FALSE),y= WnvPresent,
                   color= Station)) +
@@ -158,27 +188,38 @@ ggplot(train, aes(x= cut(train$blended_Tmax, seq(40,100,5), right=FALSE),y= WnvP
 
 
 ggplot(train, aes(x= cut(train$Depart, seq(-12,18,5), right=FALSE),y= WnvPresent)) +
-  geom_point(stat= "summary", fun.y= 'mean', size= 2)
+  geom_point(stat= "summary", fun.y= 'mean', size= 2) +
+  ggtitle("WNV Rate by Depart") +
+  xlab("Celsius") +
+  ylab("WNV Rate")
 
 ggplot(train, aes(x= cut(train$Heat, seq(0,15,3), right=FALSE),y= WnvPresent)) +
-  geom_point(stat= "summary", fun.y= 'mean', size= 2)
+  geom_point(stat= "summary", fun.y= 'mean', size= 2) +
+  ggtitle("WNV Rate by Heat") +
+  xlab("Celsius") +
+  ylab("WNV Rate")
 
 ggplot(train, aes(x= cut(train$Cool, seq(0,22,4), right=FALSE),y= WnvPresent)) +
-  geom_point(stat= "summary", fun.y= 'mean', size= 2)
+  geom_point(stat= "summary", fun.y= 'mean', size= 2) +
+  ggtitle("WNV Rate by Cool") +
+  xlab("Celsius") +
+  ylab("WNV Rate")
 
 
 ggplot(train, aes(x= cut(train$PrecipTotal, seq(0,4,1), right=FALSE),y= WnvPresent)) +
-  geom_point(stat= "summary", fun.y= 'mean', size= 2)
+  geom_point(stat= "summary", fun.y= 'mean', size= 2) +
+  ggtitle("WNV Rate by Total Precipitation") +
+  xlab("Precipitation (inches)") +
+  ylab("WNV Rate")
 
 
 # sunrise, sunset
 
-min(train$Sunset_hours)
-max(train$Sunset_hours)
-
-
 ggplot(train, aes(x= cut(train$Sunrise_hours, seq(4,6,0.1), right=FALSE),y= WnvPresent)) +
-  geom_point(stat= "summary", fun.y= 'mean', size= 2)
+  geom_point(stat= "summary", fun.y= 'mean', size= 2) +
+  ggtitle("WNV Rate by Sunrise Hours") +
+  xlab("Hours since Midnight") +
+  ylab("WNV Rate")
 
 ggplot(train, aes(x= cut(train$Sunset_hours, seq(17,20,0.25), right=FALSE),y= WnvPresent)) +
   geom_point(stat= "summary", fun.y= 'mean', size= 2)
