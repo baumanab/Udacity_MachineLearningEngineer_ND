@@ -7,6 +7,8 @@ output: github_document
 
 # Introduction #
 
+Exploratory Data Analysis for informing West Nile Virus (WNV) probability models.
+Selected plots are including, all plots can be found at [WNV_EDA.R]().
 
 ```{r global_options, include=FALSE}
 
@@ -35,13 +37,9 @@ library(RColorBrewer)
 library(scales)
 source('plotting_tools.R')
 ```
-# Selected Density Pots #
+## Selected Density Pots
 
-Overlaid density plots of Tmin and Tmax by station, where the dashed plot is the mean
-of the station data. Note that both stations cover the same temperature range, this
-information is not informative of whether or not to retain data from one station
-over another or to use the mean. This may be informed by plots temparature vs. 
-WNV rates or through the ML feature selection process.
+Overlaid density plots of Tmin and Tmax by station, where the dashed plot is the mean of the station data. Note that both stations cover the same temperature range, this information is not informative of whether or not to retain data from one station over another or to use the mean. This may be informed by plots temparature vs. WNV rates or through the ML feature selection process.
 
 ```{r echo=FALSE}
 ggplot(train, aes(x=Tmax, fill=Station)) +
@@ -57,7 +55,7 @@ ggplot(train, aes(x=Tmin, fill=Station)) +
   ggtitle("Density Plot of Tmin by Station")
 ```
 
-# WNV Rate by Location #
+## WNV Rate by Location
 
 The plots below demonstrate a clear relationship between location and the WNV rate.
 
@@ -72,7 +70,7 @@ ggplot(train_station_1, aes(x=reorder(Block, WnvPresent, function(x){mean(x)}),
   ylab("WNV Rate")
 ```
 
-```{r echo=FALSE, fig.height= 15, fig.width= 12}
+```{r echo=FALSE, fig.height= 20, fig.width= 12}
 
 ggplot(train_station_1, aes(x=reorder(Street, WnvPresent, function(x){mean(x)}),
                             y= WnvPresent)) +
@@ -83,7 +81,10 @@ ggplot(train_station_1, aes(x=reorder(Street, WnvPresent, function(x){mean(x)}),
   ylab("WNV Rate")
 ```
 
-# WNV Rate by Species #
+## WNV Rate by Species 
+
+This plot demonstrates a relationship between species and wNV presence.
+
 ```{r echo=FALSE}
 ggplot(train_station_1, aes(x=reorder(Species, WnvPresent, function(x){mean(x)}),
                             y= WnvPresent)) +
@@ -96,7 +97,10 @@ ggplot(train_station_1, aes(x=reorder(Species, WnvPresent, function(x){mean(x)})
 ```
 
 
-# WNV Rate by Length of Day #
+## WNV Rate by Length of Day
+
+Longer days are associated with WNV presence. 
+
 ```{r echo=FALSE}
 ggplot(train, aes(x=reorder(DayLength_NearH, WnvPresent, function(x){mean(x)}),
                             y= WnvPresent)) +
@@ -109,7 +113,11 @@ ggplot(train, aes(x=reorder(DayLength_NearH, WnvPresent, function(x){mean(x)}),
 ```
 
 
-# WNV Rate by Sunrise Time #
+## WNV Rate by Sunrise Time 
+
+The number of hours between sunrise and the beginning of the day is predictive
+of WNV presence.
+
 ```{r echo=FALSE}
 ggplot(train, aes(x= cut(train$Sunrise_hours, seq(4,6,0.1), right=FALSE),y= WnvPresent)) +
   geom_point(stat= "summary", fun.y= 'mean', size= 2) +
@@ -119,7 +127,10 @@ ggplot(train, aes(x= cut(train$Sunrise_hours, seq(4,6,0.1), right=FALSE),y= WnvP
 ```
 
 
-# WNV Rate by Temperature Related Variables #
+## WNV Rate by Temperature Related Variables
+
+WNV presense appears to follow rising temperatures.  The plot for Tmax is particularly interesting as there may be a high and low temperature cluster.
+
 ```{r echo=FALSE}
 ggplot(train, aes(x= cut(train$Tavg, seq(40,100,5), right=FALSE),y= WnvPresent,
                   color= Station)) +
@@ -143,6 +154,11 @@ ggplot(train, aes(x= cut(train$Tmax, seq(40,100,5), right=FALSE),y= WnvPresent,
   ggtitle("WNV Rate by Maximum Temperature") +
   xlab("Celsius") +
   ylab("WNV Rate")
+```
+
+Depart, heat, and cool do not appear to be particularly informative.
+
+```{r echo=FALSE}
 
 ggplot(train, aes(x= cut(train$Depart, seq(-12,18,5), right=FALSE),y= WnvPresent)) +
   geom_point(stat= "summary", fun.y= 'mean', size= 2) +
@@ -165,7 +181,11 @@ ggplot(train, aes(x= cut(train$Cool, seq(0,22,4), right=FALSE),y= WnvPresent)) +
 ```
 
 
-# WNV Rate by Total Precipitation #
+## WNV Rate by Total Precipitation
+
+A model where lower precipitaion is predictive of WNv pressence is consitent
+with the literature for mid-west climate zones.
+
 ```{r echo=FALSE}
 ggplot(train, aes(x= cut(train$PrecipTotal, seq(0,4,1), right=FALSE),y= WnvPresent)) +
   geom_point(stat= "summary", fun.y= 'mean', size= 2) +
