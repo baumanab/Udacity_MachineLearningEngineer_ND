@@ -218,7 +218,7 @@ sunset, and sunrise]
 **Weather**
 
 Data columns (total 22 columns):
-Station        2944 non-null int64
+Station        2944 non-null object
 Date           2944 non-null datetime64[ns]
 Tmax           2944 non-null int64
 Tmin           2944 non-null int64
@@ -304,7 +304,7 @@ in this project.
 - [The Effects of Weather and Environmental Factors on West Nile Virus Mosquito Abundance in Greater Toronto Area](http://journals.ametsoc.org/doi/pdf/10.1175/EI-D-15-0003.1) Development of a spatiotemporal model variability in Culex pipiens and it's impact on WNV
 - [West Nile Virus and Climate](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3456354/pdf/11524_2006_Article_34.pdf)
 - [Local impact of temperature and precipitation on West Nile virus infection in Culex species mosquitoes in northeast Illinois, USA](https://parasitesandvectors.biomedcentral.com/articles/10.1186/1756-3305-3-19) Discusses temporal and spatial patterns of precipitation and air temperature on the timing and location of increased mosquito infection in the northeastern Illinois area.
-- [Climate and Weather Impacts on West Nile Virus](http://www.mimosq.org/presentations/2016/4WestcottClimateWNV.pdf) An excellent summary of the impact of climate and weather on WNV prevalance in Illinois and MI (summarizes much of the first few references in a slide show)
+- [Climate and Weather Impacts on West Nile Virus](http://www.mimosq.org/presentations/2016/4WestcottClimateWNV.pdf) An excellent summary of the impact of climate and weather on WNV prevalence in Illinois and MI (summarizes much of the first few references in a slide show)
 
 
 
@@ -317,26 +317,113 @@ in this project.
 The following publication highlights increased WNV risk as a function of proximity
 to the Des Plaines River (Cook County Illinois). This may bare some relevance to
 the current task but also suggests, as common sense would dictate, that proximity
-to major water bodies may be a useful feature in predicting WNV mosquito prevalance.
+to major water bodies may be a useful feature in predicting WNV mosquito prevalence.
 
 http://online.liebertpub.com/doi/pdfplus/10.1089/vbz.2006.6.91
 
+#### Outliers
 
+No algorithm (Tukey's etc) was run to detect outliers.  Instead data was visually inspected for unusual values during EDA.
 
-In this section, you will be expected to analyze the data you are using for the problem. This data can either be in the form of a dataset (or datasets), input data (or input files), or even an environment. The type of data should be thoroughly described and, if possible, have basic statistics and information presented (such as discussion of input features or defining characteristics about the input or environment). Any abnormalities or interesting qualities about the data that may need to be addressed have been identified (such as features that need to be transformed or the possibility of outliers). Questions to ask yourself when writing this section:
-- _If a dataset is present for this problem, have you thoroughly discussed certain features about the dataset? Has a data sample been provided to the reader?_
-- _If a dataset is present for this problem, are statistics about the dataset calculated and reported? Have any relevant results from this calculation been discussed?_
-- _If a dataset is **not** present for this problem, has discussion been made about the input space or input data for your problem?_
-- _Are there any abnormalities or characteristics about the input space or dataset that need to be addressed? (categorical variables, missing values, outliers, etc.)_
--
+#### Examine and Handle Missing Data
 
+The train and test sets do not contain missing data.
+
+The weather data set has a substantial amount of missing data, mostly in Station 2.  Missing data appears as ```-```, 'T', or 'M'.
+
+**What is 'T' and 'M'?**
+- From http://www.nws.noaa.gov/om/csd/info/NOWdata/FAQ.php
+
+> "M" stands for "Missing". Data for an element will be missing if the primary sensor for that weather element is inoperable (e.g., has an outage) or malfunctioning (e.g., producing errant data) AND any collocated backup sensor is also inoperable or malfunctioning. "T" stand for "Trace". This is a small amount of precipitation that will wet a rain gauge but is less than the 0.01 inch measuring limit.
+
+All of the missing data is from Station 2.  Station one has 163 instances of 'T',
+in the for PrecipTotal.  For Station 2 we have:
+
+- 'M': {'Heat': 11, "Cool": 11, "Depart: 1472", "Tavg": 11, "PrecipTotal": 2}
+- '-': {"Sunrise": 1472, "Sunset": 1472}
+- 'T': {"PrecipTotal": 155}
+
+1472 records represents all rows for Station 2, meaning that Station 2 does is
+missing all Sunrise and Sunset data as well as Depart.  Sunrise and Sunset data
+are calculated and should not differ substantially between stations.  So Station 1
+Sunrise and Sunset were used to fill for Station 2.  Values of "T" for PrecipTotal
+were filled a value of 0.005. It's tempting to make these 0 but actually small
+amounts of rain in Midwest climate zones (an amount of rain that tends to form
+stagnant water pools such as "puddles")are correlated with West Nile Virus.  Given
+this, 0 is unlikely to be the best choice.  All other missing data was filled from
+Station 1 as values are unlikely to differ substantially.
+
+Another peculiarity of the data is that 48 Sunset records contained were not validate
+military time values.  For example using 1160 hours instead of 1200 hours. This was
+addressed by rolling each instant back 1 minute such that 1160 would become 1159.  
+This was important for downstream feature engineering which required DateTime handling.
+
+All data wrangling, data characterization, feature engineering, and related steps
+are detailed in the references [?Put references here?]
 
 
 ### Exploratory Visualization
-In this section, you will need to provide some form of visualization that summarizes or extracts a relevant characteristic or feature about the data. The visualization should adequately support the data being used. Discuss why this visualization was chosen and how it is relevant. Questions to ask yourself when writing this section:
-- _Have you visualized a relevant characteristic or feature about the dataset or input data?_
-- _Is the visualization thoroughly analyzed and discussed?_
-- _If a plot is provided, are the axes, title, and datum clearly defined?_
+
+EDA is performed and documented in the [?Place reference here?]. Each variable
+was with the exception of Lat and Long was visualized (block and street level location
+data was visualized instead since they are more general). Plots selected for their
+are included below.
+
+
+#### Density Pots
+------------------
+
+Overlaid density plots of Tmin and Tmax by station, where the dashed plot is the mean of the station data. Note that both stations cover the same temperature range, this information is not informative of whether or not to retain data from one station over another or to use the mean. This may be informed by plots temparature vs. WNV rates or through the ML feature selection process.
+
+![](WNV_EDA_Highlights_files/figure-markdown_github/unnamed-chunk-2-1.png)![](WNV_EDA_Highlights_files/figure-markdown_github/unnamed-chunk-2-2.png)
+
+ #### WNV Rate by Location
+ ------------------
+
+The plots below demonstrate a clear relationship between location and the WNV rate.
+
+![](WNV_EDA_Highlights_files/figure-markdown_github/unnamed-chunk-3-1.png)
+
+![](WNV_EDA_Highlights_files/figure-markdown_github/unnamed-chunk-4-1.png)
+
+#### WNV Rate by Species
+------------------
+
+This plot demonstrates a relationship between species and wNV presence.
+
+![](WNV_EDA_Highlights_files/figure-markdown_github/unnamed-chunk-5-1.png)
+
+#### WNV Rate by Length of Day
+-------------------------
+
+Longer days are associated with WNV presence.
+
+![](WNV_EDA_Highlights_files/figure-markdown_github/unnamed-chunk-6-1.png)
+
+#### WNV Rate by Sunrise Time
+------------------------
+
+The number of hours between sunrise and the beginning of the day is predictive of WNV presence.
+
+![](WNV_EDA_Highlights_files/figure-markdown_github/unnamed-chunk-7-1.png)
+
+#### WNV Rate by Temperature Related Variables
+-----------------------------------------
+
+WNV presence appears to follow rising temperatures. The plot for Tmax is particularly interesting as there may be a high and low temperature cluster.
+
+![](WNV_EDA_Highlights_files/figure-markdown_github/unnamed-chunk-8-1.png)![](WNV_EDA_Highlights_files/figure-markdown_github/unnamed-chunk-8-2.png)![](WNV_EDA_Highlights_files/figure-markdown_github/unnamed-chunk-8-3.png)
+
+Depart, heat, and cool do not appear to be particularly informative.
+
+![](WNV_EDA_Highlights_files/figure-markdown_github/unnamed-chunk-9-1.png)![](WNV_EDA_Highlights_files/figure-markdown_github/unnamed-chunk-9-2.png)![](WNV_EDA_Highlights_files/figure-markdown_github/unnamed-chunk-9-3.png)
+
+#### WNV Rate by Total Precipitation
+-------------------------------
+
+A model where lower precipitation is predictive of WNv presence is consistent with the literature for mid-west climate zones.
+
+![](WNV_EDA_Highlights_files/figure-markdown_github/unnamed-chunk-10-1.png)
 
 ### Algorithms and Techniques
 In this section, you will need to discuss the algorithms and techniques you intend to use for solving the problem. You should justify the use of each one based on the characteristics of the problem and the problem domain. Questions to ask yourself when writing this section:
