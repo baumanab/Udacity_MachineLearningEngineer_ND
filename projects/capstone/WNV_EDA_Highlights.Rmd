@@ -118,7 +118,7 @@ ggplot(train, aes(x=reorder(DayLength_NearH, WnvPresent, function(x){mean(x)}),
 The number of hours between sunrise and the beginning of the day is predictive
 of WNV presence.
 
-```{r echo=FALSE}
+```{r echo=FALSE, fig.width= 10}
 ggplot(train, aes(x= cut(train$Sunrise_hours, seq(4,6,0.1), right=FALSE),y= WnvPresent)) +
   geom_point(stat= "summary", fun.y= 'mean', size= 2) +
   ggtitle("WNV Rate by Sunrise Hours") +
