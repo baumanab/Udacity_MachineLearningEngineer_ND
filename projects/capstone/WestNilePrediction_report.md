@@ -361,6 +361,30 @@ This was important for downstream feature engineering which required DateTime ha
 All data wrangling, data characterization, feature engineering, and related steps
 are detailed in the references [?Put references here?]
 
+#### Feature Engineering
+
+The following features were engineered.  Those features in bold were evaluated during
+feature selection. The remaining features were either redundant (night length for
+example) or were rejected due to response during EDA.
+
+- **day_of_year**: Integer representing the day of year
+- **day**: Integer representing day of the month
+- **month**: Integer representing the month
+- **week_of_year**: Integer representing the week of the year
+- **DayLength_MPrec**: Float of day length with precision in minutes
+- **DayLength_NearH**: Length of day rounded to the nearest hour
+- NightLength_MPrec: Float of night length with precision in minutes
+- NightLength_NearH: Length of night rounded to the nearest hour
+- **Sunrise_hours**: Elapsed time, in hours, from midnight to Sunrise
+- **Sunset_hours**:  Elapsed time, in hours, from midnight to Sunset
+- **blended_Tmax**: Average Tmax of Stations 1 and 2
+- **blended_Tmin**: Average Tmin of Stations 1 and 2
+- blended_Depart: Average depart of Stations 1 and 2
+- blended_Heat: Average heat of Stations 1 and 2
+- blended_Cool: Average cool of Stations 1 and 2
+- **blended_PrecipTotal**: Average PrecipTotal of Stations 1 and 2
+
+
 
 ### Exploratory Visualization
 
@@ -370,10 +394,10 @@ data was visualized instead since they are more general). Plots selected for the
 are included below.
 
 
-#### Density Pots
+#### Density Plots
 ------------------
 
-Overlaid density plots of Tmin and Tmax by station, where the dashed plot is the mean of the station data. Note that both stations cover the same temperature range, this information is not informative of whether or not to retain data from one station over another or to use the mean. This may be informed by plots temparature vs. WNV rates or through the ML feature selection process.
+Overlaid density plots of Tmin and Tmax by station, where the dashed plot is the mean of the station data. Note that both stations cover the same temperature range, this information is not informative of whether or not to retain data from one station over another or to use the mean. This may be informed by plots temperature vs. WNV rates or through the ML feature selection process.
 
 ![](WNV_EDA_Highlights_files/figure-markdown_github/unnamed-chunk-2-1.png)![](WNV_EDA_Highlights_files/figure-markdown_github/unnamed-chunk-2-2.png)
 
@@ -426,25 +450,85 @@ A model where lower precipitation is predictive of WNv presence is consistent wi
 ![](WNV_EDA_Highlights_files/figure-markdown_github/unnamed-chunk-10-1.png)
 
 ### Algorithms and Techniques
+
+#### Feature Selection
+
+Feature importance from XGBoost (boosted decision trees) will be used to Selection
+the final feature set.  An iterable of importance thresholds will be passed to the
+classifiers and a final threshold or n features will be selected on the basis of
+performance on a hold out of the training set.
+
+
+#### Algorithms
+
+- Random Forest:
+- XGBoost:
+
+
 In this section, you will need to discuss the algorithms and techniques you intend to use for solving the problem. You should justify the use of each one based on the characteristics of the problem and the problem domain. Questions to ask yourself when writing this section:
 - _Are the algorithms you will use, including any default variables/parameters in the project clearly defined?_
 - _Are the techniques to be used thoroughly discussed and justified?_
 - _Is it made clear how the input data or datasets will be handled by the algorithms and techniques chosen?_
 
 ### Benchmark
-In this section, you will need to provide a clearly defined benchmark result or threshold for comparing across performances obtained by your solution. The reasoning behind the benchmark (in the case where it is not an established result) should be discussed. Questions to ask yourself when writing this section:
-- _Has some result or value been provided that acts as a benchmark for measuring performance?_
-- _Is it clear how this result or value was obtained (whether by data or by hypothesis)?_
+
+My initial benchmark will be that dictated by the competition, which is 50%  In
+other words, the initial task will be to produce an algorithm that performs better
+than guessing.  Each stage of development will establish a new benchmark.  These
+stages are:
+
+- Un-tuned classifiers without rigorous feature selection (run with all features
+that pass EDA) trained on all the training data, tested on test data, with results
+submitted for scoring.
+
+After this stage the training data will be split for use in feature selection and
+tuning.  
+- Un-tuned classifiers with selected features, where the most performant will be passed to tuning
+- A tuned classifier from the previous step.
 
 
 ## III. Methodology
-_(approx. 3-5 pages)_
 
 ### Data Preprocessing
-In this section, all of your preprocessing steps will need to be clearly documented, if any were necessary. From the previous section, any of the abnormalities or characteristics that you identified about the dataset will be addressed and corrected here. Questions to ask yourself when writing this section:
-- _If the algorithms chosen require preprocessing steps like feature selection or feature transformations, have they been properly documented?_
-- _Based on the **Data Exploration** section, if there were abnormalities or characteristics that needed to be addressed, have they been properly corrected?_
-- _If no preprocessing is needed, has it been made clear why?_
+
+Data abnormalities and related processing as well as feature engineering have been
+described in previous sections. This leaves handling of station data, categorical
+variables, latitude and longitude, and feature selection.
+
+#### Categorical variables
+
+The final processing step was to transform categorical
+features into dummies.  That is, each categorical value is transformed into its
+own field where that feature takes a value of 1 where active (on) and 0 where inactive
+(off).  Categorical variables transformed to dummies are Block, Street, Species,
+and Trap.
+
+#### Station Specific Data
+
+EDA revealed enough difference between the two stations across variables that it
+isn't clear which station should be used or if an average (blended) value should
+be used.  Given this station specific data form Tmax, Tmin, PrecipTotal, and Tavg
+were created.
+
+#### Latitude and Longitude
+
+An integer version of each of these values was created to see if this impacts performance.
+
+
+
+
+#### Feature Selection
+
+The initial feature set, prior to creation of dummies, consists of:
+
+['stat_1_Date', 'Species', 'Block', 'Street', 'Trap', 'Latitude',
+       'Longitude', 'month', 'day', 'day_of_year', 'week',
+       'stat_1_Tmax', 'stat_1_Tmin', 'stat_1_Tavg', 'stat_1_PrecipTotal',
+       'DayLength_MPrec', 'DayLength_NearH', 'Sunrise_hours', 'Sunset_hours',
+       'blended_Tmax', 'blended_Tmin', 'blended_PrecipTotal', 'stat_2_Date',
+       'stat_2_Tmax', 'stat_2_Tmin', 'stat_2_Tavg', 'stat_2_PrecipTotal',
+       Lat_int, Long_int, Latitude, Longitude]
+
 
 ### Implementation
 In this section, the process for which metrics, algorithms, and techniques that you implemented for the given data will need to be clearly documented. It should be abundantly clear how the implementation was carried out, and discussion should be made regarding any complications that occurred during this process. Questions to ask yourself when writing this section:
