@@ -1,7 +1,7 @@
 # Machine Learning Engineer Nanodegree
 ## Capstone Project (West Nile Virus Prediction in Chicago)
-Andrew Bauman  
-December 13, 2016
+Andrew Bauman, PhD
+Q1 2017
 
 ## I. Definition
 
@@ -131,21 +131,22 @@ This task is well suited to supervised binary classification models, and specifi
 - Explore data
 - Perform additional preparation as revealed by exploration (address outliers and missing data, engineer features, transform data, etc.)
 - Determine candidate feature set
-- Train and Test several models
-- Pick a model to move into further development
-- Tune model
+- Train and Test models
+- Pick model(s) to move into development
+- Tune model(s)
 - Revisit any previous steps to further inform model
-- Submit results
-- Revisit or repeat any or all of the prior steps until a satisfactory result has been achieved
+- Create reslts ensembles
+
+Submissions to the privae test set for the competition will be
+submitted at major steps to assess performance.
 
 
 ### Metrics
 
-Each model will be evaluated by the AUC of its ROC, as described in the problem statement section. Several other acronyms may be thrown in as part of an intellectual shock and awe campaign.
+Each model will be evaluated by the AUC of its ROC, as described in the problem statement section. Several other acronyms may be thrown in as part of an psuedo-intellectual shock and awe campaign.
 
 
 ## II. Analysis
-_(approx. 2-4 pages)_
 
 ### Data Exploration
 
@@ -253,14 +254,14 @@ information may also inform any features to be engineered.
 
 - Station (will be dropped once data sets are complete)
 - Date (for use in merging data sets)
-- Tmax: Daily maximum temperature in Fahrenheit     
-- Tmin: Daily minimum temperature in Fahrenheit      
-- Tavg: Daily average temperature in Fahrenheit         
-- Depart: Departure from normal temperature in Fahrenheit      
-- Heat       
+- Tmax: Daily maximum temperature in Fahrenheit
+- Tmin: Daily minimum temperature in Fahrenheit
+- Tavg: Daily average temperature in Fahrenheit
+- Depart: Departure from normal temperature in Fahrenheit
+- Heat
 - Cool
 - Sunrise: Calculated time of sunrise CST
-- Sunset: Calculated sunset CST   
+- Sunset: Calculated sunset CST
 - PrecipTotal
 
 
@@ -307,11 +308,6 @@ in this project.
 - [Climate and Weather Impacts on West Nile Virus](http://www.mimosq.org/presentations/2016/4WestcottClimateWNV.pdf) An excellent summary of the impact of climate and weather on WNV prevalence in Illinois and MI (summarizes much of the first few references in a slide show)
 
 
-
-
-
-
-
 ##### Geographical Considerations
 
 The following publication highlights increased WNV risk as a function of proximity
@@ -355,7 +351,7 @@ Station 1 as values are unlikely to differ substantially.
 
 Another peculiarity of the data is that 48 Sunset records contained were not validate
 military time values.  For example using 1160 hours instead of 1200 hours. This was
-addressed by rolling each instant back 1 minute such that 1160 would become 1159.  
+addressed by rolling each instant back 1 minute such that 1160 would become 1159.
 This was important for downstream feature engineering which required DateTime handling.
 
 All data wrangling, data characterization, feature engineering, and related steps
@@ -456,19 +452,36 @@ A model where lower precipitation is predictive of WNv presence is consistent wi
 Feature importance from XGBoost (boosted decision trees) will be used to Selection
 the final feature set.  An iterable of importance thresholds will be passed to the
 classifiers and a final threshold or n features will be selected on the basis of
-performance on a hold out of the training set.
+performance on a hold out of the training set.  All data will be transformed
+to extract these features prior to tuning, validation, and submission.
 
 
 #### Algorithms
 
-- Random Forest:
-- XGBoost:
+Both algorithms were selected for their robust nature (robust to feature scale
+and less prone to overfitting).  XGBoost was chosen due to it well earned reputation
+as a high performing algorithm, both in terms of metric performance (learns the data
+well) and system performance (fast and scalable).
 
+- Random Forest Default Parameters:
+```python
+RandomForestClassifier(bootstrap=True, class_weight=None, criterion='gini',
+            max_depth=None, max_features='auto', max_leaf_nodes=None,
+            min_impurity_split=1e-07, min_samples_leaf=1,
+            min_samples_split=2, min_weight_fraction_leaf=0.0,
+            n_estimators=10, n_jobs=1, oob_score=False, random_state=None,
+            verbose=0, warm_start=False)
+```
 
-In this section, you will need to discuss the algorithms and techniques you intend to use for solving the problem. You should justify the use of each one based on the characteristics of the problem and the problem domain. Questions to ask yourself when writing this section:
-- _Are the algorithms you will use, including any default variables/parameters in the project clearly defined?_
-- _Are the techniques to be used thoroughly discussed and justified?_
-- _Is it made clear how the input data or datasets will be handled by the algorithms and techniques chosen?_
+- XGBoost Default Parameters:
+```python
+XGBClassifier(base_score=0.5, colsample_bylevel=1, colsample_bytree=1,
+       gamma=0, learning_rate=0.1, max_delta_step=0, max_depth=3,
+       min_child_weight=1, missing=None, n_estimators=100, nthread=-1,
+       objective='binary:logistic', reg_alpha=0, reg_lambda=1,
+       scale_pos_weight=1, seed=0, silent=True, subsample=1)
+```
+
 
 ### Benchmark
 
@@ -478,13 +491,12 @@ than guessing.  Each stage of development will establish a new benchmark.  These
 stages are:
 
 - Un-tuned classifiers without rigorous feature selection (run with all features
-that pass EDA) trained on all the training data, tested on test data, with results
-submitted for scoring.
+that pass EDA).
 
-After this stage the training data will be split for use in feature selection and
-tuning.  
-- Un-tuned classifiers with selected features, where the most performant will be passed to tuning
-- A tuned classifier from the previous step.
+After this stage the training data will be split for use in feature selection, tuning
+and validation.
+- Un-tuned classifiers with selected features
+- Tuned classifier from the previous step.
 
 
 ## III. Methodology
@@ -521,28 +533,126 @@ An integer version of each of these values was created to see if this impacts pe
 
 The initial feature set, prior to creation of dummies, consists of:
 
-['stat_1_Date', 'Species', 'Block', 'Street', 'Trap', 'Latitude',
+```python
+      ['Species', 'Block', 'Street', 'Trap', 'Latitude',
        'Longitude', 'month', 'day', 'day_of_year', 'week',
        'stat_1_Tmax', 'stat_1_Tmin', 'stat_1_Tavg', 'stat_1_PrecipTotal',
        'DayLength_MPrec', 'DayLength_NearH', 'Sunrise_hours', 'Sunset_hours',
        'blended_Tmax', 'blended_Tmin', 'blended_PrecipTotal', 'stat_2_Date',
-       'stat_2_Tmax', 'stat_2_Tmin', 'stat_2_Tavg', 'stat_2_PrecipTotal',
-       Lat_int, Long_int, Latitude, Longitude]
+       'stat_2_Tmax', 'stat_2_Tmin', 'stat_2_Tavg', 'stat_2_PrecipTotal']
+```
 
+Dummies were created from the following features:
+- Species
+- Street
+- Block
+- Trap
 
-### Implementation
-In this section, the process for which metrics, algorithms, and techniques that you implemented for the given data will need to be clearly documented. It should be abundantly clear how the implementation was carried out, and discussion should be made regarding any complications that occurred during this process. Questions to ask yourself when writing this section:
-- _Is it made clear how the algorithms and techniques were implemented with the given datasets or input data?_
-- _Were there any complications with the original metrics or techniques that required changing prior to acquiring a solution?_
-- _Was there any part of the coding process (e.g., writing complicated functions) that should be documented?_
+It's interesting to note that after dummie varible transformation there were some features unique
+to both the test and train sets.  This was solved by eliminating unique features
+(they aren't relevant if not in test set, and if only in test set we don't have
+data on which to train). At this point the feature set expanded to 356.
 
-### Refinement
-In this section, you will need to discuss the process of improvement you made upon the algorithms and techniques you used in your implementation. For example, adjusting parameters for certain models to acquire improved solutions would fall under the refinement category. Your initial and final solutions should be reported, as well as any significant intermediate results as necessary. Questions to ask yourself when writing this section:
-- _Has an initial solution been found and clearly reported?_
-- _Is the process of improvement clearly documented, such as what techniques were used?_
-- _Are intermediate and final solutions clearly reported as the process is improved?_
+Feature selection continued with the use of XGBoost's built in feature importance function.  The plot below demonstrates that the vast majority of our 356 features do not impact the target variable.  The top 20 features are.
 
+1. day_of_year
+2. Longitude
+3. stat_1_Tmin
+4. stat_1_Tmax
+5. day
+6. stat_2_PrecipTotal
+7. stat_2_Tmin
+8. Species_Culex_RESTUANS
+9. Latitude
+10. stat_1_Tavg
+11. Species_CULEX_TERRITANS
+12. blended_Tmin
+13. month
+14. blended_PrecipTotal
+15. Street_S_Kostner_Ave
+16. Block_17
+17. Street_W_95th_ST
+18. stat_2_Tavg
+19. Block_25
+20. Street_W_Montrose_DR
 
+![](notebook_images/feature_importance.png)
+
+Location data (Street, Block, Latitude, and Longitude) and trap data makes up a large proportion of total features. A course investigation of these features was carried out by submitting the XGboost and Random Forest models to the public and private test set with ALL features and then without location and trap based features. Specific results are tabulated in the results section, but suffice it to say that model performance suffered without these features. This is not suprising since there are several location based features in the top 20 features.
+
+At this point the training data was further broken into a training and test set (referred to as "local validation set"), for purposes of feature selection and tuning. Both the XGBoost and Random Forest model AUC was assessed as a functon of feauture importance.  The code and full results for this can be foud here [?!Notebook Reference!?}].  The results indicated that most of the AUC is recovered by ~ 10 features.
+
+### Implementation and Refinement
+Given the information regarding feature importance threshold from the last step, the training set, local validation set, and pubic test set were transformed at a threshold level corresponding to the top 12 features.  The model was trained on the full training set, predictons made on the public test set, and those prediction were submitted to the private test set.  Scores improved for both models and are given in the results section.
+
+A commo cause of overfitting is using too many training rounds.  Afer a certain number of rounds, termed epochs, model bias is reduced at the expense of increased variance.  To account for this early stopping was investigated using the split training and local validation set.  See [!Notebook Here!?] for implementaton details.  The learning curves below capture results for XGBoost.
+
+![](notebook_images/train_auc.png)
+
+![](notebook_images/train_logloss.png)
+
+Both curves indicate that variance tends to increase in the neigborhood of 20 epochs.  To mitigate this the XGBoost model passed into tuning will be set with early stopping rounds of 10. That is, if the model does not improve for 10 rounds training will stop. There is no early stopping parameter for Random Forest, so this was not implemented.
+
+#### Tuning
+Finally our models are tuned to decrease bias.  Tuning was performed in the following manner:
+
+- Transform all input data from test, local validation using a threshold that captures ~ 16 features (!explain reasoning for this!)
+- Tune each model using sklearn randomized search CV where the CV object is StratifiedShuffleSplit.
+- XGBoost Parameter Distributions for Sampling and tuning parameters:
+```python
+n_estimators_dist= sps.randint(1, 300)
+learning_rate_dist = [0.01, 0.02, 0.05, 0.1, .15, 0.2, .25, 0.3]
+max_depth_dist = sps.randint(2, 12)
+colsample_bytree_dist= np.arange(0.2, 0.6, .1)
+
+cv = model_selection.StratifiedShuffleSplit(n_splits = 10, random_state = 42)
+
+n_iter_search = 20
+random_search_xgb = model_selection.RandomizedSearchCV(model, param_distributions=param_dist,
+                                   n_iter=n_iter_search, scoring= 'roc_auc', cv= cv)
+```
+- XGBoost Best Estimator:
+```python
+XGBClassifier(base_score=0.5, colsample_bylevel=1,
+       colsample_bytree=0.40000000000000008, gamma=0, learning_rate=0.3,
+       max_delta_step=0, max_depth=2, min_child_weight=1, missing=None,
+       n_estimators=175, nthread=-1, objective='binary:logistic',
+       reg_alpha=0, reg_lambda=1, scale_pos_weight=1, seed=42, silent=True,
+       subsample=1)
+```
+- Random Forest Parameter Distributions For Sampling and tuning parameters:
+
+```python
+n_estimators_dist= sps.randint(1, 1000)
+cv = model_selection.StratifiedShuffleSplit(n_splits = 10, random_state = 42)
+
+param_dist = {"max_depth": max_depth_dist,
+              "max_features": sps.randint(1, n_features),
+              "min_samples_split": sps.randint(2, 11),
+              "bootstrap": [True, False],
+              "criterion": ["gini", "entropy"],
+             "n_estimators": n_estimators_dist}
+
+# run randomized search
+n_iter_search = 20
+random_search_randfor = model_selection.RandomizedSearchCV(clf, param_distributions=param_dist,
+                                   n_iter=n_iter_search, scoring= 'roc_auc')
+```
+- Random Forest Best Estimator
+```python
+RandomForestClassifier(bootstrap=True, class_weight=None, criterion='entropy',
+            max_depth=11, max_features=2, max_leaf_nodes=None,
+            min_impurity_split=1e-07, min_samples_leaf=1,
+            min_samples_split=9, min_weight_fraction_leaf=0.0,
+            n_estimators=891, n_jobs=1, oob_score=False, random_state=42,
+            verbose=0, warm_start=False)
+```
+
+Both models were then tested on the local validation set (see results section).
+
+XGBoost CV [Cover XGBoost CV Here]
+
+The final models were then used to make predictions on the the public test set and the results were submitted against the private test set.
 ## IV. Results
 _(approx. 2-3 pages)_
 
