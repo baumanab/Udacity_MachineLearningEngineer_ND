@@ -599,6 +599,7 @@ Finally our models are tuned to decrease bias.  Tuning was performed in the foll
 - Transform all input data from test, local validation using a threshold that captures ~ 16 features (!explain reasoning for this!)
 - Tune each model using sklearn randomized search CV where the CV object is StratifiedShuffleSplit.
 - XGBoost Parameter Distributions for Sampling and tuning parameters:
+
 ```python
 n_estimators_dist= sps.randint(1, 300)
 learning_rate_dist = [0.01, 0.02, 0.05, 0.1, .15, 0.2, .25, 0.3]
@@ -650,9 +651,22 @@ RandomForestClassifier(bootstrap=True, class_weight=None, criterion='entropy',
 
 Both models were then tested on the local validation set (see results section).
 
-XGBoost CV [Cover XGBoost CV Here]
+XGBoost Training with native xgb class:
 
-The final models were then used to make predictions on the the public test set and the results were submitted against the private test set.
+Finally the XGBoost Model was trained using the built in CV from the xgb class. The following process was used:
+
+- convert training (all training data with no validation split but same feature selection) data to DMatrix format
+- Run cv with the best paramaters above, for 3000 maximum rounds, with early stopping set for no improvement over 10 rounds.
+- Determine number of rounds (88)
+- Train using the best params and 88 boosting rounds
+
+The test set was then converted to a Dmatrix and the tuned classifier was used to make predictons.  Predictions were submmitted against the public and private board (see results).
+
+#### Ensembling Results
+
+As an experiment I used code at this repo ```https://github.com/MLWave/Kaggle-Ensemble-Guide``` to combine results from both classifiers using voting (several methods) and averaging (several methods). Both methods led to decreased scores (see results) with voting having the worst performance.  This supports a scenario where where both classifiers have strong agreement by which I mean they are both wrong and right in the same way over the same slices of data. This is not suprising since they are both tree/stump based ensembles. To take advantage of voting and averaging of results divergent classifers should be included (orthogonal methods) such as SVM, NN, etc.
+
+
 ## IV. Results
 _(approx. 2-3 pages)_
 
