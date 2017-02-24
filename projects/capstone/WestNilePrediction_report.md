@@ -671,6 +671,22 @@ As an experiment I used code at this repo ```https://github.com/MLWave/Kaggle-En
 _(approx. 2-3 pages)_
 
 ### Model Evaluation and Validation
+
+
+**Model**|**State**|**Validation AUC**|**Public Test AUC**|**Private Test AUC**
+:-----:|:-----:|:-----:|:-----:|:-----:
+XG|All Features Untuned Base Model|-|0.731|0.712
+RF|All Features Base Model 1000 Estimators|-|0.69705|0.65274
+XG|No Location/Trap Untuned Base Model|-|0.684|0.678
+RF|No Location/Trap Untune Base Model 1000 Estimators|-|0.695|0.682
+XG|Feature Transform (Top 12) Base Model|-|0.736|0.713
+RF|Feature Transform (Top 12) Base Model 1000 Estimators|-|-|-
+XG|Feature Transform (Top 16) Best Params|0.823|-|-
+RF|Feature Transform (Top 16) Best Params|0.824|0.721|0.686
+XG|Feature Transform (Top 16) Best Params CV Tune Early Stop|-|0.749|0.733
+Ensemble|Best Vote Ensemble|-|0.741|0.720
+Ensemble|Best Mean Ensemble(Geometric Mean)|-|0.709|0.699
+
 In this section, the final model and any supporting qualities should be evaluated in detail. It should be clear how the final model was derived and why this model was chosen. In addition, some type of analysis should be used to validate the robustness of this model and its solution, such as manipulating the input data or environment to see how the model’s solution is affected (this is called sensitivity analysis). Questions to ask yourself when writing this section:
 - _Is the final model reasonable and aligning with solution expectations? Are the final parameters of the model appropriate?_
 - _Has the final model been tested with various inputs to evaluate whether the model generalizes well to unseen data?_
