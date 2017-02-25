@@ -680,8 +680,8 @@ RF|All Features Base Model 1000 Estimators|-|0.69705|0.65274
 XG|No Location/Trap Untuned Base Model|-|0.684|0.678
 RF|No Location/Trap Untune Base Model 1000 Estimators|-|0.695|0.682
 XG|Feature Transform (Top 12) Base Model|-|0.736|0.713
-RF|Feature Transform (Top 12) Base Model 1000 Estimators|-|-|-
-XG|Feature Transform (Top 16) Best Params|0.823|-|-
+RF|Feature Transform (Top 12) Base Model 1000 Estimators|-|0.703|0.657
+XG|Feature Transform (Top 16) Best Params|0.823|0.725|0.703
 RF|Feature Transform (Top 16) Best Params|0.824|0.721|0.686
 XG|Feature Transform (Top 16) Best Params CV Tune Early Stop|-|0.749|0.733
 Ensemble|Best Vote Ensemble|-|0.741|0.720
