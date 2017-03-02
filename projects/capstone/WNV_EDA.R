@@ -6,6 +6,7 @@ library(dplyr)
 library(data.table)
 library(RColorBrewer)
 library(scales)
+library(gridExtra)
 source('plotting_tools.R')
 
 # read training data
@@ -73,7 +74,6 @@ ggplot(train, aes(x=Cool, fill=Station)) +
   geom_density(alpha= 0.2) +
   geom_density(aes(x = blended_Cool), alpha= 0, linetype= 'dashed') +
   my_theme()
-
 
 
 # bar plots
@@ -224,3 +224,65 @@ ggplot(train, aes(x= cut(train$Sunrise_hours, seq(4,6,0.1), right=FALSE),y= WnvP
 ggplot(train, aes(x= cut(train$Sunset_hours, seq(17,20,0.25), right=FALSE),y= WnvPresent)) +
   geom_point(stat= "summary", fun.y= 'mean', size= 2)
 
+# day of year exploration
+
+ggplot(train, aes(x=day_of_year)) +
+  geom_histogram() +
+  ggtitle("Histogram of Day of Year")
+
+ggplot(train_station_1, aes(x=reorder(day_of_year, WnvPresent, function(x){mean(x)}),
+                            y= WnvPresent)) +
+  geom_line(aes(group=1),stat= "summary", fun.y= "mean", color= "blue") +
+  coord_flip() +
+  ggtitle("WNV Rate by Day of Year") +
+  xlab("Day of Year") +
+  ylab("WNV Rate")
+
+ggplot(train_station_1, aes(x=reorder(day_of_year, WnvPresent, function(x){mean(x)}),
+                            y= WnvPresent)) +
+  geom_line(aes(group=1),stat= "summary", fun.y= "mean", color= "blue") +
+  ggtitle("WNV Rate by Day of Year") +
+  xlab("Day of Year") +
+  ylab("WNV Rate") +
+  theme(axis.text.x  = element_text(angle=90, vjust=0.5))
+
+a= ggplot(train_station_1, aes(x=week, WnvPresent, function(x){mean(x)},
+                               y= WnvPresent))+
+  geom_line(aes(group=1),stat= "summary", fun.y= "mean", color= "green", size= 2) +
+  ylab("WNV Rate") +
+  theme(axis.text.x  = element_blank(), axis.title.x=element_blank()) +
+  ggtitle("Grid of Attributes by Week of Year")
+
+
+b= ggplot(train_station_1, aes(x= week, y= Tmax )) +
+   geom_point(color= 'tan') +
+  theme(axis.text.x  = element_blank(), axis.title.x=element_blank())+
+  ylab("Tmax(F)")
+
+c= ggplot(train_station_1, aes(x= week, y= PrecipTotal )) +
+  geom_point(color= "blue") +
+  theme(axis.text.x  = element_blank(), axis.title.x=element_blank())+
+  ylab("Precipitation(inches)")
+
+
+d= ggplot(train_station_1, aes(x= week, y= Tmin )) +
+   geom_point(color= 'orange') +
+  theme(axis.text.x  = element_blank(), axis.title.x=element_blank()) +
+  ylab("Tmin(F)")
+
+
+e= ggplot(train_station_1, aes(x= week, y= Tavg)) +
+   geom_point(color= 'red') +
+   xlab("Week of Year") +
+   ylab("Tmin(F)")
+
+
+grid.arrange(a,c, b, d,e, nrow=5)
+
+
+ggplot(train_station_1, aes(x=day, WnvPresent, function(x){mean(x)},
+                            y= WnvPresent)) +
+  geom_line(aes(group=1),stat= "summary", fun.y= "mean", color= "blue") +
+  ggtitle("WNV Rate by Day of Months") +
+  xlab("Day of Month") +
+  ylab("WNV Rate")

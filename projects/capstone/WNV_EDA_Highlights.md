@@ -62,3 +62,8 @@ WNV Rate by Total Precipitation
 A model where lower precipitaion is predictive of WNv pressence is consitent with the literature for mid-west climate zones.
 
 ![](WNV_EDA_Highlights_files/figure-markdown_github/unnamed-chunk-10-1.png)
+
+WNV Rate by Week of Year Compared to Precipitation and and Temperature Attributes
+---------------------------------------------------------------------------------
+
+![](WNV_EDA_Highlights_files/figure-markdown_github/unnamed-chunk-11-1.png)

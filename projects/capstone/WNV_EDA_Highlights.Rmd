@@ -35,6 +35,7 @@ library(dplyr)
 library(data.table)
 library(RColorBrewer)
 library(scales)
+library(gridExtra)
 source('plotting_tools.R')
 ```
 ## Selected Density Pots
@@ -192,4 +193,49 @@ ggplot(train, aes(x= cut(train$PrecipTotal, seq(0,4,1), right=FALSE),y= WnvPrese
   ggtitle("WNV Rate by Total Precipitation") +
   xlab("Precipitation (inches)") +
   ylab("WNV Rate")
+```
+
+
+
+
+
+
+## WNV Rate by Week of Year Compared to Precipitation and and Temperature Attributes
+
+```{r echo=FALSE, fig.height= 15, fig.width= 12}
+a= ggplot(train_station_1, aes(x=week, WnvPresent, function(x){mean(x)},
+                               y= WnvPresent))+
+  geom_line(aes(group=1),stat= "summary", fun.y= "mean", color= "green", size= 2) +
+  ylab("WNV Rate") +
+  theme(axis.text.x  = element_blank(), axis.title.x=element_blank()) +
+  ggtitle("Grid of Attributes by Week of Year")
+
+
+b= ggplot(train_station_1, aes(x= week, y= Tmax )) +
+   geom_point(color= 'tan') +
+  theme(axis.text.x  = element_blank(), axis.title.x=element_blank())+
+  ylab("Tmax(F)")
+
+c= ggplot(train_station_1, aes(x= week, y= PrecipTotal )) +
+  geom_point(color= "blue") +
+  theme(axis.text.x  = element_blank(), axis.title.x=element_blank())+
+  ylab("Precipitation(inches)")
+
+
+d= ggplot(train_station_1, aes(x= week, y= Tmin )) +
+   geom_point(color= 'orange') +
+  theme(axis.text.x  = element_blank(), axis.title.x=element_blank()) +
+  ylab("Tmin(F)")
+
+
+e= ggplot(train_station_1, aes(x= week, y= Tavg)) +
+   geom_point(color= 'red') +
+   xlab("Week of Year") +
+   ylab("Tmin(F)")
+
+
+grid.arrange(a,c, b, d,e, nrow=5)
+
+
+
 ```
