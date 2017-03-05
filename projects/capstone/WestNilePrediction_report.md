@@ -159,7 +159,9 @@ the odd data years 2007, 2009, 2011, and 2013.
 
 **Training Data**
 
+```
 Data columns (total 12 columns):
+
 Date                      10506 non-null datetime64[ns]
 Address                   10506 non-null object
 Species                   10506 non-null object
@@ -172,7 +174,7 @@ Longitude                 10506 non-null float64
 AddressAccuracy           10506 non-null int64
 NumMosquitos              10506 non-null int64
 WnvPresent                10506 non-null int64
-
+```
 The following columns will be excluded from the training data:
 
 ```python
@@ -187,7 +189,7 @@ The test data consists of 11 columns as described below and is comprised of the
 even data years 2008, 2010, 2012, 2014.
 
 **Test Data**
-
+```
 Data columns (total 11 columns):
 Id                        116293 non-null int64
 Date                      116293 non-null datetime64[ns]
@@ -200,7 +202,7 @@ AddressNumberAndStreet    116293 non-null object
 Latitude                  116293 non-null float64
 Longitude                 116293 non-null float64
 AddressAccuracy           116293 non-null int64
-
+```
 The following columns will be excluded from the test data:
 
 ```python
@@ -217,7 +219,7 @@ sunset, and sunrise]
 
 
 **Weather**
-
+```
 Data columns (total 22 columns):
 Station        2944 non-null object
 Date           2944 non-null datetime64[ns]
@@ -241,7 +243,7 @@ SeaLevel       2944 non-null object
 ResultSpeed    2944 non-null float64
 ResultDir      2944 non-null int64
 AvgSpeed       2944 non-null object
-
+```
 
 The body of literature regarding WNV mosquito populations and meteorological factors
 will be leveraged to select weather features. Only those features which have been
@@ -251,19 +253,19 @@ validated features may promote a lower variance (more general) model. Literature
 information may also inform any features to be engineered.
 
 ** Retained Weather Features **
-
+```
 - Station (will be dropped once data sets are complete)
 - Date (for use in merging data sets)
 - Tmax: Daily maximum temperature in Fahrenheit
 - Tmin: Daily minimum temperature in Fahrenheit
 - Tavg: Daily average temperature in Fahrenheit
 - Depart: Departure from normal temperature in Fahrenheit
-- Heat
-- Cool
+- Heat: Heating trend over historical norms
+- Cool: Cooling trend over historical norms
 - Sunrise: Calculated time of sunrise CST
 - Sunset: Calculated sunset CST
 - PrecipTotal
-
+```
 
 **Weather Stations**
 
@@ -384,7 +386,7 @@ example) or were rejected due to response during EDA.
 
 ### Exploratory Visualization
 
-EDA is performed and documented in the [?Place reference here?]. Each variable
+EDA is performed and documented in the [EDA Highlights](WNV_EDA_Highlights.md). Each variable
 was with the exception of Lat and Long was visualized (block and street level location
 data was visualized instead since they are more general). Plots selected for their
 are included below.
@@ -522,13 +524,6 @@ isn't clear which station should be used or if an average (blended) value should
 be used.  Given this station specific data form Tmax, Tmin, PrecipTotal, and Tavg
 were created.
 
-#### Latitude and Longitude
-
-An integer version of each of these values was created to see if this impacts performance.
-
-
-
-
 #### Feature Selection
 
 The initial feature set, prior to creation of dummies, consists of:
@@ -580,12 +575,12 @@ Feature selection continued with the use of XGBoost's built in feature importanc
 
 Location data (Street, Block, Latitude, and Longitude) and trap data makes up a large proportion of total features. A course investigation of these features was carried out by submitting the XGboost and Random Forest models to the public and private test set with ALL features and then without location and trap based features. Specific results are tabulated in the results section, but suffice it to say that model performance suffered without these features. This is not suprising since there are several location based features in the top 20 features.
 
-At this point the training data was further broken into a training and test set (referred to as "local validation set"), for purposes of feature selection and tuning. Both the XGBoost and Random Forest model AUC was assessed as a functon of feauture importance.  The code and full results for this can be foud here [?!Notebook Reference!?}].  The results indicated that most of the AUC is recovered by ~ 10 features.
+At this point the training data was further broken into a training and test set (referred to as "local validation set"), for purposes of feature selection and tuning. Both the XGBoost and Random Forest model AUC was assessed as a functon of feauture importance.  The code and full results for this can be foud here [WNV Model Jupyter Notebook](wnv_prep_model.ipynb).  The results indicated that most of the AUC is recovered by ~ 10 features.
 
 ### Implementation and Refinement
 Given the information regarding feature importance threshold from the last step, the training set, local validation set, and pubic test set were transformed at a threshold level corresponding to the top 12 features.  The model was trained on the full training set, predictons made on the public test set, and those prediction were submitted to the private test set.  Scores improved for both models and are given in the results section.
 
-A commo cause of overfitting is using too many training rounds.  Afer a certain number of rounds, termed epochs, model bias is reduced at the expense of increased variance.  To account for this early stopping was investigated using the split training and local validation set.  See [!Notebook Here!?] for implementaton details.  The learning curves below capture results for XGBoost.
+A common cause of overfitting is using too many training rounds.  Afer a certain number of rounds, termed epochs, model bias is reduced at the expense of increased variance.  To account for this early stopping was investigated using the split training and local validation set.  See [The WNV Model Jupyter Notebook](wnv_prep_model.ipynb) for implementaton details.  The learning curves below capture results for XGBoost.
 
 ![](notebook_images/train_auc.png)
 
@@ -690,49 +685,85 @@ Best Mean Ensemble(Geometric Mean)<sup>2</sup>|0.709|0.699|-|-
 
 <sup>3</sup> Validation set (split from test_merge) score ~0.82 for both models
 
-In this section, the final model and any supporting qualities should be evaluated in detail. It should be clear how the final model was derived and why this model was chosen. In addition, some type of analysis should be used to validate the robustness of this model and its solution, such as manipulating the input data or environment to see how the model’s solution is affected (this is called sensitivity analysis). Questions to ask yourself when writing this section:
-- _Is the final model reasonable and aligning with solution expectations? Are the final parameters of the model appropriate?_
-- _Has the final model been tested with various inputs to evaluate whether the model generalizes well to unseen data?_
-- _Is the model robust enough for the problem? Do small perturbations (changes) in training data or the input space greatly affect the results?_
-- _Can results found from the model be trusted?_
+From the results we observe:
 
-### Justification
-In this section, your model’s final solution and its results should be compared to the benchmark you established earlier in the project using some type of statistical analysis. You should also justify whether these results and the solution are significant enough to have solved the problem posed in the project. Questions to ask yourself when writing this section:
-- _Are the final results found stronger than the benchmark result reported earlier?_
-- _Have you thoroughly analyzed and discussed the final solution?_
-- _Is the final solution significant enough to have solved the problem?_
+- Initial naive XGBoost and Random Forest models are comparable to our fully tuned and feature selected models
+- The XGBoost model is sensitive to location data.  This is not surprising given that some locations are in the top features
+- Both models show signs of overfitting (validation set scores up to 10% greater than test scores)
+- Voting and mean ensembles do not improve performance. This is likely due to model correlation.
+It is not surprising that the models are correlated since the are both decision tree ensembles.
+
+
 
 
 ## V. Conclusion
-_(approx. 1-2 pages)_
+
 
 ### Free-Form Visualization
-In this section, you will need to provide some form of visualization that emphasizes an important quality about the project. It is much more free-form, but should reasonably support a significant result or characteristic about the problem that you want to discuss. Questions to ask yourself when writing this section:
-- _Have you visualized a relevant or important quality about the problem, dataset, input data, or results?_
-- _Is the visualization thoroughly analyzed and discussed?_
-- _If a plot is provided, are the axes, title, and datum clearly defined?_
 
-### Reflection
-In this section, you will summarize the entire end-to-end problem solution and discuss one or two particular aspects of the project you found interesting or difficult. You are expected to reflect on the project as a whole to show that you have a firm understanding of the entire process employed in your work. Questions to ask yourself when writing this section:
-- _Have you thoroughly summarized the entire process you used for this project?_
-- _Were there any interesting aspects of the project?_
-- _Were there any difficult aspects of the project?_
-- _Does the final model and solution fit your expectations for the problem, and should it be used in a general setting to solve these types of problems?_
+WNV Rate by Week of Year Compared to Precipitation and and Temperature Attributes
+---------------------------------------------------------------------------------
 
-### Improvement
-In this section, you will need to provide discussion as to how one aspect of the implementation you designed could be improved. As an example, consider ways your implementation can be made more general, and what would need to be modified. You do not need to make this improvement, but the potential solutions resulting from these changes are considered and compared/contrasted to your current solution. Questions to ask yourself when writing this section:
-- _Are there further improvements that could be made on the algorithms or techniques you used in this project?_
-- _Were there algorithms or techniques you researched that you did not know how to implement, but would consider using if you knew how?_
-- _If you used your final solution as the new benchmark, do you think an even better solution exists?_
+![](WNV_EDA_Highlights_files/figure-markdown_github/unnamed-chunk-11-1.png)
 
------------
+While considering results I sought to understand the underlying mechanisms governing
+the presence of WNV.  I didn't explore the underlying mechanisms behind the relationship
+between location and WNV presence since this is well understood to be a function
+of proximity to mosquito breeding grounds (stagnant water sources).  This relationship
+could also be a function of past spraying efforts in that some locations may have
+been more heavily sprayed in the past, thus suppressing mosquitoes and West Nile
+for those locations.  I was very curous about whether or not we could see a pattern
+in climate conditions (temperature and precipitation) and changes in WNV rate.
+It is clear from EDA and literature review that these relationships exist. Since
+mosquitoes have a life cycle and WNV has a replication cycle reality is not a model where, for example, the
+temperature is high today so there is going to be higher prevalance of West Nile.
+We should be able to say that there are climate condtions within a discrete time period
+from today that suggests a potential for higher prevalence of WNV. However, our model is looking
+at the former (reactive model) rather than the latter (pro-active model).  If we
+want to take a pro-active approach to spraying we need to get better at predicting
+out x weeks from a trend in climate conditions. The goal would be to spray prior to WNV presence.  I created the figure above to illustrate
+my point.  The first panel is WNV presence by week of the year (chose week of the
+year to smooth out jumps in day of year data), the remaining panels are climate
+attributes. Do you notice the pattern?  Neither do I and that is the point. To really
+understand and model WNV prevalence we should arrange the time series data in a way
+that our model can find a relationship between past climate events and WNV presence.
 
-**Before submitting, ask yourself. . .**
+### Reflection and Improvement
 
-- Does the project report you’ve written follow a well-organized structure similar to that of the project template?
-- Is each section (particularly **Analysis** and **Methodology**) written in a clear, concise and specific fashion? Are there any ambiguous terms or phrases that need clarification?
-- Would the intended audience of your project be able to understand your analysis, methods, and results?
-- Have you properly proof-read your project report to assure there are minimal grammatical and spelling mistakes?
-- Are all the resources used for this project correctly cited and referenced?
-- Is the code that implements your solution easily readable and properly commented?
-- Does the code execute without error and produce results similar to those reported?
+The goal of this project was to build a model of WNV presence by location in the
+city of Chicago, using climate (weather), location, and mosquito trap data.  The
+use case for this model is to inform the city of Chicago where best to focus its
+limited mosquito control (spraying) resources to prevent the spread of West Nile
+Virus.  The process consisted of:
+
+- Literature review
+- EDA to built intuition for the data and selet initial features
+- Build naive XGB and Random Forest models
+- Explore impact of location data on models
+- Perform additional feature selection in conjunction with initial model tuning
+- Tune models with randomize parameter searching
+- Train final models
+- Explore voting and mean prediction ensembles
+
+The most intersting part of this project was how most of the WNV presence
+can be explained by day of the year.  Day of the year incorporates a lot of factors
+including climate factors (i.e. August tends to be hotter and dryer than October).
+In the end I realized that what we should actually be focused on is predicting
+conditions that suggest the formation of WNV vs the actual detected presence.
+This would allow strategic spraying of pre-WNV positive mosquito populations.
+
+While this model did beat the benchmark I don't find it adequate. AUC performance
+could likely be raised by building ensembles that include models orthogonal to
+the current models (NN and SVM or example).  However, it wouldn't matter because
+we are trying to predict the wrong thing.  We should be predicting impending
+WNV, not detected WNV.  We could do this by studying time series data and using
+interpolation.
+
+### Resources
+
+- AUC, ROC, and randomized Implementation code was heavily sourced from scikit-learn documenation and examples
+- Approaches and code for XGB tuning and implementation was influenced and inspired by
+  - Machine Learning Mastery: http://machinelearningmastery.com/develop-first-xgboost-model-python-scikit-learn/
+  - This blog https://www.analyticsvidhya.com/blog/2016/03/complete-guide-parameter-tuning-xgboost-with-codes-python/
+  - and This blog https://jessesw.com/XG-Boost/
+- Initial approach and naive Random Forest model was inspired by this kernel https://www.kaggle.com/abhishek/predict-west-nile-virus/vote-me-up
