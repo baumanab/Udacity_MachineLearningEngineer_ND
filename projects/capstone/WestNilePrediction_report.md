@@ -206,9 +206,7 @@ AddressAccuracy           116293 non-null int64
 The following columns will be excluded from the test data:
 
 ```python
-
 ['Address', 'AddressNumberAndStreet', 'AddressAccuracy', 'Id']
-
 ```
 Data will be used to merge the  weather and train/test data and will then
 be removed.
