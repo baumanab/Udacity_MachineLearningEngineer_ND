@@ -1,13 +1,21 @@
-# Machine Learning Engineer Nanodegree
-## Specializations
-## Project: Capstone Proposal and Capstone Project
+Requirements:
 
-**Note**
+```python
+# Data Handling
+import pandas as pd
+import numpy as np
+import math
+import scipy.stats as sps
+#from scipy import stats, integrate
+from time import time
 
-The Capstone is a two-staged project. The first is the proposal component, where you can receive valuable feedback about your project idea, design, and proposed solution. This must be completed prior to your implementation and submitting for the capstone project. 
 
-You can find the [capstone proposal rubric here](https://review.udacity.com/#!/rubrics/410/view), and the [capstone project rubric here](https://review.udacity.com/#!/rubrics/108/view). Please ensure that you are following directions correctly when submitting these two stages which encapsulate your capstone.
+# sklearn and models
+from sklearn import preprocessing, ensemble, metrics, feature_selection, model_selection, pipeline
+import xgboost as xgb
+```
 
-You will find an `open_projects` folder in these files. This will be where pre-curated capstone projects are available, should you choose to work on a project already partially designed for you. 
 
-Please email [machine-support@udacity.com](mailto:machine-support@udacity.com) if you have any questions.
+All data and recources can be found here:
+
+https://www.kaggle.com/c/predict-west-nile-virus
