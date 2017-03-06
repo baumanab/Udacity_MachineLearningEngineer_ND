@@ -11807,6 +11807,39 @@ div#notebook {
 <div class="prompt input_prompt">In&nbsp;[2]:</div>
 <div class="inner_cell">
     <div class="input_area">
+<div class=" highlight hl-ipython2"><pre><span></span><span class="n">xgb</span><span class="o">.</span><span class="n">XGBClassifier</span><span class="p">()</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt output_prompt">Out[2]:</div>
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>XGBClassifier(base_score=0.5, colsample_bylevel=1, colsample_bytree=1,
+       gamma=0, learning_rate=0.1, max_delta_step=0, max_depth=3,
+       min_child_weight=1, missing=None, n_estimators=100, nthread=-1,
+       objective=&#39;binary:logistic&#39;, reg_alpha=0, reg_lambda=1,
+       scale_pos_weight=1, seed=0, silent=True, subsample=1)</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[3]:</div>
+<div class="inner_cell">
+    <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="c1"># set up pickle functions for saving and restoring tuned classifier</span>
 <span class="kn">import</span> <span class="nn">pickle</span>
 
@@ -11837,7 +11870,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[3]:</div>
+<div class="prompt input_prompt">In&nbsp;[4]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="c1"># create date parser</span>
@@ -11861,7 +11894,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[4]:</div>
+<div class="prompt input_prompt">In&nbsp;[5]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="k">print</span><span class="p">(</span><span class="s1">&#39;Train&#39;</span><span class="p">)</span>
@@ -11950,7 +11983,7 @@ memory usage: 9.8+ MB
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[5]:</div>
+<div class="prompt input_prompt">In&nbsp;[6]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="k">print</span><span class="p">(</span><span class="s1">&#39;Weather&#39;</span><span class="p">)</span>
@@ -12023,7 +12056,7 @@ memory usage: 506.1+ KB
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[6]:</div>
+<div class="prompt input_prompt">In&nbsp;[7]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="c1"># weather</span>
@@ -12051,7 +12084,7 @@ memory usage: 506.1+ KB
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[7]:</div>
+<div class="prompt input_prompt">In&nbsp;[8]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="n">weather</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>
@@ -12093,7 +12126,7 @@ memory usage: 253.1+ KB
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[8]:</div>
+<div class="prompt input_prompt">In&nbsp;[9]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="k">print</span><span class="p">(</span><span class="s1">&#39;Weather&#39;</span><span class="p">)</span>
@@ -12311,7 +12344,7 @@ memory usage: 253.1+ KB
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[9]:</div>
+<div class="prompt input_prompt">In&nbsp;[10]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="c1"># what species have been detected (note that according to the CDC each</span>
@@ -12327,7 +12360,7 @@ memory usage: 253.1+ KB
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">Out[9]:</div>
+<div class="output_area"><div class="prompt output_prompt">Out[10]:</div>
 
 
 <div class="output_text output_subarea output_execute_result">
@@ -12348,7 +12381,7 @@ memory usage: 253.1+ KB
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[10]:</div>
+<div class="prompt input_prompt">In&nbsp;[11]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="c1"># does this correspond to the test set</span>
@@ -12364,7 +12397,7 @@ memory usage: 253.1+ KB
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">Out[10]:</div>
+<div class="output_area"><div class="prompt output_prompt">Out[11]:</div>
 
 
 <div class="output_text output_subarea output_execute_result">
@@ -12386,7 +12419,7 @@ memory usage: 253.1+ KB
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[11]:</div>
+<div class="prompt input_prompt">In&nbsp;[12]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="n">train</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;Species&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="o">.</span><span class="n">WnvPresent</span>
@@ -12400,7 +12433,7 @@ memory usage: 253.1+ KB
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">Out[11]:</div>
+<div class="output_area"><div class="prompt output_prompt">Out[12]:</div>
 
 
 <div class="output_text output_subarea output_execute_result">
@@ -12448,7 +12481,7 @@ Name: WnvPresent, dtype: int64</pre>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[12]:</div>
+<div class="prompt input_prompt">In&nbsp;[13]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="c1"># strip whitespace</span>
@@ -12462,7 +12495,7 @@ Name: WnvPresent, dtype: int64</pre>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[13]:</div>
+<div class="prompt input_prompt">In&nbsp;[14]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="n">miss_weather</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;M&#39;</span><span class="p">,</span> <span class="s1">&#39;-&#39;</span><span class="p">]</span>
@@ -12476,7 +12509,7 @@ Name: WnvPresent, dtype: int64</pre>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[14]:</div>
+<div class="prompt input_prompt">In&nbsp;[15]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="n">cols_not_date</span> <span class="o">=</span> <span class="p">[</span><span class="n">col</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">weather</span><span class="o">.</span><span class="n">columns</span> <span class="k">if</span> <span class="n">col</span> <span class="o">!=</span> <span class="s1">&#39;Date&#39;</span><span class="p">]</span>
@@ -12489,7 +12522,7 @@ Name: WnvPresent, dtype: int64</pre>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[15]:</div>
+<div class="prompt input_prompt">In&nbsp;[16]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="n">weather</span><span class="p">[</span><span class="n">cols_not_date</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">value_counts</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)[</span><span class="n">miss_weather</span> <span class="o">+</span> <span class="n">trace_weather</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
@@ -12503,7 +12536,7 @@ Name: WnvPresent, dtype: int64</pre>
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">Out[15]:</div>
+<div class="output_area"><div class="prompt output_prompt">Out[16]:</div>
 
 
 <div class="output_text output_subarea output_execute_result">
@@ -12521,7 +12554,7 @@ dtype: float64</pre>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[16]:</div>
+<div class="prompt input_prompt">In&nbsp;[17]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="c1"># Both stations</span>
@@ -12537,7 +12570,7 @@ dtype: float64</pre>
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">Out[16]:</div>
+<div class="output_area"><div class="prompt output_prompt">Out[17]:</div>
 
 <div class="output_html rendered_html output_subarea output_execute_result">
 <div>
@@ -12610,7 +12643,7 @@ dtype: float64</pre>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[17]:</div>
+<div class="prompt input_prompt">In&nbsp;[18]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="c1"># Station 1</span>
@@ -12626,7 +12659,7 @@ dtype: float64</pre>
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">Out[17]:</div>
+<div class="output_area"><div class="prompt output_prompt">Out[18]:</div>
 
 <div class="output_html rendered_html output_subarea output_execute_result">
 <div>
@@ -12699,7 +12732,7 @@ dtype: float64</pre>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[18]:</div>
+<div class="prompt input_prompt">In&nbsp;[19]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="c1"># Station 2</span>
@@ -12715,7 +12748,7 @@ dtype: float64</pre>
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">Out[18]:</div>
+<div class="output_area"><div class="prompt output_prompt">Out[19]:</div>
 
 <div class="output_html rendered_html output_subarea output_execute_result">
 <div>
@@ -12788,7 +12821,7 @@ dtype: float64</pre>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[19]:</div>
+<div class="prompt input_prompt">In&nbsp;[20]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="c1"># Both stations</span>
@@ -12803,7 +12836,7 @@ dtype: float64</pre>
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">Out[19]:</div>
+<div class="output_area"><div class="prompt output_prompt">Out[20]:</div>
 
 <div class="output_html rendered_html output_subarea output_execute_result">
 <div>
@@ -12876,7 +12909,7 @@ dtype: float64</pre>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[20]:</div>
+<div class="prompt input_prompt">In&nbsp;[21]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="c1"># Station 1</span>
@@ -12891,7 +12924,7 @@ dtype: float64</pre>
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">Out[20]:</div>
+<div class="output_area"><div class="prompt output_prompt">Out[21]:</div>
 
 <div class="output_html rendered_html output_subarea output_execute_result">
 <div>
@@ -12964,7 +12997,7 @@ dtype: float64</pre>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[21]:</div>
+<div class="prompt input_prompt">In&nbsp;[22]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="c1"># Station 2()</span>
@@ -12979,7 +13012,7 @@ dtype: float64</pre>
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">Out[21]:</div>
+<div class="output_area"><div class="prompt output_prompt">Out[22]:</div>
 
 <div class="output_html rendered_html output_subarea output_execute_result">
 <div>
@@ -13052,7 +13085,7 @@ dtype: float64</pre>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[22]:</div>
+<div class="prompt input_prompt">In&nbsp;[23]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="c1"># reaplace M and - with NaN, impute T</span>
@@ -13076,7 +13109,7 @@ dtype: float64</pre>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[23]:</div>
+<div class="prompt input_prompt">In&nbsp;[24]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="c1"># convert datatpypes</span>
@@ -13094,7 +13127,7 @@ dtype: float64</pre>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[24]:</div>
+<div class="prompt input_prompt">In&nbsp;[25]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="c1"># forward fill station 2 sunrise and sunset data with station 1 data</span>
@@ -13109,7 +13142,7 @@ dtype: float64</pre>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[25]:</div>
+<div class="prompt input_prompt">In&nbsp;[26]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="c1"># sunset has entries where instead of incrementing to the next hour after xx59 it incremented to xx60</span>
@@ -13149,7 +13182,7 @@ dtype: float64</pre>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[26]:</div>
+<div class="prompt input_prompt">In&nbsp;[27]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="c1"># let&#39;s deal with this by decrmenting by 1 for each invalid instance</span>
@@ -13170,7 +13203,7 @@ dtype: float64</pre>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[27]:</div>
+<div class="prompt input_prompt">In&nbsp;[28]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="c1"># what is the range of values for sunrise and sunset (in hours)</span>
@@ -13186,7 +13219,7 @@ dtype: float64</pre>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[28]:</div>
+<div class="prompt input_prompt">In&nbsp;[29]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="nb">set</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">hours</span><span class="o">.</span><span class="n">values</span><span class="p">))</span>
@@ -13200,7 +13233,7 @@ dtype: float64</pre>
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">Out[28]:</div>
+<div class="output_area"><div class="prompt output_prompt">Out[29]:</div>
 
 
 <div class="output_text output_subarea output_execute_result">
@@ -13215,7 +13248,7 @@ dtype: float64</pre>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[29]:</div>
+<div class="prompt input_prompt">In&nbsp;[30]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="c1">#create a DayLength column with minute level precsion</span>
@@ -13238,7 +13271,7 @@ dtype: float64</pre>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[30]:</div>
+<div class="prompt input_prompt">In&nbsp;[31]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="c1"># function to calculate sunset and sunrise times in hours</span>
@@ -13258,7 +13291,7 @@ dtype: float64</pre>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[31]:</div>
+<div class="prompt input_prompt">In&nbsp;[32]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="c1"># create columns that blend (use the mean) of station 1 and 2 values</span>
@@ -13294,7 +13327,7 @@ dtype: float64</pre>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[32]:</div>
+<div class="prompt input_prompt">In&nbsp;[33]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="n">weather_blend</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>
@@ -13357,7 +13390,7 @@ memory usage: 552.0+ KB
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[33]:</div>
+<div class="prompt input_prompt">In&nbsp;[34]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="n">month_func</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">month</span>
@@ -13385,7 +13418,7 @@ memory usage: 552.0+ KB
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[34]:</div>
+<div class="prompt input_prompt">In&nbsp;[35]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="n">train</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span>
@@ -13399,7 +13432,7 @@ memory usage: 552.0+ KB
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">Out[34]:</div>
+<div class="output_area"><div class="prompt output_prompt">Out[35]:</div>
 
 <div class="output_html rendered_html output_subarea output_execute_result">
 <div>
@@ -13510,7 +13543,7 @@ memory usage: 552.0+ KB
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[35]:</div>
+<div class="prompt input_prompt">In&nbsp;[36]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="n">test</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span>
@@ -13524,7 +13557,7 @@ memory usage: 552.0+ KB
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">Out[35]:</div>
+<div class="output_area"><div class="prompt output_prompt">Out[36]:</div>
 
 <div class="output_html rendered_html output_subarea output_execute_result">
 <div>
@@ -13626,7 +13659,7 @@ memory usage: 552.0+ KB
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[36]:</div>
+<div class="prompt input_prompt">In&nbsp;[37]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="c1"># remove sunrise and sunset since we have extracted critical information into other fields</span>
@@ -13649,7 +13682,7 @@ memory usage: 552.0+ KB
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[37]:</div>
+<div class="prompt input_prompt">In&nbsp;[38]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="n">train</span> <span class="o">=</span> <span class="n">train</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">weather_blend</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="s1">&#39;Date&#39;</span><span class="p">)</span>
@@ -13672,7 +13705,7 @@ memory usage: 552.0+ KB
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[38]:</div>
+<div class="prompt input_prompt">In&nbsp;[39]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="n">weather_blend</span><span class="o">.</span><span class="n">ix</span><span class="p">[:,:</span><span class="mi">12</span><span class="p">]</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span>
@@ -13694,7 +13727,7 @@ memory usage: 552.0+ KB
 </div>
 </div>
 
-<div class="output_area"><div class="prompt output_prompt">Out[38]:</div>
+<div class="output_area"><div class="prompt output_prompt">Out[39]:</div>
 
 <div class="output_html rendered_html output_subarea output_execute_result">
 <div>
@@ -13832,7 +13865,7 @@ memory usage: 552.0+ KB
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[39]:</div>
+<div class="prompt input_prompt">In&nbsp;[40]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="n">weather_blend</span><span class="o">.</span><span class="n">ix</span><span class="p">[:,</span><span class="mi">12</span><span class="p">:]</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span>
@@ -13846,7 +13879,7 @@ memory usage: 552.0+ KB
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">Out[39]:</div>
+<div class="output_area"><div class="prompt output_prompt">Out[40]:</div>
 
 <div class="output_html rendered_html output_subarea output_execute_result">
 <div>
@@ -13975,7 +14008,7 @@ memory usage: 552.0+ KB
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[40]:</div>
+<div class="prompt input_prompt">In&nbsp;[41]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="n">train</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span>
@@ -13989,7 +14022,7 @@ memory usage: 552.0+ KB
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">Out[40]:</div>
+<div class="output_area"><div class="prompt output_prompt">Out[41]:</div>
 
 <div class="output_html rendered_html output_subarea output_execute_result">
 <div>
@@ -14236,7 +14269,7 @@ memory usage: 552.0+ KB
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[41]:</div>
+<div class="prompt input_prompt">In&nbsp;[42]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="c1"># columns to write</span>
@@ -14272,7 +14305,7 @@ memory usage: 552.0+ KB
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[42]:</div>
+<div class="prompt input_prompt">In&nbsp;[43]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="c1"># set up a merge for stations 1 and 2</span>
@@ -14331,7 +14364,7 @@ memory usage: 552.0+ KB
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[43]:</div>
+<div class="prompt input_prompt">In&nbsp;[44]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="n">train_merge</span><span class="o">.</span><span class="n">columns</span>
@@ -14345,7 +14378,7 @@ memory usage: 552.0+ KB
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">Out[43]:</div>
+<div class="output_area"><div class="prompt output_prompt">Out[44]:</div>
 
 
 <div class="output_text output_subarea output_execute_result">
@@ -14370,7 +14403,7 @@ memory usage: 552.0+ KB
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[44]:</div>
+<div class="prompt input_prompt">In&nbsp;[45]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="n">test_merge</span><span class="o">.</span><span class="n">columns</span>
@@ -14384,7 +14417,7 @@ memory usage: 552.0+ KB
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">Out[44]:</div>
+<div class="output_area"><div class="prompt output_prompt">Out[45]:</div>
 
 
 <div class="output_text output_subarea output_execute_result">
@@ -14409,7 +14442,7 @@ memory usage: 552.0+ KB
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[45]:</div>
+<div class="prompt input_prompt">In&nbsp;[46]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="c1"># get label</span>
@@ -14445,7 +14478,7 @@ memory usage: 552.0+ KB
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[46]:</div>
+<div class="prompt input_prompt">In&nbsp;[47]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="c1">#drops= [&#39;Block&#39;, &#39;Street&#39;, &#39;Trap&#39;, &#39;Latitude&#39;, &#39;Longitude&#39;]</span>
@@ -14461,39 +14494,10 @@ memory usage: 552.0+ KB
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[47]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span></span><span class="nb">len</span><span class="p">(</span><span class="n">train_merge</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area"><div class="prompt output_prompt">Out[47]:</div>
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>356</pre>
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
 <div class="prompt input_prompt">In&nbsp;[48]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span></span><span class="nb">len</span><span class="p">(</span><span class="n">test_merge</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span>
+<div class=" highlight hl-ipython2"><pre><span></span><span class="nb">len</span><span class="p">(</span><span class="n">train_merge</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span>
 </pre></div>
 
 </div>
@@ -14508,7 +14512,7 @@ memory usage: 552.0+ KB
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>382</pre>
+<pre>356</pre>
 </div>
 
 </div>
@@ -14520,6 +14524,35 @@ memory usage: 552.0+ KB
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">In&nbsp;[49]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython2"><pre><span></span><span class="nb">len</span><span class="p">(</span><span class="n">test_merge</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt output_prompt">Out[49]:</div>
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>382</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[50]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="c1"># we have a discrepancy so let&#39;s remove columns in the test set we have not information for</span>
@@ -14544,7 +14577,7 @@ memory usage: 552.0+ KB
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[50]:</div>
+<div class="prompt input_prompt">In&nbsp;[51]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="c1"># build a random forest model similiar to that used to beat benchmark in competition</span>
@@ -14574,7 +14607,7 @@ memory usage: 552.0+ KB
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[51]:</div>
+<div class="prompt input_prompt">In&nbsp;[52]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="c1"># fit model no training data</span>
@@ -14596,11 +14629,11 @@ memory usage: 552.0+ KB
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">Out[51]:</div>
+<div class="output_area"><div class="prompt output_prompt">Out[52]:</div>
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>&lt;matplotlib.axes._subplots.AxesSubplot at 0x11dc44a8&gt;</pre>
+<pre>&lt;matplotlib.axes._subplots.AxesSubplot at 0xc3441d0&gt;</pre>
 </div>
 
 </div>
@@ -16678,7 +16711,7 @@ qVf+A6vguET9tb8TAAAAAElFTkSuQmCC
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[52]:</div>
+<div class="prompt input_prompt">In&nbsp;[53]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="k">def</span> <span class="nf">calc_roc_auc</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">predict_probs</span><span class="p">):</span>
@@ -16702,7 +16735,7 @@ qVf+A6vguET9tb8TAAAAAElFTkSuQmCC
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[53]:</div>
+<div class="prompt input_prompt">In&nbsp;[54]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="n">train_split</span><span class="p">,</span> <span class="n">val_split</span><span class="p">,</span> <span class="n">label_train_split</span><span class="p">,</span> <span class="n">label_val_split</span> <span class="o">=</span> <span class="n">model_selection</span><span class="o">.</span><span class="n">train_test_split</span><span class="p">(</span><span class="n">train_merge</span><span class="p">,</span> 
@@ -16716,7 +16749,7 @@ qVf+A6vguET9tb8TAAAAAElFTkSuQmCC
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[56]:</div>
+<div class="prompt input_prompt">In&nbsp;[55]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="k">def</span> <span class="nf">select_features_by_importance_threshold</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">selection_model</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">,</span>
@@ -16759,7 +16792,7 @@ qVf+A6vguET9tb8TAAAAAElFTkSuQmCC
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[57]:</div>
+<div class="prompt input_prompt">In&nbsp;[56]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="n">select_features_by_importance_threshold</span><span class="p">(</span><span class="n">xgbc</span><span class="p">,</span> <span class="n">train_split</span><span class="p">,</span> <span class="n">label_train_split</span><span class="p">,</span>
@@ -16820,7 +16853,7 @@ Thresh=0.197, n=1, AUC: 0.78%
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[58]:</div>
+<div class="prompt input_prompt">In&nbsp;[57]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="n">select_features_by_importance_threshold</span><span class="p">(</span><span class="n">clf</span><span class="p">,</span> <span class="n">train_split</span><span class="p">,</span> <span class="n">label_train_split</span><span class="p">,</span>
@@ -16934,7 +16967,7 @@ Thresh=0.074, n=1, AUC: 0.51%
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[59]:</div>
+<div class="prompt input_prompt">In&nbsp;[58]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="c1"># Set a minimum threshold of 0.023</span>
@@ -17003,9 +17036,24 @@ Thresh=0.074, n=1, AUC: 0.51%
 <div class="prompt input_prompt">In&nbsp;[61]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span></span><span class="c1"># transform test set</span>
+<div class=" highlight hl-ipython2"><pre><span></span><span class="c1"># transform test set and predict</span>
 <span class="n">sfm_test</span> <span class="o">=</span> <span class="n">sfm</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">test_merge</span><span class="p">)</span>
 <span class="n">predictions_xgb</span> <span class="o">=</span> <span class="n">xgb_clf</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">sfm_test</span><span class="p">)[:,</span><span class="mi">1</span><span class="p">]</span>
+<span class="n">predictions_randfor</span><span class="o">=</span> <span class="n">clf</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">test_merge</span><span class="p">)[:,</span><span class="mi">1</span><span class="p">]</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[63]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython2"><pre><span></span><span class="n">sample_sub</span><span class="p">[</span><span class="s1">&#39;WnvPresent&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">predictions_randfor</span>
+<span class="n">sample_sub</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s1">&#39;sub_randfor.csv&#39;</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
 </pre></div>
 
 </div>
@@ -17026,7 +17074,7 @@ pyplot.show()
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[63]:</div>
+<div class="prompt input_prompt">In&nbsp;[64]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="c1"># split into training and validation sets</span>
@@ -17166,7 +17214,7 @@ pyplot.show()
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[64]:</div>
+<div class="prompt input_prompt">In&nbsp;[65]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">eval_metric</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;auc&quot;</span><span class="p">,</span> <span class="s2">&quot;logloss&quot;</span><span class="p">,</span> <span class="s2">&quot;error&quot;</span><span class="p">],</span> <span class="n">eval_set</span><span class="o">=</span><span class="n">eval_set</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span> <span class="bp">False</span><span class="p">)</span>
@@ -18000,7 +18048,7 @@ gg==
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[65]:</div>
+<div class="prompt input_prompt">In&nbsp;[66]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="c1"># train a model with eartly stopping</span>
@@ -18019,7 +18067,7 @@ gg==
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">Out[65]:</div>
+<div class="output_area"><div class="prompt output_prompt">Out[66]:</div>
 
 
 <div class="output_text output_subarea output_execute_result">
@@ -18047,7 +18095,7 @@ gg==
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[66]:</div>
+<div class="prompt input_prompt">In&nbsp;[67]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="c1"># Utility function to report best scores</span>
@@ -18070,7 +18118,7 @@ gg==
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[67]:</div>
+<div class="prompt input_prompt">In&nbsp;[68]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="c1"># Set a minimum threshold of 0.023</span>
@@ -18107,7 +18155,7 @@ gg==
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[68]:</div>
+<div class="prompt input_prompt">In&nbsp;[69]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="c1"># instantiate base model</span>
@@ -18121,7 +18169,7 @@ gg==
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[69]:</div>
+<div class="prompt input_prompt">In&nbsp;[70]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="c1"># setup distributions for random search, left some notes</span>
@@ -18146,7 +18194,7 @@ gg==
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[70]:</div>
+<div class="prompt input_prompt">In&nbsp;[71]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="n">X_train</span> <span class="o">=</span> <span class="n">sfm_train</span>
@@ -18190,46 +18238,46 @@ gg==
 
 <div class="output_area"><div class="prompt"></div>
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>RandomizedSearchCV took 64.31 seconds for 20 candidates parameter settings.
+<pre>RandomizedSearchCV took 87.32 seconds for 20 candidates parameter settings.
 Model with rank: 1
-Mean validation score: 0.847 (std: 0.026)
-Parameters: {&#39;n_estimators&#39;: 175, &#39;learning_rate&#39;: 0.3, &#39;colsample_bytree&#39;: 0.40000000000000008, &#39;max_depth&#39;: 2}
+Mean validation score: 0.847 (std: 0.025)
+Parameters: {&#39;n_estimators&#39;: 255, &#39;learning_rate&#39;: 0.25, &#39;colsample_bytree&#39;: 0.30000000000000004, &#39;max_depth&#39;: 2}
 
 Model with rank: 2
-Mean validation score: 0.847 (std: 0.024)
-Parameters: {&#39;n_estimators&#39;: 138, &#39;learning_rate&#39;: 0.2, &#39;colsample_bytree&#39;: 0.30000000000000004, &#39;max_depth&#39;: 3}
+Mean validation score: 0.844 (std: 0.026)
+Parameters: {&#39;n_estimators&#39;: 215, &#39;learning_rate&#39;: 0.25, &#39;colsample_bytree&#39;: 0.20000000000000001, &#39;max_depth&#39;: 3}
 
 Model with rank: 3
-Mean validation score: 0.844 (std: 0.024)
-Parameters: {&#39;n_estimators&#39;: 94, &#39;learning_rate&#39;: 0.2, &#39;colsample_bytree&#39;: 0.20000000000000001, &#39;max_depth&#39;: 6}
+Mean validation score: 0.840 (std: 0.026)
+Parameters: {&#39;n_estimators&#39;: 247, &#39;learning_rate&#39;: 0.02, &#39;colsample_bytree&#39;: 0.40000000000000008, &#39;max_depth&#39;: 8}
 
 Model with rank: 4
-Mean validation score: 0.841 (std: 0.025)
-Parameters: {&#39;n_estimators&#39;: 111, &#39;learning_rate&#39;: 0.15, &#39;colsample_bytree&#39;: 0.50000000000000011, &#39;max_depth&#39;: 5}
+Mean validation score: 0.840 (std: 0.023)
+Parameters: {&#39;n_estimators&#39;: 179, &#39;learning_rate&#39;: 0.2, &#39;colsample_bytree&#39;: 0.30000000000000004, &#39;max_depth&#39;: 4}
 
 Model with rank: 5
-Mean validation score: 0.837 (std: 0.030)
-Parameters: {&#39;n_estimators&#39;: 85, &#39;learning_rate&#39;: 0.05, &#39;colsample_bytree&#39;: 0.30000000000000004, &#39;max_depth&#39;: 5}
+Mean validation score: 0.840 (std: 0.026)
+Parameters: {&#39;n_estimators&#39;: 145, &#39;learning_rate&#39;: 0.05, &#39;colsample_bytree&#39;: 0.40000000000000008, &#39;max_depth&#39;: 8}
 
 Model with rank: 6
-Mean validation score: 0.835 (std: 0.029)
-Parameters: {&#39;n_estimators&#39;: 80, &#39;learning_rate&#39;: 0.05, &#39;colsample_bytree&#39;: 0.20000000000000001, &#39;max_depth&#39;: 10}
+Mean validation score: 0.838 (std: 0.022)
+Parameters: {&#39;n_estimators&#39;: 63, &#39;learning_rate&#39;: 0.2, &#39;colsample_bytree&#39;: 0.50000000000000011, &#39;max_depth&#39;: 6}
 
 Model with rank: 7
-Mean validation score: 0.834 (std: 0.024)
-Parameters: {&#39;n_estimators&#39;: 293, &#39;learning_rate&#39;: 0.25, &#39;colsample_bytree&#39;: 0.50000000000000011, &#39;max_depth&#39;: 3}
+Mean validation score: 0.838 (std: 0.027)
+Parameters: {&#39;n_estimators&#39;: 59, &#39;learning_rate&#39;: 0.1, &#39;colsample_bytree&#39;: 0.20000000000000001, &#39;max_depth&#39;: 11}
 
 Model with rank: 8
-Mean validation score: 0.832 (std: 0.023)
-Parameters: {&#39;n_estimators&#39;: 227, &#39;learning_rate&#39;: 0.05, &#39;colsample_bytree&#39;: 0.30000000000000004, &#39;max_depth&#39;: 11}
+Mean validation score: 0.833 (std: 0.023)
+Parameters: {&#39;n_estimators&#39;: 104, &#39;learning_rate&#39;: 0.1, &#39;colsample_bytree&#39;: 0.40000000000000008, &#39;max_depth&#39;: 10}
 
 Model with rank: 9
-Mean validation score: 0.830 (std: 0.023)
-Parameters: {&#39;n_estimators&#39;: 25, &#39;learning_rate&#39;: 0.25, &#39;colsample_bytree&#39;: 0.50000000000000011, &#39;max_depth&#39;: 11}
+Mean validation score: 0.830 (std: 0.031)
+Parameters: {&#39;n_estimators&#39;: 212, &#39;learning_rate&#39;: 0.01, &#39;colsample_bytree&#39;: 0.30000000000000004, &#39;max_depth&#39;: 7}
 
 Model with rank: 10
-Mean validation score: 0.830 (std: 0.026)
-Parameters: {&#39;n_estimators&#39;: 115, &#39;learning_rate&#39;: 0.3, &#39;colsample_bytree&#39;: 0.30000000000000004, &#39;max_depth&#39;: 6}
+Mean validation score: 0.828 (std: 0.028)
+Parameters: {&#39;n_estimators&#39;: 22, &#39;learning_rate&#39;: 0.25, &#39;colsample_bytree&#39;: 0.50000000000000011, &#39;max_depth&#39;: 10}
 
 </pre>
 </div>
@@ -18261,9 +18309,9 @@ Parameters: {&#39;n_estimators&#39;: 115, &#39;learning_rate&#39;: 0.3, &#39;col
 
 <div class="output_text output_subarea output_execute_result">
 <pre>XGBClassifier(base_score=0.5, colsample_bylevel=1,
-       colsample_bytree=0.40000000000000008, gamma=0, learning_rate=0.3,
+       colsample_bytree=0.30000000000000004, gamma=0, learning_rate=0.25,
        max_delta_step=0, max_depth=2, min_child_weight=1, missing=None,
-       n_estimators=175, nthread=-1, objective=&#39;binary:logistic&#39;,
+       n_estimators=255, nthread=-1, objective=&#39;binary:logistic&#39;,
        reg_alpha=0, reg_lambda=1, scale_pos_weight=1, seed=42, silent=True,
        subsample=1)</pre>
 </div>
@@ -18304,7 +18352,7 @@ Parameters: {&#39;n_estimators&#39;: 115, &#39;learning_rate&#39;: 0.3, &#39;col
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[77]:</div>
+<div class="prompt input_prompt">In&nbsp;[76]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="n">cv</span> <span class="o">=</span> <span class="n">model_selection</span><span class="o">.</span><span class="n">StratifiedShuffleSplit</span><span class="p">(</span><span class="n">n_splits</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span> <span class="n">random_state</span> <span class="o">=</span> <span class="mi">42</span><span class="p">)</span>  
@@ -18338,12 +18386,12 @@ Parameters: {&#39;n_estimators&#39;: 115, &#39;learning_rate&#39;: 0.3, &#39;col
 
 <div class="output_area"><div class="prompt"></div>
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>RandomizedSearchCV took 220.29 seconds for 20 candidates parameter settings.
+<pre>RandomizedSearchCV took 201.47 seconds for 20 candidates parameter settings.
 </pre>
 </div>
 </div>
 
-<div class="output_area"><div class="prompt output_prompt">Out[77]:</div>
+<div class="output_area"><div class="prompt output_prompt">Out[76]:</div>
 
 
 <div class="output_text output_subarea output_execute_result">
@@ -18358,7 +18406,7 @@ Parameters: {&#39;n_estimators&#39;: 115, &#39;learning_rate&#39;: 0.3, &#39;col
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[78]:</div>
+<div class="prompt input_prompt">In&nbsp;[77]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="p">(</span><span class="n">random_search_randfor</span><span class="o">.</span><span class="n">cv_results_</span><span class="p">)</span>
@@ -18372,219 +18420,216 @@ Parameters: {&#39;n_estimators&#39;: 115, &#39;learning_rate&#39;: 0.3, &#39;col
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">Out[78]:</div>
+<div class="output_area"><div class="prompt output_prompt">Out[77]:</div>
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>{&#39;mean_fit_time&#39;: array([ 4.48499997,  0.28100006,  3.82299995,  0.84699996,  3.88599992,
-         1.329     ,  2.23733338,  2.06699999,  0.34666673,  1.795     ,
-         3.46800001,  2.34066677,  1.64133326,  7.87966673,  4.34366671,
-         3.87333345,  5.06599998,  4.20866672,  0.29999987,  0.5553333 ]),
- &#39;mean_score_time&#39;: array([ 0.59633342,  0.02533333,  0.42133339,  0.15766668,  0.39033341,
-         0.16599997,  0.3853333 ,  0.44499993,  0.03833334,  0.26966675,
-         0.51033338,  0.29466661,  0.30433337,  0.75500003,  0.61066667,
-         0.75533326,  0.5703334 ,  0.7826666 ,  0.03300007,  0.079     ]),
- &#39;mean_test_score&#39;: array([ 0.82903669,  0.8106215 ,  0.80470674,  0.80748701,  0.82362844,
-         0.81515336,  0.79495973,  0.80370723,  0.82251676,  0.82350223,
-         0.83020747,  0.80869803,  0.805808  ,  0.82217979,  0.82037267,
-         0.83576812,  0.8264386 ,  0.83084434,  0.82230041,  0.80932449]),
- &#39;mean_train_score&#39;: array([ 0.96978013,  0.9830305 ,  0.8518977 ,  0.83992379,  0.95089323,
-         0.86245007,  0.81607769,  0.82092272,  0.94167204,  0.87856433,
-         0.97389348,  0.85412463,  0.83237607,  0.95505743,  0.88633101,
-         0.96076133,  0.91220311,  0.9647857 ,  0.95706402,  0.86080769]),
- &#39;param_bootstrap&#39;: masked_array(data = [False False False False False True True True True False True False False
-  False False True True False True False],
+<pre>{&#39;mean_fit_time&#39;: array([ 1.46533338,  1.54833333,  6.55900002,  2.70666663,  3.16000001,
+         0.70533323,  1.91166663,  2.25433326,  0.43733335,  2.41066662,
+         0.80266666,  9.96033335,  5.0346667 ,  2.82566675,  0.92866667,
+         1.15666668,  0.84333332,  2.47899993,  0.67866675,  3.43666665]),
+ &#39;mean_score_time&#39;: array([ 0.26399986,  0.18333332,  0.54733332,  0.42266679,  0.66566666,
+         0.06566668,  0.39099995,  0.62366668,  0.06133334,  0.39099995,
+         0.13033334,  0.79066666,  0.75933337,  0.35500002,  0.19833334,
+         0.10800004,  0.10166669,  0.42000008,  0.10066668,  0.37233345]),
+ &#39;mean_test_score&#39;: array([ 0.82446215,  0.82939083,  0.80560513,  0.79062353,  0.81160264,
+         0.81875953,  0.83221499,  0.8332224 ,  0.81192206,  0.81754177,
+         0.83245018,  0.81976942,  0.80235298,  0.8100443 ,  0.83568336,
+         0.79183375,  0.82074812,  0.79527055,  0.82917682,  0.78650353]),
+ &#39;mean_train_score&#39;: array([ 0.86792841,  0.96162126,  0.89276314,  0.80933725,  0.84310634,
+         0.97677389,  0.96759207,  0.89569402,  0.86103532,  0.85574985,
+         0.90467393,  0.96424397,  0.83758579,  0.83963154,  0.9403445 ,
+         0.84491604,  0.89334004,  0.81608152,  0.91138819,  0.81969312]),
+ &#39;param_bootstrap&#39;: masked_array(data = [True True False False True False False True True False True False False
+  True False False True True False False],
               mask = [False False False False False False False False False False False False
   False False False False False False False False],
         fill_value = ?),
- &#39;param_criterion&#39;: masked_array(data = [&#39;entropy&#39; &#39;gini&#39; &#39;entropy&#39; &#39;gini&#39; &#39;entropy&#39; &#39;entropy&#39; &#39;gini&#39; &#39;entropy&#39;
-  &#39;gini&#39; &#39;entropy&#39; &#39;entropy&#39; &#39;entropy&#39; &#39;entropy&#39; &#39;entropy&#39; &#39;gini&#39; &#39;entropy&#39;
-  &#39;entropy&#39; &#39;gini&#39; &#39;gini&#39; &#39;gini&#39;],
+ &#39;param_criterion&#39;: masked_array(data = [&#39;entropy&#39; &#39;gini&#39; &#39;entropy&#39; &#39;entropy&#39; &#39;gini&#39; &#39;gini&#39; &#39;gini&#39; &#39;gini&#39; &#39;entropy&#39;
+  &#39;entropy&#39; &#39;entropy&#39; &#39;entropy&#39; &#39;gini&#39; &#39;entropy&#39; &#39;entropy&#39; &#39;gini&#39; &#39;gini&#39;
+  &#39;gini&#39; &#39;gini&#39; &#39;gini&#39;],
               mask = [False False False False False False False False False False False False
   False False False False False False False False],
         fill_value = ?),
- &#39;param_max_depth&#39;: masked_array(data = [11 11 4 3 9 4 2 2 7 5 11 4 3 9 5 11 6 10 8 4],
+ &#39;param_max_depth&#39;: masked_array(data = [5 9 6 2 3 11 11 6 4 4 6 10 3 3 9 4 5 2 6 3],
               mask = [False False False False False False False False False False False False
   False False False False False False False False],
         fill_value = ?),
- &#39;param_max_features&#39;: masked_array(data = [4 10 11 6 8 12 11 3 12 5 5 9 5 9 6 2 12 2 12 7],
+ &#39;param_max_features&#39;: masked_array(data = [1 10 14 9 7 8 1 1 14 3 4 10 10 10 1 15 12 11 5 15],
               mask = [False False False False False False False False False False False False
   False False False False False False False False],
         fill_value = ?),
- &#39;param_min_samples_split&#39;: masked_array(data = [7 2 4 4 9 8 3 8 3 10 4 5 9 2 10 9 8 6 3 4],
+ &#39;param_min_samples_split&#39;: masked_array(data = [8 10 2 2 6 8 6 5 8 8 5 3 3 5 6 5 8 2 6 2],
               mask = [False False False False False False False False False False False False
   False False False False False False False False],
         fill_value = ?),
- &#39;param_n_estimators&#39;: masked_array(data = [709 29 560 189 484 217 525 613 48 351 635 398 397 915 795 891 737 933 40
-  104],
+ &#39;param_n_estimators&#39;: masked_array(data = [355 213 617 582 512 73 410 405 59 519 157 825 612 409 245 148 139 596 131
+  520],
               mask = [False False False False False False False False False False False False
   False False False False False False False False],
         fill_value = ?),
- &#39;params&#39;: ({&#39;bootstrap&#39;: False,
+ &#39;params&#39;: ({&#39;bootstrap&#39;: True,
    &#39;criterion&#39;: &#39;entropy&#39;,
-   &#39;max_depth&#39;: 11,
-   &#39;max_features&#39;: 4,
-   &#39;min_samples_split&#39;: 7,
-   &#39;n_estimators&#39;: 709},
-  {&#39;bootstrap&#39;: False,
+   &#39;max_depth&#39;: 5,
+   &#39;max_features&#39;: 1,
+   &#39;min_samples_split&#39;: 8,
+   &#39;n_estimators&#39;: 355},
+  {&#39;bootstrap&#39;: True,
    &#39;criterion&#39;: &#39;gini&#39;,
-   &#39;max_depth&#39;: 11,
+   &#39;max_depth&#39;: 9,
    &#39;max_features&#39;: 10,
-   &#39;min_samples_split&#39;: 2,
-   &#39;n_estimators&#39;: 29},
+   &#39;min_samples_split&#39;: 10,
+   &#39;n_estimators&#39;: 213},
   {&#39;bootstrap&#39;: False,
    &#39;criterion&#39;: &#39;entropy&#39;,
-   &#39;max_depth&#39;: 4,
-   &#39;max_features&#39;: 11,
-   &#39;min_samples_split&#39;: 4,
-   &#39;n_estimators&#39;: 560},
+   &#39;max_depth&#39;: 6,
+   &#39;max_features&#39;: 14,
+   &#39;min_samples_split&#39;: 2,
+   &#39;n_estimators&#39;: 617},
   {&#39;bootstrap&#39;: False,
+   &#39;criterion&#39;: &#39;entropy&#39;,
+   &#39;max_depth&#39;: 2,
+   &#39;max_features&#39;: 9,
+   &#39;min_samples_split&#39;: 2,
+   &#39;n_estimators&#39;: 582},
+  {&#39;bootstrap&#39;: True,
    &#39;criterion&#39;: &#39;gini&#39;,
    &#39;max_depth&#39;: 3,
-   &#39;max_features&#39;: 6,
-   &#39;min_samples_split&#39;: 4,
-   &#39;n_estimators&#39;: 189},
+   &#39;max_features&#39;: 7,
+   &#39;min_samples_split&#39;: 6,
+   &#39;n_estimators&#39;: 512},
   {&#39;bootstrap&#39;: False,
-   &#39;criterion&#39;: &#39;entropy&#39;,
-   &#39;max_depth&#39;: 9,
+   &#39;criterion&#39;: &#39;gini&#39;,
+   &#39;max_depth&#39;: 11,
    &#39;max_features&#39;: 8,
-   &#39;min_samples_split&#39;: 9,
-   &#39;n_estimators&#39;: 484},
+   &#39;min_samples_split&#39;: 8,
+   &#39;n_estimators&#39;: 73},
+  {&#39;bootstrap&#39;: False,
+   &#39;criterion&#39;: &#39;gini&#39;,
+   &#39;max_depth&#39;: 11,
+   &#39;max_features&#39;: 1,
+   &#39;min_samples_split&#39;: 6,
+   &#39;n_estimators&#39;: 410},
+  {&#39;bootstrap&#39;: True,
+   &#39;criterion&#39;: &#39;gini&#39;,
+   &#39;max_depth&#39;: 6,
+   &#39;max_features&#39;: 1,
+   &#39;min_samples_split&#39;: 5,
+   &#39;n_estimators&#39;: 405},
   {&#39;bootstrap&#39;: True,
    &#39;criterion&#39;: &#39;entropy&#39;,
    &#39;max_depth&#39;: 4,
-   &#39;max_features&#39;: 12,
+   &#39;max_features&#39;: 14,
    &#39;min_samples_split&#39;: 8,
-   &#39;n_estimators&#39;: 217},
-  {&#39;bootstrap&#39;: True,
-   &#39;criterion&#39;: &#39;gini&#39;,
-   &#39;max_depth&#39;: 2,
-   &#39;max_features&#39;: 11,
-   &#39;min_samples_split&#39;: 3,
-   &#39;n_estimators&#39;: 525},
-  {&#39;bootstrap&#39;: True,
+   &#39;n_estimators&#39;: 59},
+  {&#39;bootstrap&#39;: False,
    &#39;criterion&#39;: &#39;entropy&#39;,
-   &#39;max_depth&#39;: 2,
+   &#39;max_depth&#39;: 4,
    &#39;max_features&#39;: 3,
    &#39;min_samples_split&#39;: 8,
-   &#39;n_estimators&#39;: 613},
-  {&#39;bootstrap&#39;: True,
-   &#39;criterion&#39;: &#39;gini&#39;,
-   &#39;max_depth&#39;: 7,
-   &#39;max_features&#39;: 12,
-   &#39;min_samples_split&#39;: 3,
-   &#39;n_estimators&#39;: 48},
-  {&#39;bootstrap&#39;: False,
-   &#39;criterion&#39;: &#39;entropy&#39;,
-   &#39;max_depth&#39;: 5,
-   &#39;max_features&#39;: 5,
-   &#39;min_samples_split&#39;: 10,
-   &#39;n_estimators&#39;: 351},
-  {&#39;bootstrap&#39;: True,
-   &#39;criterion&#39;: &#39;entropy&#39;,
-   &#39;max_depth&#39;: 11,
-   &#39;max_features&#39;: 5,
-   &#39;min_samples_split&#39;: 4,
-   &#39;n_estimators&#39;: 635},
-  {&#39;bootstrap&#39;: False,
-   &#39;criterion&#39;: &#39;entropy&#39;,
-   &#39;max_depth&#39;: 4,
-   &#39;max_features&#39;: 9,
-   &#39;min_samples_split&#39;: 5,
-   &#39;n_estimators&#39;: 398},
-  {&#39;bootstrap&#39;: False,
-   &#39;criterion&#39;: &#39;entropy&#39;,
-   &#39;max_depth&#39;: 3,
-   &#39;max_features&#39;: 5,
-   &#39;min_samples_split&#39;: 9,
-   &#39;n_estimators&#39;: 397},
-  {&#39;bootstrap&#39;: False,
-   &#39;criterion&#39;: &#39;entropy&#39;,
-   &#39;max_depth&#39;: 9,
-   &#39;max_features&#39;: 9,
-   &#39;min_samples_split&#39;: 2,
-   &#39;n_estimators&#39;: 915},
-  {&#39;bootstrap&#39;: False,
-   &#39;criterion&#39;: &#39;gini&#39;,
-   &#39;max_depth&#39;: 5,
-   &#39;max_features&#39;: 6,
-   &#39;min_samples_split&#39;: 10,
-   &#39;n_estimators&#39;: 795},
-  {&#39;bootstrap&#39;: True,
-   &#39;criterion&#39;: &#39;entropy&#39;,
-   &#39;max_depth&#39;: 11,
-   &#39;max_features&#39;: 2,
-   &#39;min_samples_split&#39;: 9,
-   &#39;n_estimators&#39;: 891},
+   &#39;n_estimators&#39;: 519},
   {&#39;bootstrap&#39;: True,
    &#39;criterion&#39;: &#39;entropy&#39;,
    &#39;max_depth&#39;: 6,
-   &#39;max_features&#39;: 12,
-   &#39;min_samples_split&#39;: 8,
-   &#39;n_estimators&#39;: 737},
+   &#39;max_features&#39;: 4,
+   &#39;min_samples_split&#39;: 5,
+   &#39;n_estimators&#39;: 157},
+  {&#39;bootstrap&#39;: False,
+   &#39;criterion&#39;: &#39;entropy&#39;,
+   &#39;max_depth&#39;: 10,
+   &#39;max_features&#39;: 10,
+   &#39;min_samples_split&#39;: 3,
+   &#39;n_estimators&#39;: 825},
   {&#39;bootstrap&#39;: False,
    &#39;criterion&#39;: &#39;gini&#39;,
-   &#39;max_depth&#39;: 10,
-   &#39;max_features&#39;: 2,
-   &#39;min_samples_split&#39;: 6,
-   &#39;n_estimators&#39;: 933},
-  {&#39;bootstrap&#39;: True,
-   &#39;criterion&#39;: &#39;gini&#39;,
-   &#39;max_depth&#39;: 8,
-   &#39;max_features&#39;: 12,
+   &#39;max_depth&#39;: 3,
+   &#39;max_features&#39;: 10,
    &#39;min_samples_split&#39;: 3,
-   &#39;n_estimators&#39;: 40},
+   &#39;n_estimators&#39;: 612},
+  {&#39;bootstrap&#39;: True,
+   &#39;criterion&#39;: &#39;entropy&#39;,
+   &#39;max_depth&#39;: 3,
+   &#39;max_features&#39;: 10,
+   &#39;min_samples_split&#39;: 5,
+   &#39;n_estimators&#39;: 409},
+  {&#39;bootstrap&#39;: False,
+   &#39;criterion&#39;: &#39;entropy&#39;,
+   &#39;max_depth&#39;: 9,
+   &#39;max_features&#39;: 1,
+   &#39;min_samples_split&#39;: 6,
+   &#39;n_estimators&#39;: 245},
   {&#39;bootstrap&#39;: False,
    &#39;criterion&#39;: &#39;gini&#39;,
    &#39;max_depth&#39;: 4,
-   &#39;max_features&#39;: 7,
-   &#39;min_samples_split&#39;: 4,
-   &#39;n_estimators&#39;: 104}),
- &#39;rank_test_score&#39;: array([ 4, 13, 18, 16,  6, 12, 20, 19,  8,  7,  3, 15, 17, 10, 11,  1,  5,
-         2,  9, 14]),
- &#39;split0_test_score&#39;: array([ 0.8307543 ,  0.81337369,  0.81105603,  0.82034677,  0.82210147,
-         0.82043816,  0.80825583,  0.81207229,  0.82628349,  0.82962106,
-         0.82918787,  0.81662353,  0.81515946,  0.81914956,  0.82954977,
-         0.83258211,  0.82819171,  0.83023337,  0.82612629,  0.82400421]),
- &#39;split0_train_score&#39;: array([ 0.97089327,  0.98391173,  0.85221986,  0.84203715,  0.9519025 ,
-         0.86505409,  0.81486327,  0.81827961,  0.94622507,  0.87792763,
-         0.97515397,  0.85635028,  0.83283   ,  0.95574994,  0.88749822,
-         0.96204819,  0.91306015,  0.9682637 ,  0.96145114,  0.86059727]),
- &#39;split1_test_score&#39;: array([ 0.82819123,  0.81560295,  0.79813407,  0.80634827,  0.8289684 ,
-         0.82162097,  0.80053323,  0.81497025,  0.82330514,  0.8194961 ,
-         0.83382158,  0.80186447,  0.80789894,  0.8285533 ,  0.82053659,
-         0.83864916,  0.83234953,  0.83091772,  0.81894934,  0.80670485]),
- &#39;split1_train_score&#39;: array([ 0.96652535,  0.98157614,  0.84576338,  0.83655602,  0.94600498,
-         0.85931275,  0.81747309,  0.82225891,  0.93731135,  0.87360119,
-         0.97217956,  0.84905234,  0.82972718,  0.95094071,  0.88535616,
-         0.95863796,  0.90914675,  0.96124591,  0.95291244,  0.86046682]),
- &#39;split2_test_score&#39;: array([ 0.8281638 ,  0.80288667,  0.80492742,  0.79576051,  0.81981611,
-         0.80339869,  0.77608447,  0.78407557,  0.81796006,  0.8213869 ,
-         0.82761338,  0.8076027 ,  0.79436161,  0.8188378 ,  0.81102773,
-         0.83607445,  0.8187738 ,  0.83138219,  0.82182395,  0.79725815]),
- &#39;split2_train_score&#39;: array([ 0.97192179,  0.98360364,  0.85770987,  0.84117821,  0.9547722 ,
-         0.86298336,  0.81589671,  0.82222966,  0.94147969,  0.88416417,
-         0.97434692,  0.85697127,  0.83457104,  0.95848165,  0.88613864,
-         0.96159784,  0.91440242,  0.9648475 ,  0.95682848,  0.86135899]),
- &#39;std_fit_time&#39;: array([ 0.10362758,  0.00408248,  0.1319419 ,  0.00141417,  0.03159114,
-         0.05177505,  0.00531256,  0.03827087,  0.00124723,  0.00828653,
-         0.03395095,  0.03519785,  0.00543654,  0.12170267,  0.02176134,
-         0.02007211,  0.01838479,  0.01611086,  0.00216031,  0.00124721]),
- &#39;std_score_time&#39;: array([  7.36352957e-03,   4.71426560e-04,   3.09120493e-03,
-          2.71087250e-02,   2.86742793e-03,   2.94400387e-03,
-          1.24712873e-03,   2.44950687e-03,   4.71426560e-04,
-          1.69965908e-03,   4.49681044e-03,   4.49687524e-03,
-          3.02139428e-02,   2.69814400e-02,   3.29980120e-03,
-          4.02767947e-03,   2.86743717e-03,   9.74101226e-03,
-          1.12391596e-07,   8.16437402e-04]),
- &#39;std_test_score&#39;: array([ 0.00121485,  0.00554398,  0.00527786,  0.01006989,  0.0038891 ,
-         0.00832494,  0.01371278,  0.01393053,  0.00344356,  0.00439589,
-         0.0026349 ,  0.00607514,  0.00861873,  0.00450807,  0.00756275,
-         0.0024864 ,  0.00567889,  0.00047188,  0.00294938,  0.01107539]),
- &#39;std_train_score&#39;: array([ 0.00233947,  0.00103605,  0.00488245,  0.00240705,  0.00364966,
-         0.00237403,  0.00107311,  0.001869  ,  0.00364155,  0.00433576,
-         0.00125591,  0.0035956 ,  0.00200338,  0.00311728,  0.00088501,
-         0.00151267,  0.00222956,  0.00286533,  0.00348989,  0.00039345])}</pre>
+   &#39;max_features&#39;: 15,
+   &#39;min_samples_split&#39;: 5,
+   &#39;n_estimators&#39;: 148},
+  {&#39;bootstrap&#39;: True,
+   &#39;criterion&#39;: &#39;gini&#39;,
+   &#39;max_depth&#39;: 5,
+   &#39;max_features&#39;: 12,
+   &#39;min_samples_split&#39;: 8,
+   &#39;n_estimators&#39;: 139},
+  {&#39;bootstrap&#39;: True,
+   &#39;criterion&#39;: &#39;gini&#39;,
+   &#39;max_depth&#39;: 2,
+   &#39;max_features&#39;: 11,
+   &#39;min_samples_split&#39;: 2,
+   &#39;n_estimators&#39;: 596},
+  {&#39;bootstrap&#39;: False,
+   &#39;criterion&#39;: &#39;gini&#39;,
+   &#39;max_depth&#39;: 6,
+   &#39;max_features&#39;: 5,
+   &#39;min_samples_split&#39;: 6,
+   &#39;n_estimators&#39;: 131},
+  {&#39;bootstrap&#39;: False,
+   &#39;criterion&#39;: &#39;gini&#39;,
+   &#39;max_depth&#39;: 3,
+   &#39;max_features&#39;: 15,
+   &#39;min_samples_split&#39;: 2,
+   &#39;n_estimators&#39;: 520}),
+ &#39;rank_test_score&#39;: array([ 7,  5, 15, 19, 13, 10,  4,  2, 12, 11,  3,  9, 16, 14,  1, 18,  8,
+        17,  6, 20]),
+ &#39;split0_test_score&#39;: array([ 0.82624876,  0.82440816,  0.80424563,  0.79861964,  0.82330782,
+         0.81799621,  0.83205387,  0.83428196,  0.8158394 ,  0.82581739,
+         0.83976721,  0.81541718,  0.81602218,  0.81918246,  0.83855355,
+         0.81820824,  0.82628897,  0.80897599,  0.83669284,  0.80789941]),
+ &#39;split0_train_score&#39;: array([ 0.86828071,  0.96286605,  0.88764862,  0.80931384,  0.84300221,
+         0.97782285,  0.9710103 ,  0.89500885,  0.86281859,  0.85552831,
+         0.905315  ,  0.96663211,  0.83776639,  0.83941901,  0.9408457 ,
+         0.84404224,  0.89501251,  0.81515403,  0.91115427,  0.81654287]),
+ &#39;split1_test_score&#39;: array([ 0.83141876,  0.83226359,  0.80924298,  0.80586734,  0.81243028,
+         0.82433831,  0.83376123,  0.83778239,  0.81820326,  0.81824898,
+         0.83316876,  0.82586887,  0.80542664,  0.81436314,  0.83535031,
+         0.78297108,  0.82372572,  0.80060637,  0.82844541,  0.7780667 ]),
+ &#39;split1_train_score&#39;: array([ 0.86583949,  0.95934868,  0.88970229,  0.80628715,  0.84162658,
+         0.97579075,  0.96435891,  0.89368552,  0.85652884,  0.85324993,
+         0.90061035,  0.96003289,  0.83927824,  0.8377695 ,  0.93714864,
+         0.84186242,  0.89188198,  0.81734558,  0.90949868,  0.81854443]),
+ &#39;split2_test_score&#39;: array([ 0.81571816,  0.83150288,  0.80332737,  0.7673802 ,  0.79906484,
+         0.81394439,  0.83082994,  0.82760241,  0.80172184,  0.80855542,
+         0.82441146,  0.81802406,  0.78560431,  0.79658339,  0.83314498,
+         0.7743107 ,  0.81222731,  0.77622344,  0.82238899,  0.77353536]),
+ &#39;split2_train_score&#39;: array([ 0.86966503,  0.96264907,  0.90093852,  0.81241076,  0.84469022,
+         0.97670806,  0.967407  ,  0.8983877 ,  0.86375852,  0.85847132,
+         0.90809644,  0.96606692,  0.83571276,  0.84170611,  0.94303915,
+         0.84884347,  0.89312563,  0.81574497,  0.91351162,  0.82399206]),
+ &#39;std_fit_time&#39;: array([ 0.35483546,  0.03993598,  0.21976969,  0.07731464,  0.70722122,
+         0.06668492,  0.05443243,  0.48570589,  0.08965993,  0.3527807 ,
+         0.03132976,  1.22088322,  0.06057689,  0.32692539,  0.0059067 ,
+         0.00849837,  0.00235708,  0.03073534,  0.00124723,  0.02347094]),
+ &#39;std_score_time&#39;: array([ 0.00454603,  0.01184156,  0.10091035,  0.00634215,  0.04010266,
+         0.01932753,  0.01756891,  0.03564968,  0.02301203,  0.00989956,
+         0.01357284,  0.12119495,  0.07520784,  0.04454957,  0.00368182,
+         0.        ,  0.00047137,  0.00163307,  0.0009428 ,  0.00555778]),
+ &#39;std_test_score&#39;: array([ 0.00653266,  0.00353769,  0.00259925,  0.01669803,  0.00991479,
+         0.00427721,  0.00120202,  0.00422269,  0.00727616,  0.00706514,
+         0.00628974,  0.00444189,  0.0126072 ,  0.00971853,  0.00222063,
+         0.01898561,  0.0061147 ,  0.01389365,  0.00586258,  0.01524504]),
+ &#39;std_train_score&#39;: array([ 0.00158151,  0.0016094 ,  0.00584134,  0.00250001,  0.00125289,
+         0.00083091,  0.00271857,  0.00197985,  0.00320958,  0.00213737,
+         0.00308962,  0.00298661,  0.00146119,  0.00161412,  0.00243077,
+         0.00291621,  0.00128699,  0.00092581,  0.0016466 ,  0.00314772])}</pre>
 </div>
 
 </div>
@@ -18595,7 +18640,7 @@ Parameters: {&#39;n_estimators&#39;: 115, &#39;learning_rate&#39;: 0.3, &#39;col
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[79]:</div>
+<div class="prompt input_prompt">In&nbsp;[78]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="c1"># best estimator for randomforest</span>
@@ -18610,16 +18655,16 @@ Parameters: {&#39;n_estimators&#39;: 115, &#39;learning_rate&#39;: 0.3, &#39;col
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">Out[79]:</div>
+<div class="output_area"><div class="prompt output_prompt">Out[78]:</div>
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>RandomForestClassifier(bootstrap=True, class_weight=None, criterion=&#39;entropy&#39;,
-            max_depth=11, max_features=2, max_leaf_nodes=None,
-            min_impurity_split=1e-07, min_samples_leaf=1,
-            min_samples_split=9, min_weight_fraction_leaf=0.0,
-            n_estimators=891, n_jobs=1, oob_score=False, random_state=42,
-            verbose=0, warm_start=False)</pre>
+<pre>RandomForestClassifier(bootstrap=False, class_weight=None,
+            criterion=&#39;entropy&#39;, max_depth=9, max_features=1,
+            max_leaf_nodes=None, min_impurity_split=1e-07,
+            min_samples_leaf=1, min_samples_split=6,
+            min_weight_fraction_leaf=0.0, n_estimators=245, n_jobs=1,
+            oob_score=False, random_state=42, verbose=0, warm_start=False)</pre>
 </div>
 
 </div>
@@ -18630,7 +18675,7 @@ Parameters: {&#39;n_estimators&#39;: 115, &#39;learning_rate&#39;: 0.3, &#39;col
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[80]:</div>
+<div class="prompt input_prompt">In&nbsp;[79]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="c1"># dump model</span>
@@ -18644,7 +18689,7 @@ Parameters: {&#39;n_estimators&#39;: 115, &#39;learning_rate&#39;: 0.3, &#39;col
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[81]:</div>
+<div class="prompt input_prompt">In&nbsp;[80]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="c1"># load serialized model</span>
@@ -18661,11 +18706,11 @@ Parameters: {&#39;n_estimators&#39;: 115, &#39;learning_rate&#39;: 0.3, &#39;col
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">Out[81]:</div>
+<div class="output_area"><div class="prompt output_prompt">Out[80]:</div>
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>0.82359961195577636</pre>
+<pre>0.82339973572850289</pre>
 </div>
 
 </div>
@@ -18676,7 +18721,7 @@ Parameters: {&#39;n_estimators&#39;: 115, &#39;learning_rate&#39;: 0.3, &#39;col
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[82]:</div>
+<div class="prompt input_prompt">In&nbsp;[81]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="c1"># fit model on training data</span>
@@ -18691,16 +18736,16 @@ Parameters: {&#39;n_estimators&#39;: 115, &#39;learning_rate&#39;: 0.3, &#39;col
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">Out[82]:</div>
+<div class="output_area"><div class="prompt output_prompt">Out[81]:</div>
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>RandomForestClassifier(bootstrap=True, class_weight=None, criterion=&#39;entropy&#39;,
-            max_depth=11, max_features=2, max_leaf_nodes=None,
-            min_impurity_split=1e-07, min_samples_leaf=1,
-            min_samples_split=9, min_weight_fraction_leaf=0.0,
-            n_estimators=891, n_jobs=1, oob_score=False, random_state=42,
-            verbose=0, warm_start=False)</pre>
+<pre>RandomForestClassifier(bootstrap=False, class_weight=None,
+            criterion=&#39;entropy&#39;, max_depth=9, max_features=1,
+            max_leaf_nodes=None, min_impurity_split=1e-07,
+            min_samples_leaf=1, min_samples_split=6,
+            min_weight_fraction_leaf=0.0, n_estimators=245, n_jobs=1,
+            oob_score=False, random_state=42, verbose=0, warm_start=False)</pre>
 </div>
 
 </div>
@@ -18711,7 +18756,7 @@ Parameters: {&#39;n_estimators&#39;: 115, &#39;learning_rate&#39;: 0.3, &#39;col
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[83]:</div>
+<div class="prompt input_prompt">In&nbsp;[82]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="c1"># make predictions with random forest model</span>
@@ -18725,7 +18770,7 @@ Parameters: {&#39;n_estimators&#39;: 115, &#39;learning_rate&#39;: 0.3, &#39;col
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[84]:</div>
+<div class="prompt input_prompt">In&nbsp;[83]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="c1"># calculate AUC on validation set</span>
@@ -18743,15 +18788,42 @@ Parameters: {&#39;n_estimators&#39;: 115, &#39;learning_rate&#39;: 0.3, &#39;col
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">Out[84]:</div>
+<div class="output_area"><div class="prompt output_prompt">Out[83]:</div>
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>0.82828875842574468</pre>
+<pre>0.83049241473899005</pre>
 </div>
 
 </div>
 
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[84]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython2"><pre><span></span><span class="n">predictions_xgb</span><span class="o">=</span> <span class="n">best_xgb</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">sfm_test_merge</span><span class="p">)[:,</span><span class="mi">1</span><span class="p">]</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[86]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython2"><pre><span></span><span class="n">sample_sub</span><span class="p">[</span><span class="s1">&#39;WnvPresent&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">predictions_xgb</span>
+<span class="n">sample_sub</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s1">&#39;sub_xgb.csv&#39;</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+</pre></div>
+
+</div>
 </div>
 </div>
 
@@ -18873,7 +18945,7 @@ Parameters: {&#39;n_estimators&#39;: 115, &#39;learning_rate&#39;: 0.3, &#39;col
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[92]:</div>
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="c1"># create submissions</span>
