@@ -47,9 +47,7 @@ This competition is particularly interesting to the author of this report due to
 
 From the [Kaggle competition description](https://www.kaggle.com/c/predict-west-nile-virus):
 
-
-
-> Given weather, location, testing, and spraying data, this competition asks you to predict when and where different species of mosquitos will test positive for West Nile virus.
+> Given weather, location, testing, and spraying data, this competition asks you to predict when and where different species of mosquitos will test positive for West Nile virus. This is a classification problem.
 
 More specifically, from the [Data](https://www.kaggle.com/c/predict-west-nile-virus/data) section:
 
@@ -101,7 +99,6 @@ From the [submission section of the competition](https://www.kaggle.com/c/predic
 
 > Submissions are evaluated on area under the ROC curve between the predicted probability that West Nile Virus is present and the observed outcomes.
 
-A receiver operating characteristic (ROC) curve is well explained [here](http://www.dataschool.io/roc-curves-and-auc-explained/).  Essentially it is a plot of True positives as a function of false positives where each point on the curve is a (x, y) is the (tru pos, false pos) at any given probability cutoff threshold.  That is the threshold in a binary classification where we label a data instance as one class or another.  By integrating the area under the curve (AUC) we have a single number by which we cna compare models.  The larger the AUC the better or model is at discriminating between classes.
 
 #### Process and Submission
 
@@ -143,8 +140,12 @@ submitted at major steps to assess performance.
 
 ### Metrics
 
-Each model will be evaluated by the AUC of its ROC, as described in the problem statement section. Several other acronyms may be thrown in as part of an psuedo-intellectual shock and awe campaign.
+Each model will be evaluated by the Area Under the Curve (AUC) of its Receiver Operating Characteristics (ROC) curve.
+Several other acronyms may be thrown in as part of an psuedo-intellectual shock and awe campaign.
 
+A ROC curve is well explained [here](http://www.dataschool.io/roc-curves-and-auc-explained/).  Essentially it is a plot of True positives as a function of false positives where each point on the curve is a (x, y) is the (tru pos, false pos) at any given probability cutoff threshold.  That is the threshold in a binary classification where we label a data instance as one class or another.  By integrating to
+we return the AUC, a single number by which we can compare models.  The larger the
+AUC the better the model is at discriminating between classes.
 
 ## II. Analysis
 
@@ -460,10 +461,67 @@ to extract these features prior to tuning, validation, and submission.
 
 #### Algorithms
 
+Both models are ensemble models using decision trees as their base estimators.
+Ensemble methods combine the predictions of several base estimators to improve robustness
+and reduce variance. In other words they produce a unified model which is greater
+than the sum of its parts. Random Forest is a bagging model whereas XGBoost is a boosting model.
+
+- **Base Estimator:** Both models employ decision trees as their base estimators
+the final model is a an ensemble of these decision trees (weak learners). A decision tree
+could be thought of as a diverter that uses attributes (features) of samples (records or instances)
+to separate the samples into categories. Say we have 2 colors and sizes of balls,
+small red and big red; small green and big green. We start with the balls all mixed
+up into one pile. We want to dump the balls into a hopper and separate them into
+4 piles based on size and color. First we use a sieve to separate small from big,
+then the two groups, small green & red and big green & red tumble down to reach
+a part of the system where color activated valves (opens based on green or red)
+send green and red down separate pipes. In the end we have 4 piles each containing
+one type of ball. Notice at each step the groups become more "pure" that is they
+have fewer types of balls. This can also be thought of as increasing the order of
+a system. The state of order or disorder in a system is referred to as entropy and
+ideally the system becomes more ordered (balls separate) at each step. For our case
+the decision tree splits attributes such as day of the year and total precipiation.
+The split is assessed by seeing how much information is gained, that is how well
+did we separate classes (passed or failed) at a particular split (measured by purity or entropy).
+
+    + **Decision trees have some distinct advantages:**
+    + Robust to feature scale (reduces feature preparation steps)
+    + Low prediction cost
+    + Effective using both numerical and categorical data
+    + Interpretable (easy to understand)
+    + The influence of features on predictions are easily understood and visualized
+
+
+  A primary disadvantage is that decision trees are prone to overfitting. This
+  is especially true of we allow a small number of samples to be split out at each
+  step.  This would be akin to trying to generalize a sample result from a few
+  people to a much larger population. TEnsembling tends to reduce this variance.
+
+- **Boosting:** Boosting models combine weak learners (result of each individual learner is slightly better than random) to produce a strong learner using the gradient boosting algorithm. During training each estimator learns a portion of the data during several rounds of learning. As learning progresses the weak learners are boosted through performance based weighting. This way good performers are de-prioritized for training, and poor performers are prioritized. The end result is typically a well generalized and robust strong learner.
+
+- **Bagging:** Bagging (Bootstrap Aggregating) models combine weak learners trained
+on random samples of the data set.  First bootstrapping is employed through the creation of random sub-samples of the training data
+set on which each classifier is trained. Finally the entire set of classifiers are combined
+by voting (averaging or majority).
+
+From my perspective an ideal model for this problem is:
+
+- accurate
+- computationally effecient (can be deployed and retrained on a city budget)
+- robust
+- interpretable (model resutls may need to be explained to city government officials
+and their consituents)
+
 Both algorithms were selected for their robust nature (robust to feature scale
-and less prone to overfitting).  XGBoost was chosen due to it well earned reputation
+and less prone to overfitting). XGBoost is particularly attractive due to it well earned reputation
 as a high performing algorithm, both in terms of metric performance (learns the data
 well) and system performance (fast and scalable).
+
+It's also important to mention that feature selection is a critical step in any model
+development process. Features can be selected and visualized using built-in feature
+importance methods for both model implementatios in python. This is not only convenient
+but lends itself well to explanation of the development proccess for non-ML experts
+(the potential city government customer).
 
 - Random Forest Default Parameters:
 ```python
@@ -487,18 +545,13 @@ XGBClassifier(base_score=0.5, colsample_bylevel=1, colsample_bytree=1,
 
 ### Benchmark
 
-My initial benchmark will be that dictated by the competition, which is 50%  In
+My benchmark benchmark is that dictated by the competition, which is 50%  In
 other words, the initial task will be to produce an algorithm that performs better
-than guessing.  Each stage of development will establish a new benchmark.  These
-stages are:
-
-- Un-tuned classifiers without rigorous feature selection (run with all features
-that pass EDA).
-
-After this stage the training data will be split for use in feature selection, tuning
-and validation.
-- Un-tuned classifiers with selected features
-- Tuned classifier from the previous step.
+than guessing. Initial models, untuned classifiers, will be compared to this benchmark
+model. Later models that have been refined thorugh feature selection and tuning will
+be compared to eachother at each progressive step, but the benchmark will remain
+at guessing.  Guessing is essentially where the City of Chicago was prior to this
+competition.
 
 
 ## III. Methodology
@@ -578,7 +631,7 @@ Location data (Street, Block, Latitude, and Longitude) and trap data makes up a 
 At this point the training data was further broken into a training and test set (referred to as "local validation set"), for purposes of feature selection and tuning. Both the XGBoost and Random Forest model AUC was assessed as a functon of feauture importance.  The code and full results for this can be foud here [WNV Model Jupyter Notebook](wnv_prep_model.ipynb).  The results indicated that most of the AUC is recovered by ~ 10 features.
 
 ### Implementation and Refinement
-Given the information regarding feature importance threshold from the last step, the training set, local validation set, and pubic test set were transformed at a threshold level corresponding to the top 12 features.  The model was trained on the full training set, predictons made on the public test set, and those prediction were submitted to the private test set.  Scores improved for both models and are given in the results section.
+Given the information regarding feature importance threshold from the previous step, the training set, local validation set, and pubic test set were transformed at a threshold level corresponding to the top 12 features.  The model was trained on the full training set, predictons made on the public test set, and those prediction were submitted to the private test set.  Scores improved for both models and are presented in the results section.
 
 A common cause of overfitting is using too many training rounds.  Afer a certain number of rounds, termed epochs, model bias is reduced at the expense of increased variance.  To account for this early stopping was investigated using the split training and local validation set.  See [The WNV Model Jupyter Notebook](wnv_prep_model.ipynb) for implementaton details.  The learning curves below capture results for XGBoost.
 
@@ -591,7 +644,10 @@ Both curves indicate that variance tends to increase in the neigborhood of 20 ep
 #### Tuning
 Finally our models are tuned to decrease bias.  Tuning was performed in the following manner:
 
-- Transform all input data from test, local validation using a threshold that captures ~ 16 features (!explain reasoning for this!)
+- Transform all input data from test, local validation using a threshold that captures ~ 16 features. The target features are ~ top 12 per previous data and discussions. It's critical for the model that we not drop below ~ 10 - 12 features
+but there is little penalty for going slightly beyond ~ 10 - 12 features.  To this end
+a threshold was chosen that consistently resulted in ~ 16 features. While not entirlely
+"optimal" this approach is entirely robust. Yes I put quotes around optimal.
 - Tune each model using sklearn randomized search CV where the CV object is StratifiedShuffleSplit.
 - XGBoost Parameter Distributions for Sampling and tuning parameters:
 
@@ -692,6 +748,11 @@ From the results we observe:
 - Both models show signs of overfitting (validation set scores up to 10% greater than test scores)
 - Voting and mean ensembles do not improve performance. This is likely due to model correlation.
 It is not surprising that the models are correlated since the are both decision tree ensembles.
+
+#### Model Comparisons to Benchmark
+
+Recall that the benchmark model is 50% (random guessing). All models exceeded this benchmark by 15 - 22% (private AUC scores), including initial, untuned models. So, we did signfianctly better than guessing, which may enable
+better use of spraying resources, but there is room for improvement.
 
 
 
